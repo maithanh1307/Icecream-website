@@ -1,0 +1,15 @@
+/* header */
+.navbar-nav {
+    margin-left: auto;
+    margin-right: 15px;
+}
+
+.navbar-header {
+    height: 100px;
+    font-size: medium;
+    background-color: #fadaaa;
+}
+
+.nav-item {
+    margin-right: 10px;
+}
