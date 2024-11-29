@@ -10,6 +10,48 @@
     background-color: #fadaaa;
 }
 
-.nav-item {
+.nav-item a {
     margin-right: 10px;
+    color: #7c4c2c;
+    font-weight: 600;
+}
+
+.solid {
+    border: 2px dashed #ffdfae;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* most view */
+.mostView {
+    text-align: center;
+    color: #88fbda;
+}
+.card {
+    margin-right: 5px;
+    border-radius: 20px;
+}
+
+.imageCard {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.btn-cart {
+    background-color: #ffdfae;
+    color: #7c4c2c;
+    border-radius: 40px;
+    font-weight: 500;
+}
+
+.btn-cart:hover {
+    background-color: #7c4c2c;
+    color: white;
+}
+
+.price {
+    font-weight: 600;
+    font-size: large;
+    color: #7c4c2c;
 }
