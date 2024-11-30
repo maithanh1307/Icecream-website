@@ -1,0 +1,219 @@
+:root {
+    /* Colors */
+    /*Color mode HSL(hue, saturation, lightness)*/
+    --first-color: hsl(208, 92%, 54%);
+    --first-color-alt: hsl(208, 88%, 50%);
+    --title-color: hsl(220, 68%, 4%);
+    --white-color: hsl(0, 0%, 100%);
+    --text-color: hsl(220, 15%, 66%);
+    --body-color: hsl(0, 0%, 100%);
+    --container-color: hsl(220, 50%, 97%);
+  
+    /* Font and typography */
+    /*.5rem = 8px | 1rem = 16px */
+    --body-font: "Montserrat", system-ui;
+    --big-font-size: 1.5rem;
+    --normal-font-size: .938rem;
+    --small-font-size: .813rem;
+    --tiny-font-size: .688rem;
+  
+    /* Font weight */
+    --font-regular: 400;
+    --font-medium: 500;
+    --font-semi-bold: 600;
+  
+    /* z index */
+    --z-tooltip: 10;
+    --z-fixed: 100;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body, input, button {
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+}
+
+body {
+    background-color: var(--body-color);
+    color: var(--text-color);
+}
+
+input, button {
+  border: none;
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+    max-width: 1120px;
+    margin-inline: 1.5rem;
+}
+  
+.grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.login {
+    position: relative;
+    height: 100vh;
+    align-items: center;
+    overflow: hidden;
+}
+
+.title {
+    font-size: var(--big-font-size);
+    color: var(--title-color);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--container-color);
+    border-radius: 1rem;
+}
+
+.input {
+    background: none;
+    width: 100%;
+    padding: 1.5rem 2.5rem 1.5rem 1.25rem;
+    font-weight: var(--font-semi-bold);
+    border: 3px solid transparent;
+    border-radius: 1rem;
+    z-index: 1;
+    transition: border-color .4s;
+}
+
+.input:autofill {
+    transition: background-color 6000s, color 6000s;
+}
+
+.label {
+    position: absolute;
+    left: 1.25rem;
+    font-weight: var(--font-semi-bold);
+    transition: transform .4s, font-size .4s, color .4s;
+  }
+  
+.login-icon {
+    position: absolute;
+    right: 1rem;
+    font-size: 1.25rem;
+    transition: color .4s;
+}
+  
+.login-password {
+    cursor: pointer;
+    z-index: 10;
+}
+
+.btn {
+    width: 100%;
+    display: inline-flex;
+    justify-content: center;
+    background-color: var(--first-color);
+    color: var(--white-color);
+    font-weight: var(--font-semi-bold);
+    padding-block: 1.5rem;
+    border-radius: 4rem;
+    margin-block: 2rem;
+    cursor: pointer;
+    transition: background-color .4s, box-shadow .4s;
+}
+
+.btn:hover {
+    background-color: var(--first-color-alt);
+    box-shadow: 0 8px 24px hsla(208, 92%, 32%, .3);
+}
+
+.switch {
+    text-align: center;
+    font-size: var(--small-font-size);
+  }
+  
+.switch button {
+    background: none;
+    color: var(--first-color);
+    font-size: var(--small-font-size);
+    font-weight: var(--font-semi-bold);
+    cursor: pointer;
+    transition: color .4s;
+}
+  
+.switch button:hover {
+    color: var(--first-color-alt);
+}
+
+.login-access, .register {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    transition: transform .4s, opacity .4s .1s;
+}
+
+.register {
+    transform: translateX(15rem);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.input:focus ~ .label {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 0.2s, opacity 0.2s ease-in-out;
+}
+
+.input:not(:placeholder-shown) ~ .label {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 0.2s, opacity 0.2s ease-in-out;
+}
+
+.input:placeholder-shown ~ .label {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.input:focus {
+    border-color: var(--first-color);
+}
+  
+.input:focus ~ .label, .input:focus ~ .login-icon {
+    color: var(--first-color);
+}
+
+/* Show hide login & create account */
+.active .login-access {
+    transform: translateX(15rem);
+    opacity: 0;
+    pointer-events: none;
+}
+  
+.active .register {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: initial;
+}
+
+/* responsive */
+@media screen and (min-width: 1150px) {
+    :root {
+      --big-font-size: 3rem;
+      --normal-font-size: 1rem;
+      --small-font-size: .875rem;
+      --tiny-font-size: .75rem;
+    }
+  }
