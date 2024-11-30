@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -26,12 +27,12 @@
                     <div class="login-content grid">
                         <!-- email -->
                         <div class="form-group">
-                            <input type="email" id="email" name="email" required placeholder=" " class="input">
+                            <input type="email" id="email" name="email" required placeholder=" " class="form-input">
                             <label for="email" class="label">&emsp;Email</label>
                         </div>
                         <!-- password -->
                         <div class="form-group">
-                            <input type="password" id="password" name="password" required placeholder=" " class="input">
+                            <input type="password" id="password" name="password" required placeholder=" " class="form-input">
                             <label for="password" class="label">&emsp;Password</label>
 
                             <i class="ri-eye-off-fill login-icon login-password" id="loginPassword"></i>
@@ -54,27 +55,29 @@
 
             <div class="login-section">
                 <form method="post" action="/register" class="login-form">
-                    <div class="login-content">
-                        <!-- first name -->
-                        <div class="form-group">
-                            <input type="text" id="firstname" required placeholder=" " class="input">
-                            <label for="firstname" class="label">First name</label>
-                        </div>
-                        <!-- last name -->
-                        <div class="form-group">
-                            <input type="text" id="lastname" required placeholder=" " class="input">
-                            <label for="lastname" class="label">Last name</label>
-                        </div>
-                        <!-- email -->
-                        <div class="form-group">
-                            <input type="email" id="creEmail" required placeholder=" " class="input">
-                            <label for="creEmail" class="label">Email</label>
-                        </div>
-                        <!-- password -->
-                        <div class="form-group">
-                            <input type="password" id="crePassword" required placeholder=" " class="input">
-                            <label for="crePassword" class="label">Password</label>
-                            <i class="ri-eye-off-fill login-icon login-password" id="loginPasswordCre"></i>
+                    <div class="login-content grid">
+                        <div class="login-group grid">
+                            <!-- first name -->
+                            <div class="form-group">
+                                <input type="text" id="firstname" required placeholder=" " class="form-input">
+                                <label for="firstname" class="label">First name</label>
+                            </div>
+                            <!-- last name -->
+                            <div class="form-group">
+                                <input type="text" id="lastname" required placeholder=" " class="form-input">
+                                <label for="lastname" class="label">Last name</label>
+                            </div>
+                            <!-- email -->
+                            <div class="form-group">
+                                <input type="email" id="creEmail" required placeholder=" " class="form-input">
+                                <label for="creEmail" class="label">Email</label>
+                            </div>
+                            <!-- password -->
+                            <div class="form-group">
+                                <input type="password" id="crePassword" required placeholder=" " class="form-input">
+                                <label for="crePassword" class="label">Password</label>
+                                <i class="ri-eye-off-fill login-icon login-password" id="loginPasswordCre"></i>
+                            </div>
                         </div>
                     </div>
                     <button type="submit" class="btn">Create account</button>

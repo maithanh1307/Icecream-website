@@ -1,13 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap");
+
 :root {
     /* Colors */
     /*Color mode HSL(hue, saturation, lightness)*/
-    --first-color: hsl(208, 92%, 54%);
-    --first-color-alt: hsl(208, 88%, 50%);
+    --first-color: rgb(169,122,77);
+    --first-color-alt: rgb(128,87,52);
     --title-color: hsl(220, 68%, 4%);
     --white-color: hsl(0, 0%, 100%);
     --text-color: hsl(220, 15%, 66%);
     --body-color: hsl(0, 0%, 100%);
-    --container-color: hsl(220, 50%, 97%);
+    --container-color: hsl(26, 50%, 97%);
   
     /* Font and typography */
     /*.5rem = 8px | 1rem = 16px */
@@ -51,7 +53,10 @@ input, button {
 a {
   text-decoration: none;
 }
-
+::selection {
+    color: rgb(211, 255, 254);
+    background: rgb(169,122,77);
+  }
 .container {
     max-width: 1120px;
     margin-inline: 1.5rem;
@@ -84,7 +89,7 @@ a {
     border-radius: 1rem;
 }
 
-.input {
+.form-input {
     background: none;
     width: 100%;
     padding: 1.5rem 2.5rem 1.5rem 1.25rem;
@@ -95,7 +100,7 @@ a {
     transition: border-color .4s;
 }
 
-.input:autofill {
+.form-input:autofill {
     transition: background-color 6000s, color 6000s;
 }
 
@@ -134,7 +139,7 @@ a {
 
 .btn:hover {
     background-color: var(--first-color-alt);
-    box-shadow: 0 8px 24px hsla(208, 92%, 32%, .3);
+    box-shadow: 0 8px 24px rgba(128, 87, 52, 0.3);
 }
 
 .switch {
@@ -169,29 +174,29 @@ a {
     pointer-events: none;
 }
 
-.input:focus ~ .label {
+.form-input:focus ~ .label {
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s linear 0.2s, opacity 0.2s ease-in-out;
 }
 
-.input:not(:placeholder-shown) ~ .label {
+.form-input:not(:placeholder-shown) ~ .label {
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s linear 0.2s, opacity 0.2s ease-in-out;
 }
 
-.input:placeholder-shown ~ .label {
+.form-input:placeholder-shown ~ .label {
     visibility: visible;
     opacity: 1;
     transition: opacity 0.2s ease-in-out;
 }
 
-.input:focus {
+.form-input:focus {
     border-color: var(--first-color);
 }
   
-.input:focus ~ .label, .input:focus ~ .login-icon {
+.form-input:focus ~ .label, .form-input:focus ~ .login-icon {
     color: var(--first-color);
 }
 
@@ -211,9 +216,53 @@ a {
 /* responsive */
 @media screen and (min-width: 1150px) {
     :root {
-      --big-font-size: 3rem;
-      --normal-font-size: 1rem;
-      --small-font-size: .875rem;
-      --tiny-font-size: .75rem;
+        --big-font-size: 3rem;
+        --normal-font-size: 1rem;
+        --small-font-size: .875rem;
+        --tiny-font-size: .75rem;
     }
-  }
+}
+@media screen and (max-width: 320px) {
+    .container {
+        margin-inline: 1rem;
+    }
+}
+  
+  /* For medium devices */
+@media screen and (min-width: 540px) {
+    .login-section {
+        width: 380px;
+        margin-inline: auto;
+    }
+}
+  
+@media screen and (min-width: 350px) and (max-height: 600px) {
+    .login {
+        height: 760px;
+    }
+}
+  
+  /* For large devices */
+@media screen and (min-width: 1150px) {
+    .container {
+        margin-inline: auto;
+    }
+    .login-section {
+        width: 460px;
+        margin: initial;
+    }
+    .login-access, 
+    .register {
+        width: 600px;
+    }
+    .title {
+        text-align: initial;
+        margin-bottom: 3rem;
+    }
+    .btn {
+        margin-bottom: 3rem;
+    }
+    .login-group {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
