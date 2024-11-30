@@ -43,6 +43,75 @@
     border: #7c4c2c;
 }
 
+/* your choice */
+.card-container {
+    position: relative; /* Làm cha để các phần tử con định vị đúng */
+    width: 180px;
+    height: 180px;
+    margin: auto; /* Căn giữa toàn bộ container */
+}
+
+.card-circle {
+    height: 180px;
+    width: 180px;
+    border-radius: 50%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative; /* Làm cha tham chiếu cho .content */
+    background-position: center;
+    background-size: cover; /* Đảm bảo hình ảnh phủ toàn bộ */
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.card-circle.choice1 {
+    background-image: url("../image/choice1.jpg");
+    background-size: cover;
+
+}
+
+.card-circle.choice2 {
+    background-image: url("../image/choice2.jpg");
+    background-size: cover;
+}
+
+.card-circle.choice3 {
+    background-image: url("../image/choice3.jpg");
+    background-size: cover;
+}
+
+.content {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    top: 0;
+    margin-left: auto;
+    margin-right: auto; /* Định vị so với .card-circle */
+    background: rgba(255, 206, 47, 0.6); /* Nền đen trong suốt */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    opacity: 0;
+    transition: 0.6s; /* Hiệu ứng mờ dần */   
+}
+
+.content:hover {
+    opacity: 1;
+}
+
+.content p {
+    color: #7c4c2c;
+    font-weight: 600;
+    font-size: larger
+}
+
+.content i {
+    color: #7c4c2c;
+}
+
 /* most view */
 .mostView {
     text-align: center;
@@ -76,3 +145,23 @@
     color: #7c4c2c;
 }
 
+/* footer */
+.footer {
+    background-color: #ffdfae;
+}
+
+.btn-signin {
+    background-color: #7c4c2c;
+    color: white;
+    border-radius: 30px;
+    padding: 5px 15px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+.btn-signin:hover {
+    background-color: #ffdfae;
+    color: #7c4c2c;
+    border: solid #7c4c2c;
+}
