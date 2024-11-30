@@ -45,10 +45,10 @@
 
 /* your choice */
 .card-container {
-    position: relative; /* Làm cha để các phần tử con định vị đúng */
+    position: relative; 
     width: 180px;
     height: 180px;
-    margin: auto; /* Căn giữa toàn bộ container */
+    margin: auto; 
 }
 
 .card-circle {
@@ -58,9 +58,9 @@
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    position: relative; /* Làm cha tham chiếu cho .content */
+    position: relative; 
     background-position: center;
-    background-size: cover; /* Đảm bảo hình ảnh phủ toàn bộ */
+    background-size: cover; 
     box-sizing: border-box;
     overflow: hidden;
 }
@@ -88,14 +88,14 @@
     border-radius: 50%;
     top: 0;
     margin-left: auto;
-    margin-right: auto; /* Định vị so với .card-circle */
-    background: rgba(255, 206, 47, 0.6); /* Nền đen trong suốt */
+    margin-right: auto; 
+    background: rgba(255, 206, 47, 0.6); 
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     opacity: 0;
-    transition: 0.6s; /* Hiệu ứng mờ dần */   
+    transition: 0.6s; 
 }
 
 .content:hover {

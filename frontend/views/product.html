@@ -70,18 +70,267 @@
     <div class="container">
         <div class="mt-5 mb-5">
             <div class="row">
-                <!--search, filter-->
-                <div class="col-lg-4">
+                <!--search, filter, catalog, price-->
+                <div class="col-lg-4 col-md-3 col-sm-12">
                     <!--search-->
                     <div class="searchBox">
-                        <form action="/action_page.php">
+                        <form action="/action_page.php" class="form-inline">
                             <div class="row">
                                 <input type="text" class="form-control inputSearch" placeholder="Search..." id="search">
-                                <button type="submit" class="btn">
-                                    <i class="fa-solid fa-magnifying-glass fa-xl" style="color: #7c4c2c;"></i>
+                                <button type="submit" class="btnSearch">
+                                    <i class="fa-solid fa-magnifying-glass fa-md" style="color: #7c4c2c;"></i>
                                 </button>
                             </div>
                         </form>
+                    </div>
+
+                    <!--catalog-->
+                    <div class="filterBox mt-5">
+                        <h2 class="text-center" style="font-weight: 800; color: #7c4c2c;">
+                            Catalog
+                        </h2>
+                        <form action="/action_page.php">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="optradio">Ice cream cone
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="optradio">Cream with topping
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="optradio">Cream jar
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="optradio">Ice cream
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn btnChoose mt-3 mb-3 mr-auto ml-2">Choose</button>
+                        </form>
+                    </div>
+
+                    <!--filter-->
+                    <div class="filterBox mt-5">
+                        <h2 class="text-center" style="font-weight: 800; color: #7c4c2c;">
+                            <i class="fa-solid fa-filter"></i>
+                            Filter
+                        </h2>
+                        <form action="/action_page.php">
+                            <div class="flavor">
+                                <h5 class="ml-2">Flavors</h5>
+                                <div class="form-check">
+                                    <label class="form-check-label" for="radio1">
+                                        <input type="checkbox" class="form-check-input" value="">Strawberry
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label" for="radio2">
+                                        <input type="checkbox" class="form-check-input" value="">Mint
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label" for="radio1">
+                                        <input type="checkbox" class="form-check-input" value="">Chocolate
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label" for="radio1">
+                                        <input type="checkbox" class="form-check-input" value="">Lemon
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label" for="radio1">
+                                        <input type="checkbox" class="form-check-input" value="">Vani
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="filterSize">
+                                <h5 class="ml-2">Sizes</h5>
+                                <div class="form-check">
+                                    <label class="form-check-label" for="radio1">
+                                        <input type="checkbox" class="form-check-input" value="">Small
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label" for="radio2">
+                                        <input type="checkbox" class="form-check-input" value="">Medium
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label" for="radio1">
+                                        <input type="checkbox" class="form-check-input" value="">Large
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btnChoose mt-3 mb-3 mr-auto ml-2">Choose</button>
+                        </form>
+                    </div>
+
+                    <!--sorting-->
+                    <div class="filterBox mt-5">
+                        <h2 class="text-center" style="font-weight: 800; color: #7c4c2c;">
+                            Sorting by
+                        </h2>
+                        <form action="/action_page.php">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="optradio">Best seller
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="optradio">New products
+                                </label>
+                            </div>
+                            <div class="form-group form-inline">
+                                <label for="sel1">Prices:</label>
+                                <select class="form-control ml-2" id="sel1">
+                                    <option>Ascending</option>
+                                    <option>Descending</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btnChoose mt-3 mb-3 mr-auto ml-2">Choose</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!--view product-->
+                <div class="col-lg-8 col-md-9 col-sm-12">
+                    <!--list, grid-->
+                    <div style="position: relative;" class="mb-5 mt-5">
+                        <div class="icon-for-view">
+                            <div class="row">
+                                <i class="fa-solid fa-list fa-xl mr-3"></i>
+                                <i class="fa-solid fa-grid-2 fa-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--grid-->
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="card mt-5">
+                                <img class="card-img-top imageCard" src="../../public/image/kemcay.jpg" alt="Card image"
+                                    style="width:100%">
+                                <div class="card-body">
+                                    <h6 class="card-title">Lemon Cream Cone</h6>
+                                    <p class="card-text">Some example text some example text. John Doe is an architect
+                                        and
+                                        engineer</p>
+                                    <p class="price">
+                                        <i class="fa-solid fa-tags"></i>
+                                        75,000đ
+                                    </p>
+                                    <button class="btn btn-cart">Add to cart</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="card mt-5">
+                                <img class="card-img-top imageCard" src="../../public/image/kemdau.jpg" alt="Card image"
+                                    style="width:100%">
+                                <div class="card-body">
+                                    <h6 class="card-title">Strawberry Ice cream</h6>
+                                    <p class="card-text">Some example text some example text. John Doe is an architect
+                                        and
+                                        engineer</p>
+                                    <p class="price">
+                                        <i class="fa-solid fa-tags"></i>
+                                        75,000đ
+                                    </p>
+                                    <button class="btn btn-cart">Add to cart</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="card mt-5">
+                                <img class="card-img-top imageCard" src="../../public/image/kemli.jpg" alt="Card image"
+                                    style="width:100%">
+                                <div class="card-body">
+                                    <h6 class="card-title">Candy Cream</h6>
+                                    <p class="card-text">Some example text some example text. John Doe is an architect
+                                        and
+                                        engineer</p>
+                                    <p class="price">
+                                        <i class="fa-solid fa-tags"></i>
+                                        75,000đ
+                                    </p>
+                                    <button class="btn btn-cart">Add to cart</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="card mt-5">
+                                <img class="card-img-top imageCard" src="../../public/image/kemcay.jpg" alt="Card image"
+                                    style="width:100%">
+                                <div class="card-body">
+                                    <h6 class="card-title">Lemon Cream Cone</h6>
+                                    <p class="card-text">Some example text some example text. John Doe is an architect
+                                        and
+                                        engineer</p>
+                                    <p class="price">
+                                        <i class="fa-solid fa-tags"></i>
+                                        75,000đ
+                                    </p>
+                                    <button class="btn btn-cart">Add to cart</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="card mt-5">
+                                <img class="card-img-top imageCard" src="../../public/image/kemdau.jpg" alt="Card image"
+                                    style="width:100%">
+                                <div class="card-body">
+                                    <h6 class="card-title">Strawberry Ice cream</h6>
+                                    <p class="card-text">Some example text some example text. John Doe is an architect
+                                        and
+                                        engineer</p>
+                                    <p class="price">
+                                        <i class="fa-solid fa-tags"></i>
+                                        75,000đ
+                                    </p>
+                                    <button class="btn btn-cart">Add to cart</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="card mt-5">
+                                <img class="card-img-top imageCard" src="../../public/image/kemli.jpg" alt="Card image"
+                                    style="width:100%">
+                                <div class="card-body">
+                                    <h6 class="card-title">Candy Cream</h6>
+                                    <p class="card-text">Some example text some example text. John Doe is an architect
+                                        and
+                                        engineer</p>
+                                    <p class="price">
+                                        <i class="fa-solid fa-tags"></i>
+                                        75,000đ
+                                    </p>
+                                    <button class="btn btn-cart">Add to cart</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>

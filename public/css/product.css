@@ -60,15 +60,122 @@
 
 /* search */
 .inputSearch {
-    width: 200px;
+    width: 80%;
     border-radius: 30px;
     border: none;
+    margin-right: auto;
+    margin-left: 2px;
 }
 
 .searchBox {
     background-color: #fadaaa;
-    padding: 20px 45px;
+    padding: 20px 60px;
     border-radius: 20px;
-    margin-right: auto;
-    margin-left: auto;
+    margin: 0 auto; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    width: fit-content; 
 }
+
+.btnSearch {
+    padding: 5px 5px;
+    background-color: #fadaaa;
+    border: none;
+}
+
+/* filter */
+.filterBox {
+    border: 4px solid #fadaaa;
+    border-radius: 20px;
+}
+
+.filterBox .form-check, .filterBox .form-group{
+    margin-left: 30px;
+    margin-top: 10px;
+}
+
+.flavor {
+    margin-top: 10px;
+}
+
+.flavor h5 {
+    color: #7c4c2c;
+    font-weight: 700;
+}
+
+.filterSize {
+    margin-top: 10px;
+}
+
+.filterSize h5 {
+    color: #7c4c2c;
+    font-weight: 700;
+}
+
+.btnChoose {
+    border-radius: 30px;
+    padding: 5px 15px;
+    background-color: #7c4c2c;
+    color: #fadaaa;
+    font-weight: 600;
+}
+
+.btnChoose:hover {
+    background-color: #fadaaa;
+    color: #7c4c2c;
+}
+
+/* list view, grid view */
+.icon-for-view {
+    position: absolute; /* Đặt icon ở vị trí tuyệt đối */
+    right: 10px; /* Cách mép phải 10px */
+    top: 50%; /* Căn giữa theo chiều dọc */
+    transform: translateY(-50%);
+    color: #7c4c2c;
+}
+
+/* view product */
+.card {
+    margin-right: 5px;
+    border-radius: 20px;
+}
+
+.imageCard {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.btn-cart {
+    background-color: #ffdfae;
+    color: #7c4c2c;
+    border-radius: 40px;
+    font-weight: 500;
+}
+
+.btn-cart:hover {
+    background-color: #7c4c2c;
+    color: white;
+}
+
+.price {
+    font-weight: 600;
+    font-size: large;
+    color: #7c4c2c;
+}
+
+.pagination {
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pagination a {
+    color: #7c4c2c;
+}
+
+.pagination a:hover {
+    color: #7c4c2c;
+}
+
+
