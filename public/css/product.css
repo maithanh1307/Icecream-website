@@ -76,6 +76,7 @@
     justify-content: center; 
     align-items: center; 
     width: fit-content; 
+    height: auto;
 }
 
 .btnSearch {
@@ -127,10 +128,11 @@
 }
 
 /* list view, grid view */
+
 .icon-for-view {
-    position: absolute; /* Đặt icon ở vị trí tuyệt đối */
-    right: 10px; /* Cách mép phải 10px */
-    top: 50%; /* Căn giữa theo chiều dọc */
+    position: absolute; 
+    right: 10px; 
+    top: 50%; 
     transform: translateY(-50%);
     color: #7c4c2c;
 }
@@ -177,5 +179,64 @@
 .pagination a:hover {
     color: #7c4c2c;
 }
+
+.card a {
+    color: #7c4c2c;
+}
+
+
+/* list */
+.card-list .imageCard {
+    height: auto;
+    width: auto;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 20px;
+}
+
+/* pagination */
+.pagination {
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+    padding: 10px 0;
+}
+
+
+
+.imageDetail {
+    width: auto;
+    height: 400px;
+    border-radius: 20px;
+}
+
+.boxInformation {
+    border: 2px solid #7c4c2c;
+    margin-left: 30px;
+}
+
+/* footer */
+.footer {
+    background-color: #ffdfae;
+}
+
+.btn-signin {
+    background-color: #7c4c2c;
+    color: white;
+    border-radius: 30px;
+    padding: 5px 15px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+.btn-signin:hover {
+    background-color: #ffdfae;
+    color: #7c4c2c;
+    border: solid #7c4c2c;
+}
+
 
 
