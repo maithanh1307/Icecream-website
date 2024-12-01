@@ -17,17 +17,6 @@
 
 </head>
 <body>
-    <!--header-->
-
-    <!-- <nav class="navbar navbar-expand-sm navbar-header container-fluid" style="z-index: 1050; position: relative;">
-        <a class="navbar-brand" href="#" style="font-weight: 700; font-size: 50px; color: #fff6f2;">
-            <img src="../../public/image/Logo.png" alt="logo" style="width: 90px;">
-            GELADO
-        </a>
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </nav> -->
-
     <div class="login container grid" id="loginAccess">
         <!-- login -->
         <div class="text-item">
@@ -73,9 +62,9 @@
 
         <!-- register -->
         <div class="register">
-            <h1 class="title">Create new account</h1>
+            <h1 class="title">Sign Up</h1>
 
-            <div class="section">
+            <div class="item">
                 <form method="post" action="/register" class="login-form">
                     <div class="login-content grid">
                         <div class="login-group grid">
@@ -113,6 +102,54 @@
     </div>
 
 
+    <!-- <script src="../../public/css/login.js">
+// SHOW HIDE PASSWORD LOGIN 
+const passwordAccess = (loginPass, loginEye) => {
+   const input = document.getElementById(loginPass),
+      iconEye = document.getElementById(loginEye)
 
+   iconEye.addEventListener('click', () => {
+      // Change password to text
+      input.type === 'password' ? input.type = 'text'
+         : input.type = 'password'
+
+      // Icon change
+      iconEye.classList.toggle('ri-eye-fill')
+      iconEye.classList.toggle('ri-eye-off-fill')
+   })
+}
+passwordAccess('password', 'loginPassword')
+
+// SHOW HIDE PASSWORD CREATE ACCOUNT
+const passwordRegister = (loginPass, loginEye) => {
+   const input = document.getElementById(loginPass),
+      iconEye = document.getElementById(loginEye)
+
+   iconEye.addEventListener('click', () => {
+      // Change password to text
+      input.type === 'password' ? input.type = 'text'
+         : input.type = 'password'
+
+      // Icon change
+      iconEye.classList.toggle('ri-eye-fill')
+      iconEye.classList.toggle('ri-eye-off-fill')
+   })
+}
+passwordRegister('crePassword', 'loginPasswordCre')
+
+// SHOW HIDE LOGIN & CREATE ACCOUNT
+const loginAcessRegister = document.getElementById('loginAccess'),
+   buttonRegister = document.getElementById('loginBtnRegister'),
+   buttonAccess = document.getElementById('loginBtnAccess')
+
+buttonRegister.addEventListener('click', () => {
+   loginAcessRegister.classList.add('active')
+})
+
+buttonAccess.addEventListener('click', () => {
+   loginAcessRegister.classList.remove('active')
+})
+
+    </script> -->
 </body>
 </html>
