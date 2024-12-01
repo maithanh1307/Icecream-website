@@ -82,6 +82,41 @@
     color: white;
 }
 
+.solid {
+    border: 2px dashed #ffdfae;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* comment */
+.commentBox {
+    background-color: #faf9f9;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 15px;
+    border-radius: 20px;
+}
+
+.commentBox .solid {
+    width: 100%;
+    border: 2px solid #ffdfae
+}
+
+/* send comment */
+.leaveComment input {
+    border-radius: 30px;
+}
+
+.leaveComment .btn-send-comment {
+    background-color: #ffdfae;
+    color: #7c4c2c;
+    border-radius: 30px;
+    font-weight: 500;
+}
+
 /* footer */
 .footer {
     background-color: #ffdfae;
