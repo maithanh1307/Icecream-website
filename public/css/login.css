@@ -282,31 +282,71 @@ a {
         --tiny-font-size: .75rem;
     }
 }
+/* For small devices */
 @media screen and (max-width: 320px) {
     .container {
         margin-inline: 1rem;
     }
 }
   
-/* medium devices */
+/* For medium devices */
 @media screen and (min-width: 540px) {
     .item {
         width: 380px;
         margin-inline: auto;
     }
+    
 }
   
 @media screen and (min-width: 350px) and (max-height: 600px) {
     .login {
-        height: 760px;
+      height: 760px;
     }
 }
   
-/* large devices */
+@media screen and (max-width: 768px) {
+    .text-item h2 {
+        display: none;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: auto; 
+        padding: 0px; 
+    }
+
+    .container .section{
+        position: static;
+        width: 100%;
+        margin-top: -10px; 
+    }
+
+    .active .section {
+        transform: none; 
+        opacity: 1;
+        pointer-events: initial;
+    }
+
+    .logo {
+        padding:0;
+        width: 80px;
+
+        display: block;
+        margin: 0 auto; 
+    }
+    .section {
+        margin-top: 0px; 
+    }
+}
+
+/* For large devices */
 @media screen and (min-width: 1150px) {
     .container {
         margin-inline: auto;
     }
+  
     .item {
         width: 460px;
         margin: initial;
@@ -315,7 +355,7 @@ a {
     .register {
         width: 600px;
     }
-    .title {
+    .login-title {
         text-align: initial;
         margin-bottom: 3rem;
     }
@@ -326,3 +366,4 @@ a {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+  
