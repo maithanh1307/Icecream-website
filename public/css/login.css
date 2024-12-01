@@ -5,7 +5,7 @@
     /*Color mode HSL(hue, saturation, lightness)*/
     --first-color: rgb(169,122,77);
     --first-color-alt: rgb(128,87,52);
-    --title-color: hsl(220, 68%, 4%);
+    --title-color: rgb(128,87,52);
     --white-color: hsl(0, 0%, 100%);
     --text-color: hsl(220, 15%, 66%);
     --body-color: rgb(251,237,218);
@@ -102,12 +102,13 @@ a {
     margin-top: 80px;
     /* left: 50%;
     top: 50%; */
-    background-color: var(--body-color);
+    /* background-color: var(--body-color); */
     border-radius: 20px;
     /* background-image: url("../image/login2.jpg");
     background-size: cover; */
-    backdrop-filter: blur(10px);
-    box-shadow: 0 30px 50px rgba(58, 36, 16, 0.3);
+    backdrop-filter: blur(6px);
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(131, 94, 59, 0.19));
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.45);
 }
   
 .container .section {
@@ -115,7 +116,6 @@ a {
     top: 10%;
     height: 400px !important;
     width: calc(100% - 58%);
-    backdrop-filter: blur(10px);
 }
 
 .grid {
@@ -132,10 +132,12 @@ a {
 
 .title {
     font-size: var(--big-font-size);
-    color: var(--title-color);
+    color: var(--first-color);
     text-align: center;
     margin-bottom: 2rem;
     font-weight: var(--font-semi-bold);
+    display: flex;
+    justify-content: center;
 }
 
 .form-group {
@@ -231,6 +233,7 @@ a {
     pointer-events: none;
 }
 
+/* input focus */
 .form-input:focus ~ .label {
     visibility: hidden;
     opacity: 0;
@@ -257,7 +260,7 @@ a {
     color: var(--first-color);
 }
 
-/* Show hide login & create account */
+/* show hide login & create account */
 .active .section {
     transform: translateX(15rem);
     opacity: 0;
@@ -285,7 +288,7 @@ a {
     }
 }
   
-  /* For medium devices */
+/* medium devices */
 @media screen and (min-width: 540px) {
     .item {
         width: 380px;
@@ -299,7 +302,7 @@ a {
     }
 }
   
-  /* For large devices */
+/* large devices */
 @media screen and (min-width: 1150px) {
     .container {
         margin-inline: auto;
