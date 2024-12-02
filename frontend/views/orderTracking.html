@@ -12,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!--css-->
-    <link href="../../public/css/orderDetail.css" rel="stylesheet">
+    <link href="../../public/css/orderTracking.css" rel="stylesheet">
 
     <!-- link icon -->
     <link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome"
@@ -58,37 +58,185 @@
         </div>
     </nav>
 
+    <!--panel-->
+    <div class="jumbotron jumbotron-fluid imagePanel">
+        <div class="container">
+            <h1 class="text-center">View Order Tracking</h1>
+        </div>
+    </div>
+
     <!--track-->
     <div class="container">
-        <table class="table mt-5">
-            <thead>
-                <tr>
-                    <th>Order ID</th>
-                    <th>Product ID</th>
-                    <th>Product Name</th>
-                    <th>Order Date</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>OI111</td>
-                    <td>P1000</td>
-                    <td>Strawberry Cream</td>
-                    <td>1/12/2024</td>
-                    <td>Pending</td>
-                </tr>
-
-                <tr>
-                    <td>OI111</td>
-                    <td>P1000</td>
-                    <td>Strawberry Cream</td>
-                    <td>1/12/2024</td>
-                    <td>Pending</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table mt-5 mb-5">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Product ID</th>
+                        <th>Product Name</th>
+                        <th>Order Date</th>
+                        <th>Status</th>
+                        <th>View Order Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>OI111</td>
+                        <td>P1000</td>
+                        <td>Strawberry Cream</td>
+                        <td>1/12/2024</td>
+                        <td>
+                            <div class="status">Pending</div>
+                        </td>
+                        <td>
+                            <i class="fa-solid fa-eye" style="color: #7c4c2c;"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>OI111</td>
+                        <td>P1000</td>
+                        <td>Strawberry Cream</td>
+                        <td>1/12/2024</td>
+                        <td>
+                            <div class="status">Confirm</div>
+                        </td>
+                        <td>
+                            <i class="fa-solid fa-eye" style="color: #7c4c2c;"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>OI111</td>
+                        <td>P1000</td>
+                        <td>Strawberry Cream</td>
+                        <td>1/12/2024</td>
+                        <td>
+                            <div class="status">Shipping</div>
+                        </td>
+                        <td>
+                            <i class="fa-solid fa-eye" style="color: #7c4c2c;"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>OI111</td>
+                        <td>P1000</td>
+                        <td>Strawberry Cream</td>
+                        <td>1/12/2024</td>
+                        <td>
+                            <div class="status">Delivered</div>
+                        </td>
+                        <td>
+                            <i class="fa-solid fa-eye" style="color: #7c4c2c;"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
+
+    <!--footer-->
+    <div class="jumbotron text-center footer" style="margin-bottom:0">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <a class="navbar-brand" href="#" style="font-weight: 700; font-size: 30px; color: #7c4c2c;">
+                    <img src="../../public/image/Logo.png" alt="logo" style="width: 120px;">
+                    GELADO
+                </a>
+                <div class="row">
+                    <button class="btn btn-signin">Sign in</button>
+                    <button class="btn btn-signin mr-auto ml-1">Sign up</button>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-6 mt-2">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fa-duotone fa-solid fa-house fa-lg ml-auto mr-3"></i>
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fa-duotone fa-solid fa-ice-cream fa-lg ml-auto mr-3"></i>
+                            Product
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fa-solid fa-cart-shopping fa-lg ml-auto mr-3"></i>
+                            Cart
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fa-light fa-user fa-lg ml-auto mr-3"></i>
+                            Account
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-6 mt-2">
+                <h3 style="color: #7c4c2c;">Contact</h3>
+                <ul class="nav flex-column">
+                    <li class="nav-item ml-auto mr-4">
+                        <a class="nav-link" href="#">
+                            <i class="fa-duotone fa-solid fa-location-dot"></i>
+                            19 Nguyen Huu Tho street, Tan Phong ward, District 7, HCM city
+                        </a>
+                    </li>
+                    <li class="nav-item mr-auto ml-2">
+                        <a class="nav-link" href="#">
+                            <i class="fa-solid fa-phone-office"></i>
+                            (028)37 755 035
+                        </a>
+                    </li>
+                    <li class="nav-item mr-auto ml-2">
+                        <a class="nav-link text-center" href="#">
+                            <i class="fa-solid fa-envelope"></i>
+                            gelado@gmail.com
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!--script for status-->
+    <script>
+        const statusCells = document.querySelectorAll('.status');
+    
+        statusCells.forEach(cell => {
+            if (cell.textContent.trim() === 'Pending') {
+                cell.style.backgroundColor = '#ff0b6a';
+                cell.style.fontWeight = '500';
+                cell.style.borderRadius = '30px';
+                cell.style.padding = '5px 10px';
+                cell.style.display = 'inline-block';
+            } 
+            else if (cell.textContent.trim() === 'Confirm') {
+                cell.style.backgroundColor = '#fff0af';
+                cell.style.fontWeight = '500';
+                cell.style.borderRadius = '30px';
+                cell.style.padding = '5px 10px';
+                cell.style.display = 'inline-block';
+            }
+            else if (cell.textContent.trim() === 'Shipping') {
+                cell.style.backgroundColor = '#ffe24a';
+                cell.style.fontWeight = '500';
+                cell.style.borderRadius = '30px';
+                cell.style.padding = '5px 10px';
+                cell.style.display = 'inline-block';
+            }
+            else if (cell.textContent.trim() === 'Delivered') {
+                cell.style.backgroundColor = '#30ff8f';
+                cell.style.fontWeight = '500';
+                cell.style.borderRadius = '30px';
+                cell.style.padding = '5px 10px';
+                cell.style.display = 'inline-block';
+            }
+        });
+    </script>
 </body>
 
 </html>
