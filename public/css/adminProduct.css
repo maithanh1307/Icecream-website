@@ -96,4 +96,13 @@
     color: white;
 }
 
+.paginationBox {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.paginationBox a {
+    color: #7c4c2c;
+}
+
 
