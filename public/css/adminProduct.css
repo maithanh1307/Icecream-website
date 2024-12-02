@@ -1,0 +1,99 @@
+/* side bar */
+
+
+.sidebar {
+    height: 100vh;
+    background-color: #fadaaa; 
+    color: #7c4c2c;
+}
+
+.content {
+    flex: 1;
+    height: 100vh;
+}
+
+.content .navbar {
+    background-color: aqua;
+}
+
+
+.sidebar .nav-link {
+    color: #7c4c2c; 
+}
+
+.headerLogo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.headerLogo img {
+    display: block;
+    margin: 0 auto;
+}
+
+.selection .nav-link {
+    margin-bottom: 15px;
+    font-weight: 400;
+}
+
+.selection .nav-link:hover {
+    background-color: rgba(124, 76, 44, 0.7);
+    color: #fadaaa;
+    border-radius: 20px;
+
+}
+
+@media (max-width: 480px) {
+    .dash-title {
+        display: none;
+    }
+
+    .navbar-brand {
+        width: 10% !important;
+    }
+
+    .nav-text {
+        display: none;
+    }
+}
+
+/* view table */
+.table-responsive {
+    margin: 0 auto; 
+    width: 80%;      
+    display: block;  
+    margin-bottom: 50px;
+    background-color: white;
+}
+
+.card h2 {
+    margin-top: 15px;
+    margin-left: 10px;
+    margin-bottom: 40px;
+    color: #7c4c2c;
+}
+
+.card {
+    border-radius: 20px;
+    background-color: #fcfbfb;
+    border: none;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); /* Thiết lập shadow */
+}
+
+.btnAdd {
+    background-color: #ffdfae;
+    color: #7c4c2c;
+    border-radius: 40px;
+    font-weight: 500;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.btnAdd:hover {
+    background-color: #7c4c2c;
+    color: white;
+}
+
+
