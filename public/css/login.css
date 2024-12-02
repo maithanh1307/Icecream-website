@@ -299,6 +299,8 @@ a {
 @media screen and (max-width: 320px) {
     .container {
         margin-inline: 1rem;
+        width: 100%;
+        margin-inline: 0;
     }
 }
   
@@ -308,11 +310,20 @@ a {
         width: 380px;
         margin-inline: auto;
     }
+    .container {
+        padding-inline: 2rem;
+        width: 100%;
+        margin-inline: auto;
+    }
 }
   
 @media screen and (min-width: 350px) and (max-height: 600px) {
     .login {
       height: 760px;
+    }
+    .container {
+        width: 100%;
+        margin-inline: 0;
     }
 }
   
@@ -327,6 +338,10 @@ a {
         align-items: center;
         height: auto; 
         padding: 0px; 
+
+        padding-inline: 1rem;
+        width: 100%;
+        margin-inline: 0;
     }
 
     .container .section{
@@ -376,4 +391,3 @@ a {
         grid-template-columns: repeat(2, 1fr);
     }
 }
-  
