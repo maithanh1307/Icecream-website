@@ -132,35 +132,89 @@ router.post('/addProduct', uploadController.uploadImage, async (req, res) => {
 // });
 
 
-// router.get('/update', async (req, res) => {
-//     const productId = req.query.productId; // Nhận productId từ form
-//     try {
-//         const query = 'SELECT * FROM products WHERE id = ?';
-//         const [product] = await db.promise().query(query, [productId]);
-//         const [products] = await db.promise().query('SELECT * FROM products');
-//         if (product.length > 0) {
-//             res.render('admin', { products, product: product[0] }); // Gửi sản phẩm đã chọn đến template
-//         } else {
-//             res.status(404).send('Product not found');
-//         }
-//     } catch (err) {
-//         console.error(err);
-//         res.status(500).send('Internal Server Error');
-//     }
-// });
+router.get('/edit', async (req, res) => {
+    const productId = req.query.productId; // Nhận productId từ form
+    if (!productId) {
+        return res.status(400).send('Product ID is required');
+    }
+    try {
+        const [products] = await db.promise().query(`
+            SELECT 
+                p.product_id, 
+                p.name, 
+                p.description, 
+                p.base_price, 
+                p.discount_percentage, 
+                p.category_id, 
+                p.image_url, 
+                GROUP_CONCAT(pt.name) AS tags, 
+                v.color AS variant_color, 
+                v.size AS variant_size, 
+                v.stock AS variant_stock, 
+                v.price AS variant_price
+            FROM products p
+            LEFT JOIN product_tag_map ptm ON p.product_id = ptm.product_id
+            LEFT JOIN product_tags pt ON ptm.tag_id = pt.tag_id
+            LEFT JOIN product_variants v ON p.product_id = v.product_id
+            WHERE p.product_id = ?
+            GROUP BY p.product_id, v.color, v.size, v.stock, v.price;
+        `, [productId]);
+
+        if (products.length > 0) {
+            const productEdit = products[0];
+            productEdit.tags = productEdit.tags ? productEdit.tags.split(',').map(Number) : []; //chuyen chuoi thanh so tuong ung voi value
+
+            const [allTags] = await db.promise().query('SELECT * FROM product_tags');
+            res.render('AdminProduct', { productEdit, allTags }); 
+        } else {
+            res.status(404).send('Product not found');
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
 
-// router.post('/updateProduct', async (req, res) => {
-//     const { productId, productName, productQuantity, productDescription, productPrice } = req.body;
-//     try {
-//         const query = 'UPDATE products SET productName = ?, productQuantity = ?, productDescription = ?, productPrice = ? WHERE id = ?';
-//         await db.promise().query(query, [productName, productQuantity, productDescription, productPrice, productId]);
-//         res.redirect('/admin'); // Quay lại trang admin sau khi cập nhật
-//     } catch (err) {
-//         console.error('Error updating product:', err);
-//         res.status(500).send('Error updating product');
-//     }
-// });
+router.post('/editProduct', uploadController.uploadImage, async (req, res) => {
+    const { productId, name, description, basePrice, discount, category_id, tags, 
+            variant_color, variant_size, variant_stock, variant_price } = req.body;
+
+    console.log('Received productId:', productId);  // Kiểm tra xem productId có được gửi đúng không
+
+    if (!productId) {
+        return res.status(400).send('Product ID is required');  // Nếu không có productId, trả về lỗi
+    }
+
+    const imageUrl = req.file ? `/image/${req.file.filename}` : null;
+
+    try {
+        const query = `UPDATE products SET name = ?, description = ?, base_price = ?, discount_percentage = ?, 
+                        category_id = ?, image_url = IFNULL(?, image_url) WHERE product_id = ?`;
+        await db.promise().query(query, [name, description, basePrice, discount, category_id, imageUrl, productId]);
+
+        // Cập nhật các tags và variants
+        await db.promise().query('DELETE FROM product_tag_map WHERE product_id = ?', [productId]);
+
+        if (tags && Array.isArray(tags)) {
+            for (let tagId of tags) {
+                await db.promise().query(`INSERT INTO product_tag_map (product_id, tag_id) VALUES (?, ?)`, [productId, tagId]);
+            }
+        }
+
+        const variantQuery = `UPDATE product_variants SET color = ?, size = ?, stock = ?, price = ? WHERE product_id = ?`;
+        await db.promise().query(variantQuery, [variant_color, variant_size, variant_stock, variant_price, productId]);
+
+        res.redirect('/admin/manageProduct'); // Quay lại trang quản lý sản phẩm sau khi cập nhật
+
+    } catch (err) {
+        console.error('Error updating product:', err);
+        res.status(500).send('Error updating product');
+    }
+});
+
+
+
 
 
 

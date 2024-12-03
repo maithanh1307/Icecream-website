@@ -31,6 +31,10 @@
     <% 
         adminproducts = typeof adminproducts !== 'undefined' ? adminproducts : []; 
     %>
+    <% 
+        productEdit = typeof productEdit !== 'undefined' ? productEdit : []; 
+        allTags = typeof allTags !== 'undefined' ? allTags : []; 
+    %>
     <div class="container-fluid">
         <div class="row">
             <!--side bar-->
@@ -140,9 +144,12 @@
                                                 <button class="btn btn-delete">
                                                     <i class="fa-solid fa-trash fa-lg" style="color: #ff8e8e;"></i>
                                                 </button>|
-                                                <button class="btn btn-edit"  data-toggle="modal" data-target="#myModalEdit">
-                                                    <i class="fa-solid fa-pen-to-square fa-lg" style="color: #ffd260;"></i>
-                                                </button>
+                                                <form action="/admin/manageProduct/edit" method="get" style="display: inline;">
+                                                    <input type="hidden" name="productId" value="<%= adminproduct.product_id %>">
+                                                    <button class="btn btn-edit"  data-toggle="modal" data-target="#myModalEdit">
+                                                        <i class="fa-solid fa-pen-to-square fa-lg" style="color: #ffd260;"></i>
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>
                                     <% }) %>
@@ -234,7 +241,7 @@
                                                 <input type="file" id="image" name="image" accept="image/*" required><br><br>
                                             </div>
                                         
-                                            <button type="submit" class="btn btnAdd">Add new ice cream</button>
+                                            <button type="submit" class="btn btnAdd">Add new product/button>
                                         </form>
                                     </div>
                                 </div>
@@ -252,83 +259,108 @@
                                     </div>
 
                                     <div class="modal-body">
-                                        <form action="/action_page.php">
-                                            <div class="form-group">
-                                                <label for="name">Name</label>
-                                                <input type="text" class="form-control" name="name" placeholder="Enter Name"
-                                                    id="name">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="description">Description:</label>
-                                                <input type="text" class="form-control" name="description" placeholder="Enter description"
-                                                    id="description">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="description">Base Price:</label>
-                                                <input type="number" class="form-control" name="basePrice" placeholder="Enter base price"
-                                                    id="basePrice">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="description">Discount for ice cream %:</label>
-                                                <input type="number" class="form-control" placeholder="Enter discount"
-                                                    id="discount">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="category">Categories:</label>
-                                                <select id="category_id" name="category_id">
-                                                    <option value="1">Ice cream cone</option>
-                                                    <option value="2">Cream with topping</option>
-                                                    <option value="3">Cream Jar</option>
-                                                    <option value="4">Ice cream</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="description">Tags:</label>
-                                                <div class="form-inline">
-                                                    <input type="checkbox" id="best_seller" name="tags[]" value="1">
-                                                    <label for="best_seller" class="mr-2">Best seller</label>
-                                                    <input type="checkbox" id="new_arrival" name="tags[]" value="2">
-                                                    <label for="new_arrival">New arrival</label>
+                                        <% if (productEdit) { %>
+                                            <form action="/admin/manageProduct/editProduct" method="POST" enctype="multipart/form-data">
+                                                <input type="hidden" name="productId" value="<%= productEdit.product_id %>">
+                                                <div class="form-group">
+                                                    <label for="name">Name</label>
+                                                    <input type="text" class="form-control" name="name" placeholder="Enter Name" id="name" value="<%= productEdit.name %>" required>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="description">Flavours:</label>
-                                                <select id="variant_color" name="variant_color">
-                                                    <option value="1">Strawberry</option>
-                                                    <option value="2">Chocolate</option>
-                                                    <option value="3">Mint</option>
-                                                    <option value="4">Lemon</option>
-                                                    <option value="5">Vani</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="description">Sizes:</label>
-                                                <select id="variant_size" name="variant_size">
-                                                    <option value="1">Small</option>
-                                                    <option value="2">Meidum</option>
-                                                    <option value="3">Larger</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="stock">Quantity:</label>
-                                                <input type="number" class="form-control" name="variant_stock" min="0" placeholder="Enter quantity"
-                                                    id="stock">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="stock">Price:</label>
-                                                <input type="number" class="form-control" name="variant_price" placeholder="Enter price"
-                                                    id="stock">
-                                            </div>
-                                    
-                                            <button type="submit" class="btn btnAdd">Editing</button>
-                                        </form>
+                                            
+                                                <div class="form-group">
+                                                    <label for="description">Description:</label>
+                                                    <input type="text" class="form-control" name="description" placeholder="Enter description" id="productDescription" value="<%= productEdit.description %>" required>
+                                                </div>
+                                            
+                                                <div class="form-group">
+                                                    <label for="basePrice">Base Price:</label>
+                                                    <input type="number" class="form-control" name="basePrice" placeholder="Enter base price" id="basePrice" value="<%= productEdit.base_price %>" required>
+                                                </div>
+                                            
+                                                <div class="form-group">
+                                                    <label for="discount">Discount for ice cream (%):</label>
+                                                    <input type="number" class="form-control" name="discount" placeholder="Enter discount" id="discount"  value="<%= productEdit.discount_percentage %>" required>
+                                                </div>
+                                            
+                                                <div class="form-group">
+                                                    <label for="category_id">Categories:</label>
+                                                    <select id="category_id" name="category_id" class="form-control" required>
+                                                        <option value="1" <%= productEdit.category_id === 1 ? 'selected' : '' %>>Ice cream cone</option>
+                                                        <option value="2" <%= productEdit.category_id === 2 ? 'selected' : '' %>>Cream with topping</option>
+                                                        <option value="3" <%= productEdit.category_id === 3 ? 'selected' : '' %>>Cream Jar</option>
+                                                        <option value="4" <%= productEdit.category_id === 4 ? 'selected' : '' %>>Ice cream</option>
+                                                    </select>
+                                                </div>                                                
+                                            
+                                                <div class="form-group">
+                                                    <label for="tags">Tags:</label>
+                                                    <div class="form-inline">
+                                                        <% allTags.forEach(tag => { %>
+                                                            <input 
+                                                                type="checkbox" 
+                                                                id="tag_<%= tag.tag_id %>" 
+                                                                name="tags[]" 
+                                                                value="<%= tag.tag_id %>" 
+                                                                <%= productEdit.tags.includes(tag.tag_id) ? 'checked' : '' %>>
+                                                            <label for="tag_<%= tag.tag_id %>" class="mr-2"><%= tag.name %></label>
+                                                        <% }); %>
+                                                    </div>                                                    
+                                                </div>
+                                            
+                                                <div class="form-group">
+                                                    <label for="variant_color">Flavours:</label>
+                                                    <input type="text" class="form-control" name="variant_color" min="0" placeholder="Enter flavour of cream" id="variant_color"  value="<%= productEdit.variant_color %>" required>
+                                                </div>
+                                            
+                                                <div class="form-group">
+                                                    <label for="variant_size">Sizes:</label>
+                                                    <input type="text" class="form-control" name="variant_size" placeholder="Enter sizes" id="variant_size"  value="<%= productEdit.variant_size %>" required>
+                                                </div>
+                                            
+                                                <div class="form-group">
+                                                    <label for="variant_stock">Quantity:</label>
+                                                    <input type="number" class="form-control" name="variant_stock" min="0" placeholder="Enter quantity" id="variant_stock"  value="<%= productEdit.variant_stock %>" required>
+                                                </div>
+                                            
+                                                <div class="form-group">
+                                                    <label for="variant_price">Price:</label>
+                                                    <input type="number" class="form-control" name="variant_price" placeholder="Enter price" id="variant_price"  value="<%= productEdit.variant_price %>" required>
+                                                </div>
+                                            
+                                                <div class="form-group">
+                                                    <label for="image">Current Product Image:</label><br>
+                                                    <% if (productEdit.image_url) { %>
+                                                        <img src="<%= productEdit.image_url %>" alt="Current Product Image" width="150" style="margin-bottom: 10px;">
+                                                    <% } else { %>
+                                                        <p>No image available</p>
+                                                    <% } %>
+                                                    <br>
+                                                    <label for="image">Change Product Image:</label>
+                                                    <input type="file" id="image" name="image" accept="image/*"><br><br>
+                                                </div>
+                                                
+                                            
+                                                <button type="submit" class="btn btnAdd">Editing product</button>
+                                            </form>
+                                            <% } else { %>
+                                                <p>Product not found.</p>
+                                            <% } %>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <% if (productEdit) { %>
+                            <script>
+                                $(document).ready(function() {
+                                    // Kiểm tra nếu có productId trong URL
+                                    var urlParams = new URLSearchParams(window.location.search);
+                                    if (urlParams.has('productId')) {
+                                        $('#myModalEdit').modal('show');
+                                    }
+                                });
+                            </script>
+                        <% } %>
                     </div>
                 </div>
             </div>
