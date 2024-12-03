@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart</title>
+    <link rel="icon" href="../../public/image/Logo.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -72,30 +74,30 @@
                         <!-- email -->
                         <div class="form-group">
                             <label for="email" class="label">Email</label>
-                            <input type="email" id="email" name="email" required placeholder=" " class="form-input">
+                            <input type="email" id="email" name="email" required placeholder=" " class="form-input" value="">
                         </div>
                         <div class="form-group-row">
                             <!-- First name -->
                             <div class="form-group">
                                 <label for="firstname" class="label">First name</label>
-                                <input type="text" id="firstname"  name="firstname" required placeholder=" " class="form-input">
+                                <input type="text" id="firstname" name="firstname" required placeholder=" " class="form-input" value="">
                             </div>
                             <!-- Last name -->
                             <div class="form-group">
                                 <label for="lastname" class="label">Last name</label>
-                                <input type="text" id="lastname" name="lastname" required placeholder=" " class="form-input">
+                                <input type="text" id="lastname" name="lastname" required placeholder=" " class="form-input" value="">
                             </div>
                         </div>
-                        
+
                         <!-- phone -->
                         <div class="form-group">
                             <label for="phone" class="label">Phone</label>
-                            <input type="tel" id="phone" name="phone" required placeholder=" " class="form-input">
+                            <input type="tel" id="phone" name="phone" required placeholder=" " class="form-input" value="">
                         </div>
                         <!-- address -->
                         <div class="form-group">
                             <label for="address" class="label">Address</label>
-                            <input type="text" id="address" name="address" required placeholder=" " class="form-input">
+                            <input type="text" id="address" name="address" required placeholder=" " class="form-input" value="">
                         </div>
 
                     </form>
@@ -118,7 +120,7 @@
                     </div>
 
                     <!-- Credit Card info details -->
-                    <form method="post" action="/cart" class="credit-card">
+                    <form method="post" action="/cart" class="credit-card" id="credit-card-info">
                         <!-- Cardholder name -->
                         <div class="form-group cardholder">
                             <label for="cardholder" class="label">Cardholder name</label>
@@ -156,7 +158,7 @@
                     </form>
                 </div>
 
-                <button class="btn btn-pay"><b>PAY</b></button>
+                <button class="btn btn-pay" data-toggle="modal" data-target="#modalSignOut"><b>PAY</b></button>
 
             </div>
 
@@ -271,59 +273,188 @@
                 </div>
             </div>
         </div>
+
+
+
+
+        <!-- modal -->
+        <div class="modal fade" id="modalSignOut" tabindex="-1" role="dialog" aria-labelledby="modalSignOutLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body text-center">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-header">&emsp;&emsp;&emsp;&ensp;Order successfully</i></h3>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="modal-title">Product Comments</h4>
+
+                    </div>
+                    <div class="modal-body">
+                        <form action="/action_page.php">
+                            <div class="product-list">
+                                <!-- Product 1 -->
+                                <div class="product-item">
+                                    <h5>Product 1</h5>
+                                    <textarea class="form-control" rows="3"
+                                        placeholder="Share more thoughts on the product to help other buyer."></textarea>
+                                    <hr>
+                                </div>
+                                <!-- Product 2 -->
+                                <div class="product-item">
+                                    <h5>Product 2</h5>
+                                    <textarea class="form-control" rows="3"
+                                        placeholder="Share more thoughts on the product to help other buyer."></textarea>
+                                    <hr>
+                                </div>
+                                <!-- Product 3 -->
+                                <div class="product-item">
+                                    <h5>Product 3</h5>
+                                    <textarea class="form-control" rows="3"
+                                        placeholder="Share more thoughts on the product to help other buyer."></textarea>
+                                    <hr>
+                                </div>
+                            </div>
+
+                            <!-- Submit All Comments -->
+                            <button type="button" class="btn btnSubmit" style="float: right;">Submit All</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <!-- return Home -->
+                        <form action="/home" method="get">
+                            <button class="btn btnComment">Home</button>
+                        </form>
+
+                        <!-- views Order Detail -->
+                        <form action="/orderDetail" method="get">
+                            <button class="btn btnComment">Order Detail</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
     </div>
 
     <!-- <script src="../../public/css/cart.js"></script>
-'use strict';
+-->
 
-const decrementBtn = document.querySelectorAll('#decrement');
-const quantityElem = document.querySelectorAll('#quantity');
-const incrementBtn = document.querySelectorAll('#increment');
-const priceElem = document.querySelectorAll('#price');
-const subtotalElem = document.querySelector('#subtotal');
-const taxElem = document.querySelector('#tax');
-const totalElem = document.querySelector('#total');
+    <script>
+        'use strict';
 
-// add event on multiple increment & decrement button
-for (let i = 0; i < incrementBtn.length; i++) {
-    incrementBtn[i].addEventListener('click', function () {
-        let increment = Number(this.previousElementSibling.textContent);
+        const decrementBtn = document.querySelectorAll('#decrement');
+        const quantityElem = document.querySelectorAll('#quantity');
+        const incrementBtn = document.querySelectorAll('#increment');
+        const priceElem = document.querySelectorAll('#price');
+        const subtotalElem = document.querySelector('#subtotal');
+        const taxElem = document.querySelector('#tax');
+        const totalElem = document.querySelector('#total');
 
-        increment++;
-        this.previousElementSibling.textContent = increment;
+        $(document).ready(function () {
+            // Khi click vào Credit Card hoặc Cash on Delivery
+            $('.payment-method .method').click(function () {
+                // Kiểm tra nếu chọn "Credit Card"
+                if ($(this).find('span').text() === 'Credit Card') {
+                    // Hiển thị form thông tin thẻ tín dụng
+                    $('#credit-card-info').show();
+                } else if ($(this).find('span').text() === 'Cash on Delivery') {
+                    // Ẩn form thông tin thẻ tín dụng
+                    $('#credit-card-info').hide();
+                }
 
-        totalCalc();
-    });
+                // Loại bỏ class "fill" khỏi tất cả các icon
+                $('.payment-method .checkmark').removeClass('fill').attr('name', 'checkmark-circle-outline');
 
-    decrementBtn[i].addEventListener('click', function () {
-        let decrement = Number(this.nextElementSibling.textContent);
-        decrement <= 1 ? 1 : decrement--;
-        this.nextElementSibling.textContent = decrement;
-        totalCalc();
-    });
-}
+                // Thêm class "fill" vào icon của button đã được click
+                $(this).find('.checkmark').addClass('fill').attr('name', 'checkmark-circle');
+            });
+        });
 
-// alculating total amount of product price
-const totalCalc = function() {
-    const tax = 0.05;
-    let subtotal = 0;
-    let totalTax = 0;
-    let total = 0;
 
-    for ( let i = 0; i < quantityElem.length; i++ ) {
-        subtotal += Number(quantityElem[i].textContent) * Number(priceElem[i].textContent);
-    }
-    subtotalElem.textContent = subtotal.toFixed(2);
 
-    totalTax = subtotal * tax;
-    taxElem.textContent = totalTax.toFixed(2);
-    
-    // calculate  `total`
-    total = subtotal + totalTax;
-    
-    totalElem.textContent = total.toFixed(2);
-} -->
+        // add event on multiple increment & decrement button
+        for (let i = 0; i < incrementBtn.length; i++) {
+            incrementBtn[i].addEventListener('click', function () {
+                let increment = Number(this.previousElementSibling.textContent);
 
+                increment++;
+                this.previousElementSibling.textContent = increment;
+
+                totalCalc();
+            });
+
+            decrementBtn[i].addEventListener('click', function () {
+                let decrement = Number(this.nextElementSibling.textContent);
+                decrement <= 1 ? 1 : decrement--;
+                this.nextElementSibling.textContent = decrement;
+                totalCalc();
+            });
+        }
+
+        // alculating total amount of product price
+        const totalCalc = function () {
+            const tax = 0.05;
+            let subtotal = 0;
+            let totalTax = 0;
+            let total = 0;
+
+            for (let i = 0; i < quantityElem.length; i++) {
+                subtotal += Number(quantityElem[i].textContent) * Number(priceElem[i].textContent);
+            }
+            subtotalElem.textContent = subtotal.toFixed(2);
+
+            totalTax = subtotal * tax;
+            taxElem.textContent = totalTax.toFixed(2);
+
+            // calculate  `total`
+            total = subtotal + totalTax;
+
+            totalElem.textContent = total.toFixed(2);
+        }
+
+        document.querySelector(".btnSubmit").addEventListener("click", function () {
+            const productComments = [];
+            document.querySelectorAll(".product-item").forEach((item, index) => {
+                const productName = item.querySelector("h5").innerText;
+                const comment = item.querySelector("textarea").value;
+                productComments.push({ product: productName, comment: comment });
+            });
+
+            console.log(productComments);
+
+            fetch('/submit_comments', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(productComments)
+            }).then(response => response.json())
+                .then(data => {
+                    alert("Comments submitted successfully!");
+                }).catch(error => {
+                    alert("Error submitting comments");
+                });
+        });
+
+        // Khi nhấn nút Pay, thực hiện hành động
+        document.querySelector(".btn-pay").addEventListener("click", function () {
+            // Hiển thị modal
+            $('#modalSignOut').modal('show');
+        });
+
+        // modal open
+        $('#modalSignOut').on('show.bs.modal', function () {
+            document.querySelector('.container .item').classList.add('hidden');
+        });
+
+        // modal close
+        $('#modalSignOut').on('hidden.bs.modal', function () {
+            window.location.href = '/home';
+        });
+    </script>
 
 </body>
 
