@@ -16,6 +16,11 @@ app.get('/', (req, res) => {
     res.render('home')
 })
 
+var adminProductController = require('./controllers/adminProduct')
+
+app.use('/admin/manageProduct', adminProductController)
+
+
 app.listen(port, async () => {
     db.connect((err) => {
         if (err) {

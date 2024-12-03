@@ -5,3 +5,4 @@ npm i dotenv
 npm i ejs
 npm i mysql2
 npm i bcrypt
+npm i multer

@@ -30,7 +30,7 @@ services:
       - "8083:8080"
     volumes:
       - ./frontend/views:/usr/src/app/frontend/views
-      - ./public:/urs/src/app/public
+      - ./public:/usr/src/app/public
     depends_on:
       db:
         condition: service_healthy
