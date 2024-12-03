@@ -1,0 +1,191 @@
+:root {
+    /* Colors */
+    --navbar-color: rgb(250, 218, 170);
+    --heading-color: #7c4c2c;
+    --background-color: #fff;
+    --border-color: #ffdfae;
+    --btn-default-border-color: rgba(24, 28, 33, 0.1);
+    --btn-default-color: #4E5155;
+    --card-box-shadow-color: rgba(9, 88, 184, 0.012);
+    --row-bordered-border-color: rgba(24, 28, 33, 0.03);
+    --section-color-alt: rgb(211, 255, 254); 
+    --section-bg-color-alt: rgb(169,122,77);   
+    
+    
+    /* font */
+    --font-weight-bold: bold;
+
+    --radius: 5px;
+    --padding: 0.85rem 1.5rem;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin-top: 0 !important;
+}
+
+/* header */
+.navbar-nav {
+    margin-left: auto;
+    margin-right: 15px;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' linecap='round' linejoin='round' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.navbar-header {
+    height: 100px;
+    font-size: medium;
+    background-color: var(--navbar-color);
+}
+
+.navbar-collapse {
+    background-color: var(--navbar-color);
+    width: 100%;
+    border-radius: 10px;
+}
+
+.navbar-collapse, .nav-item {
+    margin-right: auto;
+    margin-left: 10px;
+}
+
+.nav-item a {
+    margin-right: 10px;
+    color: var(--heading-color);
+    font-weight: 600;
+}
+
+.solid {
+    border: 1px solid var(--border-color);
+    width: auto;
+}
+
+.navbar-toggler span{
+    background-color: var(--navbar-color);
+    border: var(--heading-color);
+}
+
+/* view detail */
+.card {
+    border: none;
+    
+}
+
+.card .card-header, .card .card-footer {
+    background-color: #fff;
+}
+
+.backgroundOrder {
+    background-color: var(--heading-color);
+    text-align: center;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    color: var(--border-color);
+}
+
+.card-body h6, .card-header h5 {
+    font-weight: 700;
+}
+
+
+
+.card-header h5 {
+    color: var(--heading-color);
+}
+
+
+
+
+
+
+body {
+    background: var(--background-color);
+    margin-top: 20px;
+}
+
+.card-form {
+    background-clip: padding-box;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border: 1px solid var(--border-color);
+    /* border-radius: var(--radius); */
+}
+
+.row-bordered {
+    overflow: hidden;
+    border-color: var(--row-bordered-border-color);
+}
+
+.account-settings-links .list-group-item {
+    padding: var(--padding);
+    border-color: var(--row-bordered-border-color) !important;
+    color: var(--btn-default-color);
+    background: transparent;
+    font-weight: normal; 
+    cursor: pointer;
+}
+
+.account-settings-links .list-group-item:hover {
+    background-color: var(--section-bg-color-alt);
+    color: var(--section-color-alt);
+}
+
+.account-settings-links .list-group-item.active {
+    font-weight: var(--font-weight-bold); 
+    color: var(--section-color-alt); /* Màu chữ */
+    background-color: var(--section-bg-color-alt); /* Màu nền */
+}
+
+.account-address .form-group .form-control {
+    border: none;
+    outline: none;
+    background-color: transparent; 
+    box-shadow: none;
+    margin-bottom: 10px;
+}
+
+.address-section {
+    padding: 20px 0;
+}
+
+/* Tự động thêm đường viền ngang */
+.address-section:not(:last-child) {
+    border-bottom: 1px solid var(--border-color); /* Màu viền */
+}
+
+/* Tùy chỉnh khoảng cách giữa các section */
+.address-section + .address-section {
+    margin-top: 20px; /* Thêm khoảng cách giữa các nhóm */
+}
+
+
+
+
+
+/* footer */
+.footer {
+    background-color: var(--border-color);
+}
+
+.btn-signin {
+    background-color: var(--heading-color);
+    color: white;
+    border-radius: 30px;
+    padding: 5px 15px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+.btn-signin:hover {
+    background-color: var(--border-color);
+    color: var(--heading-color);
+    border: solid var(--heading-color);
+}

@@ -18,16 +18,17 @@
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-solid.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/sharp-regular.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+3:200,300,regular,500,
-            600,700,800,900,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic"/>
+            600,700,800,900,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons.css">
-    
+
     <!-- css -->
     <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-            
+
     <link href="../../public/css/shoppingcart.css" rel="stylesheet">
 
 </head>
+
 <body>
     <!--header-->
 
@@ -61,229 +62,269 @@
 
 
     <div class="container">
-        <h1 class="heading">
-            <ion-icon name="cart-outline"></ion-icon> Shopping Cart
-        </h1>
+        <h1 class="heading">Shopping Cart</h1>
         <div class="item">
             <div class="checkout">
+                <!-- Shipping Information Details -->
                 <h2 class="section-heading">Shipping Details</h2>
                 <div class="payment-form">
                     <form method="post" action="/cart">
                         <!-- email -->
                         <div class="form-group">
-                            <input type="email" id="email" name="email" required placeholder=" " class="form-input">
                             <label for="email" class="label">Email</label>
+                            <input type="email" id="email" name="email" required placeholder=" " class="form-input">
                         </div>
-                       <!-- first name -->
-                       <div class="form-group">
-                            <input type="text" id="firstname" required placeholder=" " class="form-input">
-                            <label for="firstname" class="label">First name</label>
+                        <div class="form-group-row">
+                            <!-- First name -->
+                            <div class="form-group">
+                                <label for="firstname" class="label">First name</label>
+                                <input type="text" id="firstname"  name="firstname" required placeholder=" " class="form-input">
+                            </div>
+                            <!-- Last name -->
+                            <div class="form-group">
+                                <label for="lastname" class="label">Last name</label>
+                                <input type="text" id="lastname" name="lastname" required placeholder=" " class="form-input">
+                            </div>
                         </div>
-                        <!-- last name -->
-                        <div class="form-group">
-                            <input type="text" id="lastname" required placeholder=" " class="form-input">
-                            <label for="lastname" class="label">Last name</label>
-                        </div>
+                        
                         <!-- phone -->
                         <div class="form-group">
-                            <input type="tel" id="phone" name="phone" required placeholder=" " class="form-input">
                             <label for="phone" class="label">Phone</label>
+                            <input type="tel" id="phone" name="phone" required placeholder=" " class="form-input">
                         </div>
                         <!-- address -->
                         <div class="form-group">
-                            <input type="text" id="address" name="address" required placeholder=" " class="form-input">
                             <label for="address" class="label">Address</label>
+                            <input type="text" id="address" name="address" required placeholder=" " class="form-input">
                         </div>
 
                     </form>
-                </div>
 
-                <h2 class="section-heading">Payment Details</h2>
+                    <!-- Payment Information Details -->
+                    <h2 class="section-heading">Payment Details</h2>
 
-                <div class="payment-form">
                     <div class="payment-method">
-                        <buton class="method selected">
-                            <ion-icon name="cart"></ion-icon>
+                        <button class="method selected">
+                            <ion-icon name="card"></ion-icon>
                             <span>Credit Card</span>
                             <ion-icon class="checkmark fill" name="checkmark-circle"></ion-icon>
-                        </buton>
+                        </button>
 
-                        <buton class="method selected">
-                            <ion-icon name="cart"></ion-icon>
+                        <button class="method selected">
+                            <ion-icon name="cash-outline"></ion-icon>
                             <span>Cash on Delivery</span>
-                            <ion-icon class="checkmark" name="cash-outline"></ion-icon>
-                        </buton>
+                            <ion-icon class="checkmark" name="checkmark-circle-outline"></ion-icon>
+                        </button>
                     </div>
 
                     <!-- Credit Card info details -->
-                    <form method="post" action="/cart">
+                    <form method="post" action="/cart" class="credit-card">
                         <!-- Cardholder name -->
-                        <div class="cardholder">
-                            <input type="text" name="cardholder" id="cardholder" required placeholder=" " class="form-input">
+                        <div class="form-group cardholder">
                             <label for="cardholder" class="label">Cardholder name</label>
+                            <input type="text" name="cardholder" id="cardholder" required placeholder=" "
+                                class="form-input">
                         </div>
 
                         <!-- Credit card number -->
-                        <div class="cardid">
-                            <input type="number" name="cardid"  id="cardid" required placeholder=" " class="form-input">
+                        <div class="form-group cardid">
                             <label for="cardid" class="label">Card number</label>
+                            <input type="number" name="cardid" id="cardid" required placeholder=" " class="form-input">
                         </div>
 
                         <!-- expiration date -->
                         <div class="input-flex">
-                            <div class="date">
+                            <div class="form-group date">
                                 <label for="date" class="label">Expiration date</label>
 
                                 <div class="input-flex">
-                                    <input type="number" name="day" id="date" required placeholder="31" 
-                                    min="1" max="31" class="form-input"> / <input type="number" 
-                                    name="month" id="date" required placeholder="12" min="1" max="12" 
-                                    class="form-input">
+                                    <input type="number" name="day" id="date" required placeholder="31" min="1" max="31"
+                                        class="form-input"> / <input type="number" name="month" id="date" required
+                                        placeholder="12" min="1" max="12" class="form-input">
                                 </div>
                             </div>
 
                             <!-- CVV -->
-                            <div class="cvv">
-                                <input type="number" name="cvv" id="cvv" required placeholder=" " class="form-input">
+                            <div class="form-group cvv">
                                 <label for="cvv" class="label">CVV</label>
+                                <input type="number" name="cvv" id="cvv" required placeholder=" " class="form-input">
+
                             </div>
                         </div>
-                        
+
 
                     </form>
                 </div>
 
-                <button class="btn btn-primary"><b>PAY</b></button>
+                <button class="btn btn-pay"><b>PAY</b></button>
 
             </div>
-        </div>
-    </div>
 
-    <div class="cart">
-        <div class="cart-item">
-            <h2 class="section-heading">Order</h2>
+            <!-- shopping cart -->
+            <div class="cart">
+                <div class="cart-item">
+                    <h2 class="section-heading">Order summary</h2>
 
-            <!-- Ex prd 1 -->
-            <div class="prd-card">
-                <div class="card">
+                    <!-- Ex prd 1 -->
+                    <div class="row prd-card align-items-center">
+                        <!-- Image -->
+                        <div class="col-2 img-box">
+                            <img src="../../public/image/kemcay.jpg" class="prd-img" alt="Card image">
+                        </div>
 
-                    <!-- image -->
-                    <div class="img-box">
-                        <img src="../../public/image/kemcay.jpg" class="prd-img"  alt="Card image">
+                        <!-- Details -->
+                        <div class="col-8 detail">
+                            <!-- Product name -->
+                            <h4 class="prd-name">Lemon Cream Cone</h4>
+                            <div class="flex-column wrapper">
+                                <!-- Product quantity -->
+                                <div class="col-6 prd-quantity">
+                                    <button id="decrement">
+                                        <ion-icon name="remove-outline"></ion-icon>
+                                    </button>
+                                    <span id="quantity">1</span>
+                                    <button id="increment">
+                                        <ion-icon name="add-outline"></ion-icon>
+                                    </button>
+                                </div>
+
+                                <!-- Product price -->
+                                <div class="col-6 price">
+                                    <span id="price">75.000</span>đ
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Close button -->
+                        <button id="prd-close-btn" class="prd-close-btn">
+                            <ion-icon name="close-outline"></ion-icon>
+                        </button>
                     </div>
-                    <div class="detail">
 
-                        <!-- product name -->
-                        <h4 class="prd-name">Lemon Cream Cone</h4>
-                        <div class="wrapper">
+                    <!-- Ex prd 2 -->
+                    <div class="row prd-card align-items-center">
+                        <!-- Image -->
+                        <div class="col-2 img-box">
+                            <img src="../../public/image/kemcay.jpg" class="prd-img" alt="Card image">
+                        </div>
 
-                            <!-- product quantity -->
-                            <div class="prd-quantity">
-                                <button class="decrement">
-                                    <ion-icon class="remove-outline"></ion-icon>
-                                </button>
+                        <!-- Details -->
+                        <div class="col-8 detail">
+                            <!-- Product name -->
+                            <h4 class="prd-name">Lemon Cream Cone</h4>
+                            <div class="flex-column wrapper">
+                                <!-- Product quantity -->
+                                <div class="col-6 prd-quantity">
+                                    <button id="decrement">
+                                        <ion-icon name="remove-outline"></ion-icon>
+                                    </button>
+                                    <span id="quantity">1</span>
+                                    <button id="increment">
+                                        <ion-icon name="add-outline"></ion-icon>
+                                    </button>
+                                </div>
 
-                                <span id="quantity">1</span>
+                                <!-- Product price -->
+                                <div class="col-6 price">
+                                    <span id="price">75.000</span>đ
+                                </div>
+                            </div>
+                        </div>
 
-                                <button class="increment">
-                                    <ion-icon class="add-outline"></ion-icon>
-                                </button>
+                        <!-- Close button -->
+                        <button id="prd-close-btn" class="prd-close-btn">
+                            <ion-icon name="close-outline"></ion-icon>
+                        </button>
+                    </div>
 
 
+                    <div class="wrapper">
+                        <div class="discount">
+                            <label for="token" class="label">Gift / Discount code</label>
+
+                            <div class="wrapper-flex">
+                                <input type="text" name="discount" id="discount" class="form-input">
+
+                                <button class="btn btn-outline">Apply</button>
+                            </div>
+                        </div>
+
+                        <div class="amount">
+                            <div class="subtotal">
+                                <span>Subtotal</span><span><span id="subtotal">130.000</span>đ</span>
                             </div>
 
-                            <!-- product price -->
-                            <div class="price">
-                                <span id="price">75,000</span>đ
+                            <div class="tax">
+                                <span>Tax</span><span><span id="tax">7.000</span>đ</span>
+                            </div>
+
+                            <div class="shipping">
+                                <span>Shipping</span><span><span id="shipping">30.000</span>đ</span>
+                            </div>
+
+                            <div class="total">
+                                <span>Total</span><span><span id="total">137.000</span>đ</span>
                             </div>
 
                         </div>
                     </div>
-
-                    <button id="prd-close-btn">
-                        <ion-icon class="close-outline"></ion-icon>
-                    </button>
-
                 </div>
             </div>
-
-            <!-- Ex prd 2 -->
-            <div class="prd-card">
-                <div class="card">
-
-                    <div class="img-box">
-                        <img src="../../public/image/kemcay.jpg" class="prd-img"  alt="Card image">
-                    </div>
-
-                    <div class="detail">
-                        <h4 class="prd-name">Lemon Cream Cone</h4>
-                        <div class="wrapper">
-                            <div class="prd-quantity">
-                                <button class="decrement">
-                                    <ion-icon class="remove-outline"></ion-icon>
-                                </button>
-
-                                <span id="quantity">1</span>
-
-                                <button class="increment">
-                                    <ion-icon class="add-outline"></ion-icon>
-                                </button>
-
-
-                            </div>
-
-                            <div class="price">
-                                <span id="price">75,000</span>đ
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <button id="prd-close-btn">
-                        <ion-icon class="close-outline"></ion-icon>
-                    </button>
-
-                </div>
-            </div>
-
-        </div>
-
-        <div class="wrapper">
-            <div class="discount">
-                <label for="" class="label-default">Gift cart/Discount code</label>
-
-                <div class="wrapper-flex">
-                    <input type="text" name="discount" id="discount" class="input-default">
-                
-                    <button class="btn btn-outline">Apply</button>
-                </div>
-            </div>
-
-            <div class="amount">
-                <div class="subtotal">
-                    <span>Subtotal</span><span><span id="subtotal">75,000</span>đ</span>
-                </div>
-
-                <div class="tax">
-                    <span>Tax</span><span><span id="tax">7,000</span>đ</span>
-                </div>
-
-                <div class="shipping">
-                    <span>Shipping</span><span><span id="shipping">30,000</span>đ</span>
-                </div>
-
-                <div class="total">
-                    <span>Total</span><span><span id="total">112,000</span>đ</span>
-                </div>
-
-            </div>
-
-
-
-
         </div>
     </div>
+
+    <!-- <script src="../../public/css/cart.js"></script>
+'use strict';
+
+const decrementBtn = document.querySelectorAll('#decrement');
+const quantityElem = document.querySelectorAll('#quantity');
+const incrementBtn = document.querySelectorAll('#increment');
+const priceElem = document.querySelectorAll('#price');
+const subtotalElem = document.querySelector('#subtotal');
+const taxElem = document.querySelector('#tax');
+const totalElem = document.querySelector('#total');
+
+// add event on multiple increment & decrement button
+for (let i = 0; i < incrementBtn.length; i++) {
+    incrementBtn[i].addEventListener('click', function () {
+        let increment = Number(this.previousElementSibling.textContent);
+
+        increment++;
+        this.previousElementSibling.textContent = increment;
+
+        totalCalc();
+    });
+
+    decrementBtn[i].addEventListener('click', function () {
+        let decrement = Number(this.nextElementSibling.textContent);
+        decrement <= 1 ? 1 : decrement--;
+        this.nextElementSibling.textContent = decrement;
+        totalCalc();
+    });
+}
+
+// alculating total amount of product price
+const totalCalc = function() {
+    const tax = 0.05;
+    let subtotal = 0;
+    let totalTax = 0;
+    let total = 0;
+
+    for ( let i = 0; i < quantityElem.length; i++ ) {
+        subtotal += Number(quantityElem[i].textContent) * Number(priceElem[i].textContent);
+    }
+    subtotalElem.textContent = subtotal.toFixed(2);
+
+    totalTax = subtotal * tax;
+    taxElem.textContent = totalTax.toFixed(2);
+    
+    // calculate  `total`
+    total = subtotal + totalTax;
+    
+    totalElem.textContent = total.toFixed(2);
+} -->
 
 
 </body>
+
 </html>

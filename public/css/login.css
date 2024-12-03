@@ -12,15 +12,15 @@
   
     /* Font and typography */
     --body-font: "Montserrat", system-ui;
-    --big-font-size: 1.5rem;
-    --normal-font-size: .938rem;
-    --small-font-size: .813rem;
-    --tiny-font-size: .688rem;
+    --big-fs: 1.5rem;
+    --normal-fs: .938rem;
+    --small-fs: .813rem;
+    --tiny-fs: .688rem;
   
     /* font weight */
-    --font-regular: 400;
-    --font-medium: 500;
-    --font-semi-bold: 630;
+    --fw-regular: 400;
+    --fw-medium: 500;
+    --fw-semi-bold: 630;
   
     /* z index */
     --z-tooltip: 10;
@@ -35,7 +35,7 @@
 
 body, input, button {
   font-family: var(--body-font);
-  font-size: var(--normal-font-size);
+  font-size: var(--normal-fs);
 }
 
 body {
@@ -59,19 +59,6 @@ a {
     background: rgb(169,122,77);
 }
 
-/* header */
-.navbar-nav {
-    margin-left: auto;
-    margin-right: 15px;
-}
-
-
-.navbar-header {
-    height: 100px;
-    font-size: medium;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
-}
-
 .logo {
     margin-left: 50px;
     width: 160px;
@@ -85,7 +72,7 @@ a {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    font-weight: var(--font-semi-bold);
+    font-weight: var(--fw-semi-bold);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
 }
 
@@ -108,7 +95,7 @@ a {
   
 .container .section {
     left: 50%;
-    top: 10%;
+    top: 5%;
     height: 400px !important;
     width: calc(100% - 58%);
 }
@@ -126,11 +113,11 @@ a {
 }
 
 .title {
-    font-size: var(--big-font-size);
+    font-size: var(--big-fs);
     color: var(--first-color);
     text-align: center;
     margin-bottom: 2rem;
-    font-weight: var(--font-semi-bold);
+    font-weight: var(--fw-semi-bold);
     display: flex;
     justify-content: center;
 }
@@ -151,7 +138,7 @@ a {
     background: none;
     width: 100%;
     padding: 1.5rem 2.5rem 1.5rem 1.25rem;
-    font-weight: var(--font-semi-bold);
+    font-weight: var(--fw-semi-bold);
     border: 3px solid transparent;
     border-radius: 1rem;
     z-index: 1;
@@ -161,12 +148,14 @@ a {
 .form-input:autofill {
     transition: background-color 6000s, color 6000s;
 }
-
+.login-content .form-group {
+    margin-bottom: 5px;
+}
 .label {
     position: absolute;
     left: 1.25rem;
     top: 34%;
-    font-weight: var(--font-semi-bold);
+    font-weight: var(--fw-semi-bold);
     transition: transform .4s, font-size .4s, color .4s;
 }
 
@@ -192,7 +181,7 @@ a {
     justify-content: center;
     background-color: var(--first-color);
     color: var(--white-color);
-    font-weight: var(--font-semi-bold);
+    font-weight: var(--fw-semi-bold);
     padding-block: 1.5rem;
     border-radius: 4rem;
     margin-block: 2rem;
@@ -207,14 +196,15 @@ a {
 
 .switch {
     text-align: center;
-    font-size: var(--small-font-size);
-  }
+    font-size: var(--small-fs);
+    margin-block-start: 0.9rem;
+}
   
 .switch button {
     background: none;
     color: var(--first-color);
-    font-size: var(--small-font-size);
-    font-weight: var(--font-semi-bold);
+    font-size: var(--small-fs);
+    font-weight: var(--fw-semi-bold);
     cursor: pointer;
     transition: color .4s;
 }
@@ -273,6 +263,46 @@ a {
     color: var(--first-color);
 }
 
+
+/* social */
+.social {
+    margin-block-start: -1rem;
+}
+  
+.social-title {
+    text-align: center;
+    font-size: var(--small-font-size);
+    font-weight: var(--font-semi-bold);
+    color: var(--text-color);
+    margin-bottom: 0.6rem;
+}
+  
+.social-img {
+    width: 1rem;
+}
+  
+.social-links {
+        display: flex;
+        justify-content: center;
+        column-gap: 1.5rem;
+}
+  
+.social-link {
+        width: 32px;
+        height: 32px;
+        background-color: var(--white-color);
+        box-shadow: 0 4px 8px hsla(0, 0%, 0%, .1);
+        border-radius: .5rem;
+        display: grid;
+        place-items: center;
+        transition: transform .4s;
+}
+  
+.social-link:hover {
+    transform: translateY(-.25rem);
+}
+
+
 /* show hide login & create account */
 .active .section {
     transform: translateX(15rem);
@@ -289,10 +319,10 @@ a {
 /* responsive */
 @media screen and (min-width: 1150px) {
     :root {
-        --big-font-size: 3rem;
-        --normal-font-size: 1rem;
-        --small-font-size: .875rem;
-        --tiny-font-size: .75rem;
+        --big-fs: 3rem;
+        --normal-fs: 1rem;
+        --small-fs: .875rem;
+        --tiny-fs: .75rem;
     }
 }
 /* small devices */
