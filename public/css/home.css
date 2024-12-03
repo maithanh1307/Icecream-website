@@ -66,18 +66,18 @@
 }
 
 .card-circle.choice1 {
-    background-image: url("../image/choice1.jpg");
+    background-image: url("/image/choice1.jpg");
     background-size: cover;
 
 }
 
 .card-circle.choice2 {
-    background-image: url("../image/choice2.jpg");
+    background-image: url("/image/choice2.jpg");
     background-size: cover;
 }
 
 .card-circle.choice3 {
-    background-image: url("../image/choice3.jpg");
+    background-image: url("/image/choice3.jpg");
     background-size: cover;
 }
 
