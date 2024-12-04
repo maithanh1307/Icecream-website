@@ -115,21 +115,25 @@ router.post('/addProduct', uploadController.uploadImage, async (req, res) => {
     }
 });
 
-// router.post('/deleteProduct', async (req, res) => {
-//     const productId = req.body.productId;  
+router.post('/deleteProduct', async (req, res) => {
+    const productId = req.body.productId;
 
-//     const deleteQuery = 'DELETE FROM products WHERE id = ?';
+    try {
+        await db.promise().query('DELETE FROM product_tag_map WHERE product_id = ?', [productId]);
+        await db.promise().query('DELETE FROM product_variants WHERE product_id = ?', [productId]);
 
-//     try {
-//         await db.promise().query(deleteQuery, [productId]);
-        
-//         res.redirect('/admin');  
-//     } 
-//     catch (err) {
-//         console.error(err);
-//         return res.status(500).send('Error deleting product');
-//     }
-// });
+        await db.promise().query('DELETE FROM products WHERE product_id = ?', [productId]);
+
+        console.log(`Sản phẩm với ID ${productId} và dữ liệu liên quan đã được xóa thành công.`);
+
+        res.redirect('/admin/manageProduct');
+    } 
+    catch (err) {
+        console.error('Lỗi khi xóa sản phẩm:', err);
+        return res.status(500).send('Error deleting product');
+    }
+});
+
 
 
 router.get('/edit', async (req, res) => {

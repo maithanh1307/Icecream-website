@@ -29,6 +29,15 @@
 </head>
 
 <body>
+    <% 
+        bestSeller = typeof bestSeller !== 'undefined' ? bestSeller : []; 
+    %>
+    <% 
+        newArrival = typeof newArrival !== 'undefined' ? newArrival : []; 
+    %>
+    <% 
+        mostView = typeof mostView !== 'undefined' ? mostView : []; 
+    %>
     <!--header-->
 
     <nav class="navbar navbar-expand-sm navbar-header container-fluid" style="z-index: 1050; position: relative;">
@@ -149,56 +158,23 @@
             </div>
 
             <div class="row mt-5">
-                <div class="col-lg-4 col-md-4 col-sm-12 mt-3">
-                    <div class="card">
-                        <img class="card-img-top imageCard" src="/image/kemcay.jpg" alt="Card image"
-                            style="width:100%">
-                        <div class="card-body">
-                            <h4 class="card-title">Lemon Cream Cone</h4>
-                            <p class="card-text">Some example text some example text. John Doe is an architect and
-                                engineer</p>
-                            <p class="price">
-                                <i class="fa-solid fa-tags"></i>
-                                75,000đ
-                            </p>
-                            <button class="btn btn-cart">Add to cart</button>
+                <% mostView.forEach(product => { %>
+                    <div class="col-lg-4 col-md-4 col-sm-12 mt-3">
+                        <div class="card">
+                            <img class="card-img-top imageCard" src="<%= product.image_url %>" alt="Card image"
+                                style="width:100%">
+                            <div class="card-body">
+                                <h4 class="card-title"><%= product.name %></h4>
+                                <p class="card-text"><%= product.description %>.  <a href="">View more</a></p>
+                                <p class="price">
+                                    <i class="fa-solid fa-tags"></i>
+                                    <%= product.base_price %>
+                                </p>
+                                <button class="btn btn-cart">Add to cart</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-lg-4 col-md-4 col-sm-12 mt-3">
-                    <div class="card">
-                        <img class="card-img-top imageCard" src="/image/kemdau.jpg" alt="Card image"
-                            style="width:100%">
-                        <div class="card-body">
-                            <h4 class="card-title">Strawberry Ice cream</h4>
-                            <p class="card-text">Some example text some example text. John Doe is an architect and
-                                engineer</p>
-                            <p class="price">
-                                <i class="fa-solid fa-tags"></i>
-                                75,000đ
-                            </p>
-                            <button class="btn btn-cart">Add to cart</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-4 col-sm-12 mt-3">
-                    <div class="card">
-                        <img class="card-img-top imageCard" src="/image/kemli.jpg" alt="Card image"
-                            style="width:100%">
-                        <div class="card-body">
-                            <h4 class="card-title">Candy Cream</h4>
-                            <p class="card-text">Some example text some example text. John Doe is an architect and
-                                engineer</p>
-                            <p class="price">
-                                <i class="fa-solid fa-tags"></i>
-                                75,000đ
-                            </p>
-                            <button class="btn btn-cart">Add to cart</button>
-                        </div>
-                    </div>
-                </div>
+                <% }) %>
             </div>
         </div>
     </div>
@@ -218,56 +194,24 @@
             </div>
 
             <div class="row mt-5">
-                <div class="col-lg-4 col-md-4 col-sm-12 mt-3">
-                    <div class="card">
-                        <img class="card-img-top imageCard" src="/image/kemcay.jpg" alt="Card image"
-                            style="width:100%">
-                        <div class="card-body">
-                            <h4 class="card-title">Lemon Cream Cone</h4>
-                            <p class="card-text">Some example text some example text. John Doe is an architect and
-                                engineer</p>
-                            <p class="price">
-                                <i class="fa-solid fa-tags"></i>
-                                75,000đ
-                            </p>
-                            <button class="btn btn-cart">Add to cart</button>
+                <% bestSeller.forEach(product => { %>
+                    <div class="col-lg-4 col-md-4 col-sm-12 mt-3">
+                        <div class="card">
+                            <img class="card-img-top imageCard" src="<%= product.image_url %>" alt="Card image"
+                                style="width:100%">
+                            <div class="card-body">
+                                <h4 class="card-title"><%= product.name %></h4>
+                                <p class="card-text"><%= product.description %></p>
+                                <p class="price">
+                                    <i class="fa-solid fa-tags"></i>
+                                    <%= product.base_price %>
+                                </p>
+                                <button class="btn btn-cart">Add to cart</button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                <% }) %>
 
-                <div class="col-lg-4 col-md-4 col-sm-12 mt-3">
-                    <div class="card">
-                        <img class="card-img-top imageCard" src="/image/kemdau.jpg" alt="Card image"
-                            style="width:100%">
-                        <div class="card-body">
-                            <h4 class="card-title">Strawberry Ice cream</h4>
-                            <p class="card-text">Some example text some example text. John Doe is an architect and
-                                engineer</p>
-                            <p class="price">
-                                <i class="fa-solid fa-tags"></i>
-                                75,000đ
-                            </p>
-                            <button class="btn btn-cart">Add to cart</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-4 col-sm-12 mt-3">
-                    <div class="card">
-                        <img class="card-img-top imageCard" src="/image/kemli.jpg" alt="Card image"
-                            style="width:100%">
-                        <div class="card-body">
-                            <h4 class="card-title">Candy Cream</h4>
-                            <p class="card-text">Some example text some example text. John Doe is an architect and
-                                engineer</p>
-                            <p class="price">
-                                <i class="fa-solid fa-tags"></i>
-                                75,000đ
-                            </p>
-                            <button class="btn btn-cart">Add to cart</button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -287,56 +231,26 @@
             </div>
 
             <div class="row mt-5">
-                <div class="col-lg-4 col-md-4 col-sm-12 mt-3">
-                    <div class="card">
-                        <img class="card-img-top imageCard" src="/image/kemcay.jpg" alt="Card image"
-                            style="width:100%">
-                        <div class="card-body">
-                            <h4 class="card-title">Lemon Cream Cone</h4>
-                            <p class="card-text">Some example text some example text. John Doe is an architect and
-                                engineer</p>
-                            <p class="price">
-                                <i class="fa-solid fa-tags"></i>
-                                75,000đ
-                            </p>
-                            <button class="btn btn-cart">Add to cart</button>
+                <% newArrival.forEach(product => { %>
+                    <div class="col-lg-4 col-md-4 col-sm-12 mt-3">
+                        <div class="card">
+                            <img class="card-img-top imageCard" src="<%= product.image_url %>" alt="Card image"
+                                style="width:100%">
+                            <div class="card-body">
+                                <h4 class="card-title"><%= product.name %></h4>
+                                <p class="card-text"><%= product.description %></p>
+                                <p class="price">
+                                    <i class="fa-solid fa-tags"></i>
+                                    <%= product.base_price %>
+                                </p>
+                                <button class="btn btn-cart">Add to cart</button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                <% }) %>
 
-                <div class="col-lg-4 col-md-4 col-sm-12 mt-3">
-                    <div class="card">
-                        <img class="card-img-top imageCard" src="/image/kemdau.jpg" alt="Card image"
-                            style="width:100%">
-                        <div class="card-body">
-                            <h4 class="card-title">Strawberry Ice cream</h4>
-                            <p class="card-text">Some example text some example text. John Doe is an architect and
-                                engineer</p>
-                            <p class="price">
-                                <i class="fa-solid fa-tags"></i>
-                                75,000đ
-                            </p>
-                            <button class="btn btn-cart">Add to cart</button>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-lg-4 col-md-4 col-sm-12 mt-3">
-                    <div class="card">
-                        <img class="card-img-top imageCard" src="/image/kemli.jpg" alt="Card image"
-                            style="width:100%">
-                        <div class="card-body">
-                            <h4 class="card-title">Candy Cream</h4>
-                            <p class="card-text">Some example text some example text. John Doe is an architect and
-                                engineer</p>
-                            <p class="price">
-                                <i class="fa-solid fa-tags"></i>
-                                75,000đ
-                            </p>
-                            <button class="btn btn-cart">Add to cart</button>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>

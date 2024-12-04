@@ -12,14 +12,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.render('home')
-})
 
 var adminProductController = require('./controllers/adminProduct')
+var userHomeController = require('./controllers/userHome')
+var userProductController = require('./controllers/userProduct')
 
 app.use('/admin/manageProduct', adminProductController)
-
+app.use('/', userHomeController)
+app.use('/product', userProductController)
 
 app.listen(port, async () => {
     db.connect((err) => {
