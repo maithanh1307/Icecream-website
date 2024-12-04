@@ -141,9 +141,12 @@
                                             <td><%= adminproduct.stock %></td>
                                             <td><%= adminproduct.base_price %></td>
                                             <td>
-                                                <button class="btn btn-delete">
-                                                    <i class="fa-solid fa-trash fa-lg" style="color: #ff8e8e;"></i>
-                                                </button>|
+                                                <form action="/admin/manageProduct/deleteProduct" method="post" style="display: inline;">
+                                                    <input type="hidden" name="productId" value="<%= adminproduct.product_id %>">
+                                                    <button class="btn btn-delete">
+                                                        <i class="fa-solid fa-trash fa-lg" style="color: #ff8e8e;"></i>
+                                                    </button>
+                                                </form>|
                                                 <form action="/admin/manageProduct/edit" method="get" style="display: inline;">
                                                     <input type="hidden" name="productId" value="<%= adminproduct.product_id %>">
                                                     <button class="btn btn-edit"  data-toggle="modal" data-target="#myModalEdit">
