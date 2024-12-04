@@ -38,6 +38,21 @@
     <% 
         searchQuery = typeof searchQuery !== 'undefined' ? searchQuery : []; 
     %>
+    <% 
+        categoryId = typeof categoryId !== 'undefined' ? categoryId : []; 
+    %>
+    <% 
+        categoryProduct = typeof categoryProduct !== 'undefined' ? categoryProduct : []; 
+    %>
+    <% 
+        productFiler = typeof productFiler !== 'undefined' ? productFiler : []; 
+    %>
+    <% 
+        totalPages  = typeof totalPages  !== 'undefined' ? totalPages  : []; 
+    %>
+    <% 
+        productSort  = typeof productSort  !== 'undefined' ? productSort  : []; 
+    %>
     <!--header-->
 
     <nav class="navbar navbar-expand-sm navbar-header container-fluid" style="z-index: 1050; position: relative;">
@@ -100,25 +115,29 @@
                         <h2 class="text-center" style="font-weight: 800; color: #7c4c2c;">
                             Catalog
                         </h2>
-                        <form action="/action_page.php">
+                        <form action="/product/categoryProduct" method="get">
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="optradio">Ice cream cone
+                                    <input type="radio" class="form-check-input" name="category_id" value="1" 
+                                    <%= categoryId == 1 ? 'checked' : '' %>>Ice cream cone
                                 </label>
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="optradio">Cream with topping
+                                    <input type="radio" class="form-check-input" name="category_id" value="2" 
+                                    <%= categoryId == 2 ? 'checked' : '' %>>Cream with topping
                                 </label>
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="optradio">Cream jar
+                                    <input type="radio" class="form-check-input" name="category_id" value="3" 
+                                    <%= categoryId == 3 ? 'checked' : '' %>>Cream jar
                                 </label>
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="optradio">Ice cream
+                                    <input type="radio" class="form-check-input" name="category_id" value="4" 
+                                    <%= categoryId == 4 ? 'checked' : '' %>>Ice cream
                                 </label>
                             </div>
 
@@ -132,32 +151,33 @@
                             <i class="fa-solid fa-filter"></i>
                             Filter
                         </h2>
-                        <form action="/action_page.php">
+                        <form action="/product/filterProduct" method="get">
+                            <input type="hidden" name="category_id" value="<%= categoryId || '' %>">
                             <div class="flavor">
-                                <h5 class="ml-2">Flavors</h5>
+                                <h5 class="ml-2">Flavors Best</h5>
                                 <div class="form-check">
                                     <label class="form-check-label" for="radio1">
-                                        <input type="checkbox" class="form-check-input" value="">Strawberry
+                                        <input type="checkbox" class="form-check-input" name="flavour" value="Strawberry">Strawberry
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label" for="radio2">
-                                        <input type="checkbox" class="form-check-input" value="">Mint
+                                        <input type="checkbox" class="form-check-input" name="flavour" value="Mint">Mint
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label" for="radio1">
-                                        <input type="checkbox" class="form-check-input" value="">Chocolate
+                                        <input type="checkbox" class="form-check-input" name="flavour" value="Chocolate">Chocolate
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label" for="radio1">
-                                        <input type="checkbox" class="form-check-input" value="">Lemon
+                                        <input type="checkbox" class="form-check-input" name="flavour" value="Lemon">Lemon
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label" for="radio1">
-                                        <input type="checkbox" class="form-check-input" value="">Vani
+                                        <input type="checkbox" class="form-check-input" name="flavour" value="Vani">Vani
                                     </label>
                                 </div>
                             </div>
@@ -165,17 +185,17 @@
                                 <h5 class="ml-2">Sizes</h5>
                                 <div class="form-check">
                                     <label class="form-check-label" for="radio1">
-                                        <input type="checkbox" class="form-check-input" value="">Small
+                                        <input type="checkbox" class="form-check-input" name="size" value="Small">Small
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label" for="radio2">
-                                        <input type="checkbox" class="form-check-input" value="">Medium
+                                        <input type="checkbox" class="form-check-input" name="size" value="Medium">Medium
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <label class="form-check-label" for="radio1">
-                                        <input type="checkbox" class="form-check-input" value="">Large
+                                        <input type="checkbox" class="form-check-input" name="size" value="Large">Large
                                     </label>
                                 </div>
                             </div>
@@ -189,20 +209,21 @@
                         <h2 class="text-center" style="font-weight: 800; color: #7c4c2c;">
                             Sorting by
                         </h2>
-                        <form action="/action_page.php">
+                        <form action="/product/sortProduct" method="get">
+                            <input type="hidden" name="category_id" value="<%= categoryId || '' %>">
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="optradio">Best seller
+                                    <input type="radio" class="form-check-input" name="tag_id" value="1">Best seller
                                 </label>
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="optradio">New products
+                                    <input type="radio" class="form-check-input" name="tag_id" value="2">New products
                                 </label>
                             </div>
                             <div class="form-group form-inline">
                                 <label for="sel1">Prices:</label>
-                                <select class="form-control ml-2" id="sel1">
+                                <select class="form-control ml-2" id="sel1" name="price_order">
                                     <option>Ascending</option>
                                     <option>Descending</option>
                                 </select>
@@ -238,7 +259,7 @@
                                                 <%= product.name %>
                                             </h4>
                                             <p class="card-text">
-                                                <%= product.description %>. <a href="">View more</a>
+                                                <%= product.description %>. <a href="/product/productDetail/<%= product.product_id %>">View more</a>
                                             </p>
                                             <p class="price">
                                                 <i class="fa-solid fa-tags"></i>
@@ -258,7 +279,68 @@
                                             <img class="card-img-top imageCard" src="<%= product.image_url %>" alt="Card image" style="width:100%">
                                             <div class="card-body">
                                                 <h4 class="card-title"><%= product.name %></h4>
-                                                <p class="card-text"><%= product.description %>. <a href="">View more</a></p>
+                                                <p class="card-text"><%= product.description %>. <a href="/product/productDetail/<%= product.product_id %>">View more</a></p>
+                                                <p class="price">
+                                                    <i class="fa-solid fa-tags"></i>
+                                                    <%= product.base_price %>
+                                                </p>
+                                                <button class="btn btn-cart">Add to cart</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% }) %>
+                            <% } %>
+
+                            <!--catalog show-->
+                            <% if (categoryProduct.length > 0) { %>
+                                <% categoryProduct.forEach(product => { %>
+                                    <div class="col-lg-4 col-md-4 col-sm-12">
+                                        <div class="card" style="margin-top: 80px;">
+                                            <img class="card-img-top imageCard" src="<%= product.image_url %>" alt="Card image" style="width:100%">
+                                            <div class="card-body">
+                                                <h4 class="card-title"><%= product.name %></h4>
+                                                <p class="card-text"><%= product.description %>. <a href="/product/productDetail/<%= product.product_id %>">View more</a></p>
+                                                <p class="price">
+                                                    <i class="fa-solid fa-tags"></i>
+                                                    <%= product.base_price %>
+                                                </p>
+                                                <button class="btn btn-cart">Add to cart</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% }) %>
+                            <% } %>
+
+
+                            <!--filter show-->
+                            <% if (productFiler.length > 0) { %>
+                                <% productFiler.forEach(product => { %>
+                                    <div class="col-lg-4 col-md-4 col-sm-12">
+                                        <div class="card" style="margin-top: 80px;">
+                                            <img class="card-img-top imageCard" src="<%= product.image_url %>" alt="Card image" style="width:100%">
+                                            <div class="card-body">
+                                                <h4 class="card-title"><%= product.name %></h4>
+                                                <p class="card-text"><%= product.description %>. <a href="/product/productDetail/<%= product.product_id %>">View more</a></p>
+                                                <p class="price">
+                                                    <i class="fa-solid fa-tags"></i>
+                                                    <%= product.base_price %>
+                                                </p>
+                                                <button class="btn btn-cart">Add to cart</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% }) %>
+                            <% } %>
+
+                            <!--sort show-->
+                            <% if (productSort.length > 0) { %>
+                                <% productSort.forEach(product => { %>
+                                    <div class="col-lg-4 col-md-4 col-sm-12">
+                                        <div class="card" style="margin-top: 80px;">
+                                            <img class="card-img-top imageCard" src="<%= product.image_url %>" alt="Card image" style="width:100%">
+                                            <div class="card-body">
+                                                <h4 class="card-title"><%= product.name %></h4>
+                                                <p class="card-text"><%= product.description %>. <a href="/product/productDetail/<%= product.product_id %>">View more</a></p>
                                                 <p class="price">
                                                     <i class="fa-solid fa-tags"></i>
                                                     <%= product.base_price %>
@@ -296,7 +378,7 @@
                                             <div class="col-8">
                                                 <div class="card-body">
                                                     <h6 class="card-title"><%= product.name %></h6>
-                                                    <p class="card-text"><%= product.description %>. <a href="">View more</a></p>
+                                                    <p class="card-text"><%= product.description %>. <a href="/product/productDetail/<%= product.product_id %>">View more</a></p>
                                                     <p class="price">
                                                         <i class="fa-solid fa-tags"></i>
                                                         <%= product.base_price %>
@@ -322,7 +404,7 @@
                                                 <div class="col-8">
                                                     <div class="card-body">
                                                         <h6 class="card-title"><%= product.name %></h6>
-                                                        <p class="card-text"><%= product.description %>. <a href="">View more</a></p>
+                                                        <p class="card-text"><%= product.description %>. <a href="/product/productDetail/<%= product.product_id %>">View more</a></p>
                                                         <p class="price">
                                                             <i class="fa-solid fa-tags"></i>
                                                             <%= product.base_price %>
@@ -336,7 +418,87 @@
                                 <% }) %>
                             <% } %>
 
-                            
+                            <!--catalog show-->
+                            <% if (categoryProduct.length > 0) { %>
+                                <% categoryProduct.forEach(product => { %>
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="card card-list" style="margin-top: 80px;">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <img class="card-img-top imageCard" src="<%= product.image_url %>"
+                                                        alt="Card image" style="width:100%">
+                                                </div>
+                                                <div class="col-8">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title"><%= product.name %></h6>
+                                                        <p class="card-text"><%= product.description %>. <a href="/product/productDetail/<%= product.product_id %>">View more</a></p>
+                                                        <p class="price">
+                                                            <i class="fa-solid fa-tags"></i>
+                                                            <%= product.base_price %>
+                                                        </p>
+                                                        <button class="btn btn-cart">Add to cart</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% }) %>
+                            <% } %>
+
+                            <!--filter show-->
+                            <% if (productFiler.length > 0) { %>
+                                <% productFiler.forEach(product => { %>
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="card card-list" style="margin-top: 80px;">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <img class="card-img-top imageCard" src="<%= product.image_url %>"
+                                                        alt="Card image" style="width:100%">
+                                                </div>
+                                                <div class="col-8">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title"><%= product.name %></h6>
+                                                        <p class="card-text"><%= product.description %>. <a href="/product/productDetail/<%= product.product_id %>">View more</a></p>
+                                                        <p class="price">
+                                                            <i class="fa-solid fa-tags"></i>
+                                                            <%= product.base_price %>
+                                                        </p>
+                                                        <button class="btn btn-cart">Add to cart</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% }) %>
+                            <% } %>
+
+                            <!--sort show-->
+                            <% if (productSort.length > 0) { %>
+                                <% productSort.forEach(product => { %>
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="card card-list" style="margin-top: 80px;">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <img class="card-img-top imageCard" src="<%= product.image_url %>"
+                                                        alt="Card image" style="width:100%">
+                                                </div>
+                                                <div class="col-8">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title"><%= product.name %></h6>
+                                                        <p class="card-text"><%= product.description %>. <a href="/product/productDetail/<%= product.product_id %>">View more</a></p>
+                                                        <p class="price">
+                                                            <i class="fa-solid fa-tags"></i>
+                                                            <%= product.base_price %>
+                                                        </p>
+                                                        <button class="btn btn-cart">Add to cart</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% }) %>
+                            <% } %>
+ 
                         </div>
                         <ul class="pagination justify-content-center">
                             <% for (let i = 1; i <= totalPages; i++) { %>

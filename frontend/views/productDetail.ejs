@@ -12,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!--css-->
-    <link href="../../public/css/productDetail.css" rel="stylesheet">
+    <link href="/css/productDetail.css" rel="stylesheet">
 
     <!-- link icon -->
     <link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome"
@@ -29,11 +29,14 @@
 </head>
 
 <body>
+    <% 
+        productdetails  = typeof productdetails  !== 'undefined' ? productdetails  : []; 
+    %>
     <!--header-->
 
     <nav class="navbar navbar-expand-sm navbar-header container-fluid" style="z-index: 1050; position: relative;">
         <a class="navbar-brand" href="#" style="font-weight: 700; font-size: 50px; color: #7c4c2c;">
-            <img src="../../public/image/Logo.png" alt="logo" style="width: 90px;">
+            <img src="/image/Logo.png" alt="logo" style="width: 90px;">
             GELADO
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -63,25 +66,24 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-12 mt-5 mb-5">
-                <img class="imageDetail" src="../../public/image/kemcay.jpg">
+                <img class="imageDetail" src="<%= productdetails.image_url %>">
                 <p class="price">
                     <i class="fa-solid fa-tags"></i>
-                    75,000đ
+                    <%= productdetails.base_price %>
                 </p>
             </div>
 
             <div class="col-lg-8 col-md-8 col-sm-12 mt-5 mb-5">
                 <div class="card boxInformation">
                     <div class="card-body">
-                        <h2 class="card-title">Lemon Cream Cone</h2>
+                        <h2 class="card-title"><%= productdetails.name %></h2>
                         <p class="card-text">
-                            <b>Product Description: </b>Some example text some example text. John Doe is an architect
-                            and engineer
+                            <b>Product Description: </b><%= productdetails.description %>
                         </p>
-                        <p><b>Type: </b>Ice cream cone</p>
-                        <p><b>Stock: </b>1000</p>
-                        <p><b>Size: </b>Small</p>
-                        <p><b>Flavor: </b>Lemon</p>
+                        <p><b>Type: </b><%= productdetails.category_name %></p>
+                        <p><b>Stock: </b><%= productdetails.stock %></p>
+                        <p><b>Size: </b><%= productdetails.size %></p>
+                        <p><b>Flavor: </b><%= productdetails.color %></p>
                         <button class="btn btn-cart">Add to cart</button>
                     </div>
                 </div>
@@ -124,7 +126,7 @@
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-12">
                 <a class="navbar-brand" href="#" style="font-weight: 700; font-size: 30px; color: #7c4c2c;">
-                    <img src="../../public/image/Logo.png" alt="logo" style="width: 120px;">
+                    <img src="/image/Logo.png" alt="logo" style="width: 120px;">
                     GELADO
                 </a>
                 <div class="row">
