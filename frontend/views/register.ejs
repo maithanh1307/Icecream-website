@@ -16,7 +16,7 @@
     
     
         <!-- css -->
-        <link href="/css/login.css" rel="stylesheet">
+        <link href="/css/register.css" rel="stylesheet">
     
     
     
@@ -24,7 +24,7 @@
 <body>
     <div class="login container grid" id="loginAccess">
         <div class="text-item">
-            <a href="/home">
+            <a href="/">
                 <img src="/image/Logo.png" alt="logo" class="logo">
             </a>
             <h2>WELCOME! <br><span>
@@ -44,11 +44,7 @@
                 <form method="post" action="/register" class="login-form">
                     <div class="login-content grid">
                         <div class="login-group grid" >
-                            <!-- email -->
-                            <div class="form-group">
-                                <input type="email" id="creEmail" name="email" required placeholder=" " class="form-input">
-                                <label for="creEmail" class="label">Email</label>
-                            </div>
+                            
                             <!-- username -->
                             <div class="form-group" >
                                 <input type="text" id="username" name="username" required placeholder=" " class="form-input">
@@ -62,13 +58,18 @@
                                 <i class="ri-eye-off-fill login-icon login-password" id="loginPasswordCre"></i>
                             </div>
                         </div>
+                        <!-- email -->
+                        <div class="form-group">
+                            <input type="email" id="creEmail" name="email" required placeholder=" " class="form-input">
+                            <label for="creEmail" class="label">Email</label>
+                        </div>
                     </div>
                     <button type="submit" class="btn">Create account</button>
                 </form>
               
                 <p class="switch">
                     Already have an account?
-                    <button id="loginBtnAccess" href="/login">Log In</button>
+                    <a href="/login"><button id="loginBtnAccess">Log In</button></a>
                 </p>
             </div>
         </div>
