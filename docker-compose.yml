@@ -3,15 +3,15 @@ services:
     image: mysql:8.0
     restart: always
     environment:
-      - MYSQL_DATABASE=finalnodejs
-      - MYSQL_ROOT_PASSWORD=123456
+      MYSQL_DATABASE: finalnodejs
+      MYSQL_ROOT_PASSWORD: 123456
     ports:
       - '3307:3306'
     networks:
       - midterm-network
     volumes:
       - ./mysql-data:/var/lib/mysql
-      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./mysql:/docker-entrypoint-initdb.d/
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p123456 || exit 1"]
       interval: 5s
