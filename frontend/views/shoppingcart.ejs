@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart</title>
-    <link rel="icon" href="../../public/image/Logo.png" type="image/x-icon">
+    <link rel="icon" href="/image/Logo.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
@@ -27,16 +27,22 @@
     <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
-    <link href="../../public/css/shoppingcart.css" rel="stylesheet">
+    <link href="/css/shoppingcart.css" rel="stylesheet">
 
 </head>
 
 <body>
+    <% 
+        cartProduct = typeof cartProduct !== 'undefined' ? cartProduct : []; 
+    %>
+    <% 
+        total = typeof total !== 'undefined' ? total : []; 
+    %>
     <!--header-->
 
     <nav class="navbar navbar-expand-sm navbar-header container-fluid" style="z-index: 1050; position: relative;">
         <a class="navbar-brand" href="#" style="font-weight: 700; font-size: 50px; color: #7c4c2c;">
-            <img src="../../public/image/Logo.png" alt="logo" style="width: 90px;">
+            <img src="/image/Logo.png" alt="logo" style="width: 90px;">
             GELADO
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -167,77 +173,49 @@
                 <div class="cart-item">
                     <h2 class="section-heading">Order summary</h2>
 
-                    <!-- Ex prd 1 -->
-                    <div class="row prd-card align-items-center">
-                        <!-- Image -->
-                        <div class="col-2 img-box">
-                            <img src="../../public/image/kemcay.jpg" class="prd-img" alt="Card image">
-                        </div>
-
-                        <!-- Details -->
-                        <div class="col-8 detail">
-                            <!-- Product name -->
-                            <h4 class="prd-name">Lemon Cream Cone</h4>
-                            <div class="flex-column wrapper">
-                                <!-- Product quantity -->
-                                <div class="col-6 prd-quantity">
-                                    <button id="decrement">
-                                        <ion-icon name="remove-outline"></ion-icon>
-                                    </button>
-                                    <span id="quantity">1</span>
-                                    <button id="increment">
-                                        <ion-icon name="add-outline"></ion-icon>
-                                    </button>
+                    <% if (cartProduct.length > 0) { %>
+                        <!-- Ex prd 1 -->
+                        <% cartProduct.forEach(product => { %>
+                            <div class="row prd-card align-items-center">
+                                <!-- Image -->
+                                <div class="col-2 img-box">
+                                    <img src="<%= product.image_url %>" class="prd-img" alt="Card image">
                                 </div>
 
-                                <!-- Product price -->
-                                <div class="col-6 price">
-                                    <span id="price">75.000</span>đ
+                                <!-- Details -->
+                                <div class="col-8 detail">
+                                    <!-- Product name -->
+                                    <h4 class="prd-name"><%= product.product_name %></h4>
+                                    <div class="flex-column wrapper">
+                                        <!-- Product quantity -->
+                                        <div class="col-6 prd-quantity">
+                                            <button id="decrement">
+                                                <ion-icon name="remove-outline"></ion-icon>
+                                            </button>
+                                            <span id="quantity"><%= product.quantity %></span>
+                                            <button id="increment">
+                                                <ion-icon name="add-outline"></ion-icon>
+                                            </button>
+                                        </div>
+
+                                        <!-- Product price -->
+                                        <div class="col-6 price">
+                                            <span id="price"><%= product.base_price %></span>
+                                        </div>
+                                    </div>
                                 </div>
+
+                                <!-- Close button -->
+                                <form action="/cart/removeCart" method="post">
+                                    <button id="prd-close-btn" class="prd-close-btn" name="variant_id" value="<%= product.variant_id %>">
+                                        <ion-icon name="close-outline"></ion-icon>
+                                    </button>
+                                </form>
                             </div>
-                        </div>
+                        <% }) %>
+                    <% } %>
 
-                        <!-- Close button -->
-                        <button id="prd-close-btn" class="prd-close-btn">
-                            <ion-icon name="close-outline"></ion-icon>
-                        </button>
-                    </div>
-
-                    <!-- Ex prd 2 -->
-                    <div class="row prd-card align-items-center">
-                        <!-- Image -->
-                        <div class="col-2 img-box">
-                            <img src="../../public/image/kemcay.jpg" class="prd-img" alt="Card image">
-                        </div>
-
-                        <!-- Details -->
-                        <div class="col-8 detail">
-                            <!-- Product name -->
-                            <h4 class="prd-name">Lemon Cream Cone</h4>
-                            <div class="flex-column wrapper">
-                                <!-- Product quantity -->
-                                <div class="col-6 prd-quantity">
-                                    <button id="decrement">
-                                        <ion-icon name="remove-outline"></ion-icon>
-                                    </button>
-                                    <span id="quantity">1</span>
-                                    <button id="increment">
-                                        <ion-icon name="add-outline"></ion-icon>
-                                    </button>
-                                </div>
-
-                                <!-- Product price -->
-                                <div class="col-6 price">
-                                    <span id="price">75.000</span>đ
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Close button -->
-                        <button id="prd-close-btn" class="prd-close-btn">
-                            <ion-icon name="close-outline"></ion-icon>
-                        </button>
-                    </div>
+                    
 
 
                     <div class="wrapper">
@@ -253,7 +231,8 @@
 
                         <div class="amount">
                             <div class="subtotal">
-                                <span>Subtotal</span><span><span id="subtotal">130.000</span>đ</span>
+                                <span>Subtotal</span>
+                                <span><%= total %></span>
                             </div>
 
                             <div class="tax">
@@ -265,9 +244,8 @@
                             </div>
 
                             <div class="total">
-                                <span>Total</span><span><span id="total">137.000</span>đ</span>
-                            </div>
-
+                                <span>Total</span>
+                                <span><span id="total"><%= isNaN(total) || total === 0 ? 0 : total + 7000 + 30000 %></span>đ</span>                            </div>
                         </div>
                     </div>
                 </div>
