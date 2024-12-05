@@ -11,17 +11,18 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <!-- Google Login -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
 
     <!-- css -->
     <link href="../../public/css/login.css" rel="stylesheet">
-    
+
 
 
 </head>
+
 <body>
     <div class="login container grid" id="loginAccess">
         <!-- login -->
@@ -30,11 +31,11 @@
                 <img src="../../public/image/Logo.png" alt="logo" class="logo">
             </a>
             <h2>WELCOME! <br><span>
-                IT'S AN ICE CREAM<br>
-                FOR KIDS FROM 0<br>
-                TO 100 YEARS<br>
-                OLD.
-            </span></h2>
+                    IT'S AN ICE CREAM<br>
+                    FOR KIDS FROM 0<br>
+                    TO 100 YEARS<br>
+                    OLD.
+                </span></h2>
         </div>
 
         <div class="section">
@@ -49,7 +50,8 @@
                         </div>
                         <!-- password -->
                         <div class="form-group">
-                            <input type="password" id="password" name="password" required placeholder=" " class="form-input">
+                            <input type="password" id="password" name="password" required placeholder=" "
+                                class="form-input">
                             <label for="password" class="label">&emsp;Password</label>
 
                             <i class="ri-eye-off-fill login-icon login-password" id="loginPassword"></i>
@@ -60,20 +62,16 @@
 
                 <div class="social">
                     <p class="social-title">Or login with</p>
-        
+
                     <div class="social-links">
-                       <a href="#" class="social-link google-login" id="google-login">
-                          <img src="../../public/image/icon-google.png" alt="Google Login" class="social-img">
-                       </a>
-        
-                       <a href="#" class="social-link facebook-login" id="facebook-login">
-                          <img src="../../public/image/icon-facebook.svg" alt="Facebook Login" class="social-img">
-                       </a>
+                        <a href="/login/google" class="social-link google-login" id="google-login">
+                            <img src="../../public/image/icon-google.png" alt="Google Login" class="social-img">
+                        </a>
                     </div>
                 </div>
 
                 <p class="switch">
-                    Don't have an account? 
+                    Don't have an account?
                     <button id="loginBtnRegister">Create Account</button>
                 </p>
 
@@ -87,22 +85,18 @@
             <div class="item">
                 <form method="post" action="/register" class="login-form">
                     <div class="login-content grid">
-                        <div class="login-group grid">
-                            <!-- first name -->
-                            <div class="form-group">
-                                <input type="text" id="firstname" required placeholder=" " class="form-input">
-                                <label for="firstname" class="label">First name</label>
-                            </div>
-                            <!-- last name -->
-                            <div class="form-group">
-                                <input type="text" id="lastname" required placeholder=" " class="form-input">
-                                <label for="lastname" class="label">Last name</label>
-                            </div>
+                        <div class="login-group grid" >
                             <!-- email -->
                             <div class="form-group">
                                 <input type="email" id="creEmail" required placeholder=" " class="form-input">
                                 <label for="creEmail" class="label">Email</label>
                             </div>
+                            <!-- username -->
+                            <div class="form-group" >
+                                <input type="text" id="username" required placeholder=" " class="form-input">
+                                <label for="username" class="label">User name</label>
+                            </div>
+                            
                             <!-- password -->
                             <div class="form-group">
                                 <input type="password" id="crePassword" required placeholder=" " class="form-input">
@@ -114,65 +108,63 @@
                     <button type="submit" class="btn">Create account</button>
                 </form>
                 <p class="switch">
-                    Already have an account? 
+                    Already have an account?
                     <button id="loginBtnAccess">Log In</button>
-                 </p>
+                </p>
             </div>
         </div>
     </div>
 
 
-    <!-- <script src="../../public/css/login.js">
-// SHOW HIDE PASSWORD LOGIN 
-const passwordAccess = (loginPass, loginEye) => {
-   const input = document.getElementById(loginPass),
-      iconEye = document.getElementById(loginEye)
+    <script>
+        // show hide pass login
+        const passwordAccess = (loginPass, loginEye) => {
+            const input = document.getElementById(loginPass),
+                iconEye = document.getElementById(loginEye)
 
-   iconEye.addEventListener('click', () => {
-      // Change password to text
-      input.type === 'password' ? input.type = 'text'
-         : input.type = 'password'
+            iconEye.addEventListener('click', () => {
+                // change password to text
+                input.type === 'password' ? input.type = 'text'
+                    : input.type = 'password'
 
-      // Icon change
-      iconEye.classList.toggle('ri-eye-fill')
-      iconEye.classList.toggle('ri-eye-off-fill')
-   })
-}
-passwordAccess('password', 'loginPassword')
+                // change icon
+                iconEye.classList.toggle('ri-eye-fill')
+                iconEye.classList.toggle('ri-eye-off-fill')
+            })
+        }
+        passwordAccess('password', 'loginPassword')
 
-// SHOW HIDE PASSWORD CREATE ACCOUNT
-const passwordRegister = (loginPass, loginEye) => {
-   const input = document.getElementById(loginPass),
-      iconEye = document.getElementById(loginEye)
+        // show hide pass register
+        const passwordRegister = (loginPass, loginEye) => {
+            const input = document.getElementById(loginPass),
+                iconEye = document.getElementById(loginEye)
 
-   iconEye.addEventListener('click', () => {
-      // Change password to text
-      input.type === 'password' ? input.type = 'text'
-         : input.type = 'password'
+            iconEye.addEventListener('click', () => {
+                // change password to text
+                input.type === 'password' ? input.type = 'text'
+                    : input.type = 'password'
 
-      // Icon change
-      iconEye.classList.toggle('ri-eye-fill')
-      iconEye.classList.toggle('ri-eye-off-fill')
-   })
-}
-passwordRegister('crePassword', 'loginPasswordCre')
+                // change icon
+                iconEye.classList.toggle('ri-eye-fill')
+                iconEye.classList.toggle('ri-eye-off-fill')
+            })
+        }
+        passwordRegister('crePassword', 'loginPasswordCre')
 
-// SHOW HIDE LOGIN & CREATE ACCOUNT
-const loginAcessRegister = document.getElementById('loginAccess'),
-   buttonRegister = document.getElementById('loginBtnRegister'),
-   buttonAccess = document.getElementById('loginBtnAccess')
+        // show hide login & register
+        const loginAcessRegister = document.getElementById('loginAccess'),
+            buttonRegister = document.getElementById('loginBtnRegister'),
+            buttonAccess = document.getElementById('loginBtnAccess')
 
-buttonRegister.addEventListener('click', () => {
-   loginAcessRegister.classList.add('active')
-})
+        buttonRegister.addEventListener('click', () => {
+            loginAcessRegister.classList.add('active')
+        })
 
-buttonAccess.addEventListener('click', () => {
-   loginAcessRegister.classList.remove('active')
-})
-    </script> -->
-    
-    <!-- Facebook Login -->
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+        buttonAccess.addEventListener('click', () => {
+            loginAcessRegister.classList.remove('active')
+        })
+    </script>
 
 </body>
+
 </html>

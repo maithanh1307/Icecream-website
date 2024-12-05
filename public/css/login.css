@@ -305,12 +305,14 @@ a {
 
 /* show hide login & create account */
 .active .section {
-    transform: translateX(15rem);
+    display: none;
+    transform: none;
     opacity: 0;
     pointer-events: none;
 }
   
 .active .register {
+    display: block;
     transform: translateX(0);
     opacity: 1;
     pointer-events: initial;
@@ -332,6 +334,7 @@ a {
         width: 100%;
         margin-inline: 0;
     }
+
 }
   
 /* medium devices */
@@ -348,12 +351,20 @@ a {
 }
   
 @media screen and (min-width: 350px) and (max-height: 600px) {
+    .text-item .logo{
+        display: none;
+    }
     .login {
       height: 760px;
     }
     .container {
         width: 100%;
         margin-inline: 0;
+    }
+    .register {
+        width: 90%; 
+        align-items: center;
+        margin: 0 auto;
     }
 }
   
@@ -362,7 +373,7 @@ a {
         display: none;
     }
 
-    .container {
+    .container , .register  {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -374,7 +385,7 @@ a {
         margin-inline: 0;
     }
 
-    .container .section{
+    .container .section, .container .register {
         position: static;
         width: 100%;
         margin-top: -10px; 
@@ -385,12 +396,12 @@ a {
         opacity: 1;
         pointer-events: initial;
     }
-
+    
     .logo {
         padding:0;
         width: 80px;
 
-        display: block;
+        display: none;
         margin: 0 auto; 
     }
     .section {
