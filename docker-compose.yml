@@ -11,7 +11,7 @@ services:
     networks:
       - midterm-network
     volumes:
-      - ./mysql-data:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
       - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping"]
@@ -38,7 +38,7 @@ services:
     working_dir: /usr/src/app
     networks:
       - midterm-network
-    restart: unless-stopped
+    restart: always
 
   backend2:
     build: 
@@ -59,7 +59,7 @@ services:
     working_dir: /usr/src/app
     networks:
       - midterm-network
-    restart: unless-stopped
+    restart: always
 
   nginx:
     build: 
