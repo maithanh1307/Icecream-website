@@ -6,3 +6,4 @@ npm i ejs
 npm i mysql2
 npm i bcrypt
 npm i multer
+npm i express-session
