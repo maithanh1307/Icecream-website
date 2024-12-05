@@ -1,17 +1,14 @@
-const express = require('express')
-var router = express.Router()
-
+const express = require('express');
+const db = require('../models/index.js'); 
 const bcrypt = require('bcrypt')
-const db = require('../models/index.js')
-const passport = require('passport'); 
-const googleLogin = require('./googleLogin'); 
+var router = express.Router();
 
 // Login  
-router.get('/login', (req, res) => {
+router.get('/', (req, res) => {
     res.render('login');
 });
 
-router.post('/login', async (req, res) => {
+router.post('/', async (req, res) => {
     const { email, password } = req.body;
 
     try {
@@ -29,9 +26,9 @@ router.post('/login', async (req, res) => {
         }
 
         if (email === 'admin123@gmail.com') {
-            res.redirect('/admin')
+            res.redirect('/admin/manageProduct') //de tam
         }
-        res.redirect(`/user?userId=${rows[0].id}`);
+        res.redirect(`/`);
     }
     catch (err) {
         console.error(err);
@@ -39,34 +36,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
-router.use('/login', googleLogin);
+// router.use('/login', googleLogin);
 
-// Register 
-router.post('/register', async (req, res) => {
-    const { firstname, lastname, email, password } = req.body;
-
-    try {
-        // Check email exists
-        const [rows] = await db.promise().query('SELECT * FROM users WHERE email = ?', [email]);
-
-        if (rows.length > 0) {
-            return res.status(409).render('login', { error: 'Email is already registered!' });
-        }
-
-        // hash password
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        await db.promise().query(
-            'INSERT INTO users (username, email, password) VALUES (?, ?, ?, ?)',
-            [firstname, lastname, email, hashedPassword]
-        );
-
-        res.redirect('/');
-    }
-    catch (err) {
-        console.error(err);
-        return res.render('login', { error: 'An error occurred. Please try again!' });
-    }
-});
 
 module.exports = router

@@ -16,10 +16,14 @@ app.use(express.json());
 var adminProductController = require('./controllers/adminProduct')
 var userHomeController = require('./controllers/userHome')
 var userProductController = require('./controllers/userProduct')
+var loginController = require('./controllers/login')
+var registerController = require('./controllers/register')
 
 app.use('/admin/manageProduct', adminProductController)
 app.use('/', userHomeController)
 app.use('/product', userProductController)
+app.use('/login', loginController)
+app.use('/register', registerController)
 
 app.listen(port, async () => {
     db.connect((err) => {

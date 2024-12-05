@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="icon" href="../../public/image/Logo.png" type="image/x-icon">
+    <link rel="icon" href="/image/Logo.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
@@ -17,7 +17,7 @@
 
 
     <!-- css -->
-    <link href="../../public/css/login.css" rel="stylesheet">
+    <link href="/css/login.css" rel="stylesheet">
 
 
 
@@ -28,7 +28,7 @@
         <!-- login -->
         <div class="text-item">
             <a href="/home">
-                <img src="../../public/image/Logo.png" alt="logo" class="logo">
+                <img src="/image/Logo.png" alt="logo" class="logo">
             </a>
             <h2>WELCOME! <br><span>
                     IT'S AN ICE CREAM<br>
@@ -41,6 +41,7 @@
         <div class="section">
             <h1 class="title">Login</h1>
             <div class="item">
+                
                 <form method="post" action="/login" class="login-form">
                     <div class="login-content grid">
                         <!-- email -->
@@ -59,60 +60,27 @@
                     </div>
                     <button type="submit" class="btn">Login</button>
                 </form>
+             
 
                 <div class="social">
                     <p class="social-title">Or login with</p>
 
                     <div class="social-links">
                         <a href="/login/google" class="social-link google-login" id="google-login">
-                            <img src="../../public/image/icon-google.png" alt="Google Login" class="social-img">
+                            <img src="/image/icon-google.png" alt="Google Login" class="social-img">
                         </a>
                     </div>
                 </div>
 
                 <p class="switch">
                     Don't have an account?
-                    <button id="loginBtnRegister">Create Account</button>
+                    <button id="loginBtnRegister" href="/register">Create Account</button>
                 </p>
 
             </div>
         </div>
 
-        <!-- register -->
-        <div class="register">
-            <h1 class="title">Sign Up</h1>
-
-            <div class="item">
-                <form method="post" action="/register" class="login-form">
-                    <div class="login-content grid">
-                        <div class="login-group grid" >
-                            <!-- email -->
-                            <div class="form-group">
-                                <input type="email" id="creEmail" required placeholder=" " class="form-input">
-                                <label for="creEmail" class="label">Email</label>
-                            </div>
-                            <!-- username -->
-                            <div class="form-group" >
-                                <input type="text" id="username" required placeholder=" " class="form-input">
-                                <label for="username" class="label">User name</label>
-                            </div>
-                            
-                            <!-- password -->
-                            <div class="form-group">
-                                <input type="password" id="crePassword" required placeholder=" " class="form-input">
-                                <label for="crePassword" class="label">Password</label>
-                                <i class="ri-eye-off-fill login-icon login-password" id="loginPasswordCre"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn">Create account</button>
-                </form>
-                <p class="switch">
-                    Already have an account?
-                    <button id="loginBtnAccess">Log In</button>
-                </p>
-            </div>
-        </div>
+        
     </div>
 
 
@@ -134,35 +102,35 @@
         }
         passwordAccess('password', 'loginPassword')
 
-        // show hide pass register
-        const passwordRegister = (loginPass, loginEye) => {
-            const input = document.getElementById(loginPass),
-                iconEye = document.getElementById(loginEye)
+        // // show hide pass register
+        // const passwordRegister = (loginPass, loginEye) => {
+        //     const input = document.getElementById(loginPass),
+        //         iconEye = document.getElementById(loginEye)
 
-            iconEye.addEventListener('click', () => {
-                // change password to text
-                input.type === 'password' ? input.type = 'text'
-                    : input.type = 'password'
+        //     iconEye.addEventListener('click', () => {
+        //         // change password to text
+        //         input.type === 'password' ? input.type = 'text'
+        //             : input.type = 'password'
 
-                // change icon
-                iconEye.classList.toggle('ri-eye-fill')
-                iconEye.classList.toggle('ri-eye-off-fill')
-            })
-        }
-        passwordRegister('crePassword', 'loginPasswordCre')
+        //         // change icon
+        //         iconEye.classList.toggle('ri-eye-fill')
+        //         iconEye.classList.toggle('ri-eye-off-fill')
+        //     })
+        // }
+        // passwordRegister('crePassword', 'loginPasswordCre')
 
-        // show hide login & register
-        const loginAcessRegister = document.getElementById('loginAccess'),
-            buttonRegister = document.getElementById('loginBtnRegister'),
-            buttonAccess = document.getElementById('loginBtnAccess')
+        // // show hide login & register
+        // const loginAcessRegister = document.getElementById('loginAccess'),
+        //     buttonRegister = document.getElementById('loginBtnRegister'),
+        //     buttonAccess = document.getElementById('loginBtnAccess')
 
-        buttonRegister.addEventListener('click', () => {
-            loginAcessRegister.classList.add('active')
-        })
+        // buttonRegister.addEventListener('click', () => {
+        //     loginAcessRegister.classList.add('active')
+        // })
 
-        buttonAccess.addEventListener('click', () => {
-            loginAcessRegister.classList.remove('active')
-        })
+        // buttonAccess.addEventListener('click', () => {
+        //     loginAcessRegister.classList.remove('active')
+        // })
     </script>
 
 </body>
