@@ -12,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!--css-->
-    <link href="../../public/css/adminProduct.css" rel="stylesheet">
+    <link href="/css/adminProduct.css" rel="stylesheet">
 
     <!-- link icon -->
     <link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome"
@@ -35,7 +35,7 @@
                 <div class="headerLogo">
                     <div class="imageLogo mb-5">
                         <a class="navbar-brand" href="#">
-                            <img src="../../public/image/Logo.png" alt="logo" style="width: 80px;">
+                            <img src="/image/Logo.png" alt="logo" style="width: 80px;">
                         </a>
                         <p style="font-size: large;" class="dash-title"><b>Admin Dashboard</b></p>
                     </div>
@@ -87,15 +87,18 @@
             <div class="col-10">
                 <div class="cardBox">
                     <div class="card mt-5">
-                        <h2>Manage Users</h2>
+                        <h2>Manage Coupons</h2>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Firstname</th>
-                                        <th>Lastname</th>
-                                        <th>Email</th>
-                                        <th>Control</th>
+                                        <th>Coupon ID</th>
+                                        <th>Code</th>
+                                        <th>Discount_Value</th>
+                                        <th>Discount Type</th>
+                                        <th>Min Order Value</th>
+                                        <th>Expiration Date</th>
+                                        <th>Create At</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -103,50 +106,64 @@
                                         <td>John</td>
                                         <td>Doe</td>
                                         <td>john@example.com</td>
-                                        <td>
-                                            <button class="btn btn-edit"  data-toggle="modal" data-target="#myModalEdit">
-                                                <i class="fa-solid fa-pen-to-square fa-lg" style="color: #ffd260;"></i>
-                                            </button>
-                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Mary</td>
                                         <td>Moe</td>
                                         <td>mary@example.com</td>
-                                        <td>
-                                            <button class="btn btn-edit"  data-toggle="modal" data-target="#myModalEdit">
-                                                <i class="fa-solid fa-pen-to-square fa-lg" style="color: #ffd260;"></i>
-                                            </button>
-                                        </td>
                                     </tr>
-
+                                    
                                 </tbody>
                             </table>
                         </div>
 
-                        <!--edit product form-->
-                        <div class="modal fade" id="myModalEdit">
+                        <div class="addProduct">
+                            <button class="btn btnAdd" data-toggle="modal" data-target="#myModal">Add Coupon</button>
+                        </div>
+
+                        <!-- The Modal -->
+                        <div class="modal fade" id="myModal">
                             <div class="modal-dialog">
                                 <div class="modal-content">
 
+                                    <!-- Modal Header -->
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Edit User</h4>
+                                        <h4 class="modal-title">Add New Coupon</h4>
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
 
+                                    <!-- Modal body -->
                                     <div class="modal-body">
-                                        <form action="/action_page.php">
+                                        <form action="/admin/addCoupon">
                                             <div class="form-group">
-                                                <label for="email">Email address:</label>
-                                                <input type="email" class="form-control" placeholder="Enter email"
+                                                <label for="email">Code:</label>
+                                                <input type="email" class="form-control" placeholder="Enter code"
                                                     id="email">
                                             </div>
                                             <div class="form-group">
-                                                <label for="pwd">Password:</label>
+                                                <label for="pwd">Discount value:</label>
+                                                <input type="password" class="form-control" placeholder="Enter discount value"
+                                                    id="pwd">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="email">Discount Type:</label>
+                                                <select id="category_id" name="category_id" class="form-control" required>
+                                                    <option value="1">Percentage</option>
+                                                    <option value="2">Fixed</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="pwd">Expiration Date:</label>
                                                 <input type="password" class="form-control" placeholder="Enter password"
                                                     id="pwd">
                                             </div>
-                                            <button type="submit" class="btn btnAdd">Update</button>
+                                            <div class="form-group">
+                                                <label for="email">Usage Limit</label>
+                                                <input type="email" class="form-control" placeholder="Enter email"
+                                                    id="email">
+                                            </div>
+                                            
+                                            <button type="submit" class="btn btnAdd">Submit</button>
                                         </form>
                                     </div>
                                 </div>
