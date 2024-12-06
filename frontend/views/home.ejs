@@ -60,9 +60,16 @@
                     <a class="nav-link" href="/cart">Cart</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fa-sharp fa-solid fa-circle-user fa-2xl"></i>
-                    </a>
+                    <div class="dropdown dropleft" style="float: left;">
+                        <button type="button" class="btn-account dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa-sharp fa-solid fa-circle-user fa-2xl"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="/account">Account</a>
+                          <a class="dropdown-item" href="#">Order History</a>
+                          <a class="dropdown-item" href="#">Order Tracking</a>
+                        </div>
+                    </div>                    
                 </li>
             </ul>
         </div>
