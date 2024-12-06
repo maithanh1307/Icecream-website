@@ -31,6 +31,7 @@ var userProductController = require('./controllers/userProduct')
 var loginController = require('./controllers/login')
 var registerController = require('./controllers/register')
 var cartController = require('./controllers/cart')
+var checkoutController = require('./controllers/checkout')
 
 app.use('/admin/manageProduct', adminProductController)
 app.use('/', userHomeController)
@@ -38,6 +39,8 @@ app.use('/product', userProductController)
 app.use('/login', loginController)
 app.use('/register', registerController)
 app.use('/cart', cartController)
+app.use('/checkout', checkoutController)
+
 
 app.listen(port, async () => {
     db.connect((err) => {
