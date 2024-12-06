@@ -60,6 +60,9 @@
                     </div>
                     <button type="submit" class="btn">Login</button>
                 </form>
+                <% if (typeof error !== 'undefined') { %>
+                    <p style="color: red;"><%= error %></p>
+                <% } %>
              
 
                 <div class="social">

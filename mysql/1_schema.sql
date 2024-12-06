@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
   `role` enum('customer','admin') DEFAULT 'customer',
+  `status` ENUM('active', 'banned') DEFAULT 'active',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`),

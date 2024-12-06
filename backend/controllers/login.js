@@ -15,28 +15,32 @@ router.post('/', async (req, res) => {
         const [rows] = await db.promise().query('SELECT * FROM users WHERE email = ?', [email]);
 
         if (rows.length === 0) {
-            return res.status(401).send('Invalid credentials');
+            return res.render('login', { error: 'Invalid credentials' }); 
         }
 
-        const hashedPassword = rows[0].password;
-        const isMatched = await bcrypt.compare(password, hashedPassword);
+        const user = rows[0];
+
+        if (user.status === 'banned') {
+            return res.render('login', { error: 'Your account has been banned.' }); 
+        }
+
+        const isMatched = await bcrypt.compare(password, user.password);
 
         if (!isMatched) {
-            return res.status(401).send('Invalid credentials');
+            return res.render('login', { error: 'Invalid credentials' }); 
         }
 
-        if (email === 'admin123@gmail.com') {
-            res.redirect('/admin/manageProduct') //de tam
+        if (user.role === 'admin') {
+            return res.redirect('/admin/manageProduct'); 
         }
-        res.redirect(`/`);
+
+        return res.redirect('/'); 
     }
     catch (err) {
         console.error(err);
         return res.render('login', { error: 'An error occurred. Please try again!' });
     }
 });
-
-// router.use('/login', googleLogin);
 
 
 module.exports = router

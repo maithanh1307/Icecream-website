@@ -28,6 +28,12 @@
 </head>
 
 <body>
+    <% 
+        users = typeof users !== 'undefined' ? users : []; 
+    %>
+    <% 
+        usersEdit = typeof usersEdit !== 'undefined' ? usersEdit : []; 
+    %>
     <div class="container-fluid">
         <div class="row">
             <!--side bar-->
@@ -92,33 +98,32 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Firstname</th>
-                                        <th>Lastname</th>
+                                        <th>User ID</th>
+                                        <th>Username</th>
                                         <th>Email</th>
+                                        <th>Status</th>
+                                        <th>Role</th>
                                         <th>Control</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>John</td>
-                                        <td>Doe</td>
-                                        <td>john@example.com</td>
-                                        <td>
-                                            <button class="btn btn-edit"  data-toggle="modal" data-target="#myModalEdit">
-                                                <i class="fa-solid fa-pen-to-square fa-lg" style="color: #ffd260;"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mary</td>
-                                        <td>Moe</td>
-                                        <td>mary@example.com</td>
-                                        <td>
-                                            <button class="btn btn-edit"  data-toggle="modal" data-target="#myModalEdit">
-                                                <i class="fa-solid fa-pen-to-square fa-lg" style="color: #ffd260;"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    <% users.forEach(user => { %>
+                                        <tr>
+                                            <td><%= user.user_id %></td>
+                                            <td><%= user.username %></td>
+                                            <td><%= user.email %></td>
+                                            <td class="status mt-2"><%= user.status %></td>
+                                            <td><%= user.role %></td>
+                                            <td>
+                                                <form action="/admin/manageUser/edit" method="get" style="display: inline;">
+                                                    <input type="hidden" id="user_id" name="user_id" value="<%= user.user_id %>">
+                                                    <button class="btn btn-edit"  data-toggle="modal" data-target="#myModalEdit">
+                                                        <i class="fa-solid fa-pen-to-square fa-lg" style="color: #ffd260;"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <% }) %>
 
                                 </tbody>
                             </table>
@@ -135,19 +140,38 @@
                                     </div>
 
                                     <div class="modal-body">
-                                        <form action="/action_page.php">
-                                            <div class="form-group">
-                                                <label for="email">Email address:</label>
-                                                <input type="email" class="form-control" placeholder="Enter email"
-                                                    id="email">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="pwd">Password:</label>
-                                                <input type="password" class="form-control" placeholder="Enter password"
-                                                    id="pwd">
-                                            </div>
-                                            <button type="submit" class="btn btnAdd">Update</button>
-                                        </form>
+                                        <% if (usersEdit) { %>
+                                            <form action="/admin/manageUser/editUser" method="post">
+                                                <input type="hidden" name="user_id" value="<%= usersEdit.user_id || '' %>">                                                
+                                                <div class="form-group">
+                                                    <label for="username">Username:</label>
+                                                    <input type="username" class="form-control" placeholder="Enter username"
+                                                        id="username" value="<%= usersEdit.username %>" readonly>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="email">Email address:</label>
+                                                    <input type="email" class="form-control" placeholder="Enter email"
+                                                        id="email" value="<%= usersEdit.email %>" readonly>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="status">Status:</label>
+                                                    <select id="status" name="status" class="form-control" required>
+                                                        <option value="active" <%= usersEdit.status && usersEdit.status === 'active' ? 'selected' : '' %>>Active</option>
+                                                        <option value="banned" <%= usersEdit.status && usersEdit.status === 'banned' ? 'selected' : '' %>>Banned</option>
+                                                    </select>
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label for="role">Role:</label>
+                                                    <select id="role" name="role" class="form-control" required>
+                                                        <option value="customer" <%= usersEdit.role && usersEdit.role === 'customer' ? 'selected' : '' %>>Customer</option>
+                                                        <option value="admin" <%= usersEdit.role && usersEdit.role === 'admin' ? 'selected' : '' %>>Admin</option>
+                                                    </select>
+                                                </div>
+                                                
+                                                <button type="submit" class="btn btnAdd">Update</button>
+                                            </form>
+                                        <% } %>
                                     </div>
                                 </div>
                             </div>
@@ -157,6 +181,40 @@
             </div>
         </div>
     </div>
+    <!--script for user status-->
+    <script>
+        const statusCells = document.querySelectorAll('.status');
+    
+        statusCells.forEach(cell => {
+            if (cell.textContent.trim() === 'active') {
+                cell.style.backgroundColor = '#00ffa2';
+                cell.style.fontWeight = '500';
+                cell.style.borderRadius = '30px';
+                cell.style.padding = '3px 10px';
+                cell.style.display = 'inline-block';
+            } 
+            else if (cell.textContent.trim() === 'banned') {
+                cell.style.backgroundColor = '#ff7171';
+                cell.style.fontWeight = '500';
+                cell.style.borderRadius = '30px';
+                cell.style.padding = '3px 10px';
+                cell.style.display = 'inline-block';
+            }
+        });
+    </script>
+
+    <!--script for modal edit-->
+    <% if (usersEdit) { %>
+        <script>
+            $(document).ready(function() {
+                // Kiểm tra nếu có productId trong URL
+                var urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('user_id')) {
+                    $('#myModalEdit').modal('show');
+                }
+            });
+        </script>
+    <% } %>
 
 </body>
 
