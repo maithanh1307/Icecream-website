@@ -92,14 +92,18 @@ router.post('/addCart', async (req, res) => {
 
 
 router.get('/', async (req, res) => {
-    const sessionId = req.cookies.sessionId; // session tu cookie
+    const sessionId = req.cookies.sessionId; // session từ cookie
     console.log('Session ID in cart:', sessionId);
 
     try {
         let cartProduct = [];
-        let total = 0;  // tinh tong tien
+        let subtotal = 0; // tổng tiền hàng (trước thuế, phí)
+        let tax = 0; // thuế
+        const shippingFee = 30000; // phí vận chuyển cố định
+        let discount = 0; // giảm giá (nếu áp dụng)
+        let total = 0; // tổng tiền sau thuế, phí và giảm giá
 
-        // neu nguoi dung da login
+        // Nếu người dùng đã đăng nhập
         if (req.session.userId) {
             const userId = req.session.userId;
             const [cartRows] = await db.promise().query(
@@ -115,7 +119,7 @@ router.get('/', async (req, res) => {
 
             cartProduct = cartRows;
         } else {
-            // neu nguoi dung chua login
+            // Nếu người dùng chưa đăng nhập
             const cart = JSON.parse(req.cookies.cart || '[]');
             console.log('Giỏ hàng trong cookie:', cart); 
 
@@ -139,27 +143,61 @@ router.get('/', async (req, res) => {
                     };
                 });
             }
-
-            // Tính tổng giỏ hàng từ cookie
-            cartProduct.forEach(product => {
-                total += product.quantity * product.base_price; //so luong . gia
-            });
         }
 
-        console.log('Tổng giỏ hàng:', total);
+        // Tính tổng giá tiền hàng (subtotal)
+        cartProduct.forEach(product => {
+            subtotal += product.quantity * product.base_price;
+        });
 
+        // Tính thuế
+        tax = subtotal * 0.08;
+
+        // Áp dụng giảm giá nếu có mã giảm giá
+        const couponCode = req.query.coupon || null; // lấy mã giảm giá từ query (nếu có)
+        if (couponCode) {
+            const [couponRows] = await db.promise().query(
+                `SELECT * FROM coupons WHERE code = ? AND expiration_date >= CURDATE() AND (usage_limit IS NULL OR times_used < usage_limit)`,
+                [couponCode]
+            );
+
+            if (couponRows.length > 0) {
+                const coupon = couponRows[0];
+                if (coupon.discount_type === 'percentage') {
+                    discount = subtotal * (coupon.discount_value / 100);
+                } else if (coupon.discount_type === 'fixed') {
+                    discount = coupon.discount_value;
+                }
+
+                // Đảm bảo giảm giá không vượt quá giá trị đơn hàng
+                discount = Math.min(discount, subtotal);
+                console.log(`Áp dụng mã giảm giá: ${couponCode}, giảm: ${discount}`);
+            } else {
+                console.log('Mã giảm giá không hợp lệ hoặc đã hết hạn.');
+            }
+        }
+
+        // Tính tổng tiền (subtotal + thuế + phí vận chuyển - giảm giá)
+        total = subtotal + tax + shippingFee - discount;
+
+        // Format dữ liệu trước khi gửi về giao diện
         cartProduct.forEach(product => {
             product.base_price = new Intl.NumberFormat('en-US').format(parseFloat(product.base_price)) + 'đ';  
         });
 
+        subtotal = new Intl.NumberFormat('en-US').format(subtotal) + 'đ';
+        tax = new Intl.NumberFormat('en-US').format(tax) + 'đ';
+        discount = new Intl.NumberFormat('en-US').format(discount) + 'đ';
         total = new Intl.NumberFormat('en-US').format(total) + 'đ';
+        res.cookie('total', total, { httpOnly: true, maxAge: 3600000 }); 
 
-        res.render('shoppingcart', { cartProduct, total });
+        res.render('shoppingcart', { cartProduct, subtotal, tax, shippingFee: shippingFee + 'đ', discount, total });
     } catch (err) {
         console.error(err);
         res.status(500).send('An error occurred while fetching the cart.');
     }
 });
+
 
 
 
@@ -221,12 +259,12 @@ router.post('/removeCart', (req, res) => {
     }
 });
 
-router.get('/checkout', (req, res) => {
-    const user = req.user; // lay thong tin user neu da login
-    res.render('shoppingcart', {
-        user: user ? { username: user.username, email: user.email } : null,
-    });
-});
+// router.get('/checkout', (req, res) => {
+//     const user = req.user; // lay thong tin user neu da login
+//     res.render('checkout', {
+//         user: user ? { username: user.username, email: user.email } : null,
+//     });
+// });
 
 
 router.post('/checkout', async (req, res) => {

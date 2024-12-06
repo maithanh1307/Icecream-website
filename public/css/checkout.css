@@ -153,34 +153,6 @@ input::-webkit-outer-spin-button {
     flex-direction: column;
 }
 
-.item {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: row-reverse;
-    /* Swap the order of children */
-}
-
-/* checkout (Shipping Details) */
-.checkout {
-    width: 40%;
-    /* Reduce width for the right side */
-    padding: 40px var(--px);
-    background-color: var(--box-color);
-    margin-bottom: auto;
-    overflow: hidden;
-    border-radius: 1rem;
-}
-
-/* cart */
-.cart {
-    width: 70%;
-    /* Increase width for the left side */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-}
-
-
 .heading {
     font-size: var(--heading-fs);
     font-weight: var(--fw-medium);
@@ -196,7 +168,17 @@ input::-webkit-outer-spin-button {
     font-size: 40px;
 }
 
+.item {
+    display: flex;
+    flex-grow: 1;
+}
 
+/* checkout */
+.checkout {
+    width: 70%;
+    padding: 40px var(--px);
+    background: var(--white);
+}
 
 .section-heading {
     color: var(--title-color);
@@ -249,6 +231,14 @@ input::-webkit-outer-spin-button {
     margin-bottom: 5px;
     font-size: var(--label-fs);
     color: var(--label-color);
+}
+
+.form-input {
+    background-color: var(--box-color);
+    border-radius: var(--radius);
+    color: var(--input-color);
+    font-size: 14px !important;
+    padding: 13px 17px !important;
 }
 
 .form-group-row {
@@ -333,12 +323,17 @@ input::-webkit-outer-spin-button {
 }
 
 /* cart */
-
+.cart {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
 
 .cart-item {
     padding: 40px var(--px);
     margin-bottom: auto;
-    /* background-color: var(--box-color); */
+    background-color: var(--box-color);
     overflow: hidden;
     border-radius: 1rem;
 }
@@ -358,10 +353,8 @@ input::-webkit-outer-spin-button {
     position: relative;
     display: flex;
     align-items: center;
-    gap: 0px;
+    gap: 20px;
     border: none !important;
-    padding-left: 50px;
-    width: 135%;
 }
 
 .prd-img {
@@ -370,7 +363,7 @@ input::-webkit-outer-spin-button {
 
 .detail .prd-name {
     font-weight: var(--fw-medium);
-    font-size: var(--fs-18);
+    font-size: var(--product-fs);
     color: var(--prd-color);
     margin-bottom: 10px;
 }
@@ -381,20 +374,10 @@ input::-webkit-outer-spin-button {
     align-items: center;
 }
 
-/* Wrapper for quantity and price */
-.wrapper {
+.prd-quantity {
     display: flex;
-    /* Arrange items in a row */
-    justify-content: space-between;
-    /* Push items to opposite ends */
     align-items: center;
-    /* Vertically center the content */
-}
-
-/* Optional: Adjust spacing or styles for individual elements */
-.prd-quantity h6 {
-    margin: 0;
-    font-size: var(--fs-16);
+    gap: 10px;
 }
 
 .prd-quantity button {
@@ -407,9 +390,7 @@ input::-webkit-outer-spin-button {
 }
 
 .price {
-    text-align: right;
-    flex: 1;
-    margin-right: 17rem;
+    padding-top: 9;
 }
 
 .prd-quantity button:active,
@@ -439,61 +420,15 @@ input::-webkit-outer-spin-button {
     color: var(--warning-color);
 }
 
-
-
-.wrapper-flex {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-}
-
-.wrapper-flex input {
-    padding: 12px 15px;
-    font-weight: var(--fw-medium);
-    letter-spacing: 2px;
-}
-
-.btn-outline {
-    padding: 10px 25px;
-    border: 1px solid var(--first-color);
-    color: var(--first-color);
-}
-
-.btn-outline:hover {
-    background: var(--first-color);
-    color: var(--white);
-}
-
-
-.amount>div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-.amount>div:not(:last-child) {
-    margin-bottom: 10px;
-}
-
-.checkout-btn {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-
 .discount {
     padding: 40px var(--px);
-    padding-top: 0;
+    border-top: 1px solid var(--ord-border-color);
     border-bottom: 1px solid var(--ord-border-color);
 
 }
 
 .discount .form-input {
     background-color: var(--white);
-    border-radius: var(--radius);
 }
 
 .wrapper-flex {
@@ -521,7 +456,6 @@ input::-webkit-outer-spin-button {
 
 .amount {
     padding: 40px var(--px);
-    width: 100%;
 }
 
 .amount>div {
