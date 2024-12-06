@@ -28,6 +28,9 @@
 </head>
 
 <body>
+    <% 
+        coupon = typeof coupon !== 'undefined' ? coupon : []; 
+    %>
     <div class="container-fluid">
         <div class="row">
             <!--side bar-->
@@ -96,22 +99,29 @@
                                         <th>Code</th>
                                         <th>Discount_Value</th>
                                         <th>Discount Type</th>
-                                        <th>Min Order Value</th>
-                                        <th>Expiration Date</th>
                                         <th>Create At</th>
+                                        <th>Expiration Date</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>John</td>
-                                        <td>Doe</td>
-                                        <td>john@example.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mary</td>
-                                        <td>Moe</td>
-                                        <td>mary@example.com</td>
-                                    </tr>
+                                    <% coupon.forEach(cp => { %>
+                                        <tr>
+                                            <td><%= cp.coupon_id %></td>
+                                            <td><%= cp.code %></td>
+                                            <td>
+                                                <% if (cp.discount_type === 'percentage') { %>
+                                                    <%= `${Math.round(cp.discount_value)}%` %>
+                                                <% } else { %>
+                                                    <%= `${Number(cp.discount_value).toLocaleString()}đ` %>
+                                                <% } %>
+                                            </td>
+                                            <td><%= cp.discount_type %></td>
+                                            <td><%= new Date(cp.create_at).toLocaleDateString('en-GB') %></td>
+                                            <td><%= new Date(cp.expiration_date).toLocaleDateString('en-GB') %></td>
+                                        </tr>
+                                    <% }) %>
+                                    
                                     
                                 </tbody>
                             </table>
@@ -134,33 +144,28 @@
 
                                     <!-- Modal body -->
                                     <div class="modal-body">
-                                        <form action="/admin/addCoupon">
+                                        <form action="/admin/manageCoupon/addCoupon" method="post">
                                             <div class="form-group">
-                                                <label for="email">Code:</label>
-                                                <input type="email" class="form-control" placeholder="Enter code"
-                                                    id="email">
+                                                <label for="code">Code:</label>
+                                                <input type="text" class="form-control" name="code" placeholder="Enter code"
+                                                    id="code">
                                             </div>
                                             <div class="form-group">
-                                                <label for="pwd">Discount value:</label>
-                                                <input type="password" class="form-control" placeholder="Enter discount value"
-                                                    id="pwd">
+                                                <label for="discount_value">Discount value:</label>
+                                                <input type="text" class="form-control" name="discount_value" placeholder="Enter discount value"
+                                                    id="discount_value">
                                             </div>
                                             <div class="form-group">
-                                                <label for="email">Discount Type:</label>
-                                                <select id="category_id" name="category_id" class="form-control" required>
-                                                    <option value="1">Percentage</option>
-                                                    <option value="2">Fixed</option>
+                                                <label for="discount_type">Discount Type:</label>
+                                                <select id="discount_type" name="discount_type" class="form-control" required>
+                                                    <option value="percentage">Percentage</option>
+                                                    <option value="fixed">Fixed</option>
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <label for="pwd">Expiration Date:</label>
-                                                <input type="password" class="form-control" placeholder="Enter password"
-                                                    id="pwd">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="email">Usage Limit</label>
-                                                <input type="email" class="form-control" placeholder="Enter email"
-                                                    id="email">
+                                                <label for="date">Expiration Date:</label>
+                                                <input type="date" class="form-control" name="expiration_date" placeholder="Enter date"
+                                                    id="date">
                                             </div>
                                             
                                             <button type="submit" class="btn btnAdd">Submit</button>
