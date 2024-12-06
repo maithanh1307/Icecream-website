@@ -38,6 +38,9 @@
     <% 
         total = typeof total !== 'undefined' ? total : []; 
     %>
+    <% 
+        user = typeof user !== 'undefined' ? user : []; 
+    %>
     <!--header-->
 
     <nav class="navbar navbar-expand-sm navbar-header container-fluid" style="z-index: 1050; position: relative;">
@@ -76,103 +79,69 @@
                 <!-- Shipping Information Details -->
                 <h2 class="section-heading">Shipping Details</h2>
                 <div class="payment-form">
-                    <form method="post" action="/cart">
+                    <form id="checkoutForm" method="post" action="/cart/checkout">
                         <!-- email -->
                         <div class="form-group">
                             <label for="email" class="label">Email</label>
-                            <input type="email" id="email" name="email" required placeholder=" " class="form-input" value="">
+                            <input type="email" id="email" name="email" required placeholder=" " class="form-input" value="<%= user ? user.email : '' %>">
                         </div>
+                    
                         <div class="form-group-row">
-                            <!-- First name -->
+                            <!-- username -->
                             <div class="form-group">
-                                <label for="firstname" class="label">First name</label>
-                                <input type="text" id="firstname" name="firstname" required placeholder=" " class="form-input" value="">
-                            </div>
-                            <!-- Last name -->
-                            <div class="form-group">
-                                <label for="lastname" class="label">Last name</label>
-                                <input type="text" id="lastname" name="lastname" required placeholder=" " class="form-input" value="">
+                                <label for="firstname" class="label">Username</label>
+                                <input type="text" id="username" name="username" required placeholder=" " class="form-input" value="<%= user ? user.username : '' %>">
                             </div>
                         </div>
-
+                    
                         <!-- phone -->
                         <div class="form-group">
                             <label for="phone" class="label">Phone</label>
                             <input type="tel" id="phone" name="phone" required placeholder=" " class="form-input" value="">
                         </div>
+                    
                         <!-- address -->
                         <div class="form-group">
                             <label for="address" class="label">Address</label>
                             <input type="text" id="address" name="address" required placeholder=" " class="form-input" value="">
                         </div>
-
+                    
+                        <!-- Payment Information Details -->
+                        <h2 class="section-heading">Payment Details</h2>
+                    
+                        <div class="payment-method">
+                            <button type="button" class="method selected">
+                                <ion-icon name="card"></ion-icon>
+                                <span>Credit Card</span>
+                                <ion-icon class="checkmark fill" name="checkmark-circle"></ion-icon>
+                            </button>
+                    
+                            <button type="button" class="method">
+                                <ion-icon name="cash-outline"></ion-icon>
+                                <span>Cash on Delivery</span>
+                                <ion-icon class="checkmark" name="checkmark-circle-outline"></ion-icon>
+                            </button>
+                        </div>
+                    
+                        <!-- Form thông tin thẻ tín dụng -->
+                        <div id="credit-card-info" style="display:none;">
+                            <label for="card-number">Card Number</label>
+                            <input type="text" id="card-number" name="card-number" placeholder="Enter card number">
+                            <!-- Các thông tin thẻ tín dụng khác -->
+                        </div>
+                    
+                        <button type="submit" class="btn btn-pay" data-toggle="modal" data-target="#notificationModal"><b>PAY</b></button>
                     </form>
-
-                    <!-- Payment Information Details -->
-                    <h2 class="section-heading">Payment Details</h2>
-
-                    <div class="payment-method">
-                        <button class="method selected">
-                            <ion-icon name="card"></ion-icon>
-                            <span>Credit Card</span>
-                            <ion-icon class="checkmark fill" name="checkmark-circle"></ion-icon>
-                        </button>
-
-                        <button class="method selected">
-                            <ion-icon name="cash-outline"></ion-icon>
-                            <span>Cash on Delivery</span>
-                            <ion-icon class="checkmark" name="checkmark-circle-outline"></ion-icon>
-                        </button>
-                    </div>
-
-                    <!-- Credit Card info details -->
-                    <form method="post" action="/cart" class="credit-card" id="credit-card-info">
-                        <!-- Cardholder name -->
-                        <div class="form-group cardholder">
-                            <label for="cardholder" class="label">Cardholder name</label>
-                            <input type="text" name="cardholder" id="cardholder" required placeholder=" "
-                                class="form-input">
-                        </div>
-
-                        <!-- Credit card number -->
-                        <div class="form-group cardid">
-                            <label for="cardid" class="label">Card number</label>
-                            <input type="number" name="cardid" id="cardid" required placeholder=" " class="form-input">
-                        </div>
-
-                        <!-- expiration date -->
-                        <div class="input-flex">
-                            <div class="form-group date">
-                                <label for="date" class="label">Expiration date</label>
-
-                                <div class="input-flex">
-                                    <input type="number" name="day" id="date" required placeholder="31" min="1" max="31"
-                                        class="form-input"> / <input type="number" name="month" id="date" required
-                                        placeholder="12" min="1" max="12" class="form-input">
-                                </div>
-                            </div>
-
-                            <!-- CVV -->
-                            <div class="form-group cvv">
-                                <label for="cvv" class="label">CVV</label>
-                                <input type="number" name="cvv" id="cvv" required placeholder=" " class="form-input">
-
-                            </div>
-                        </div>
-
-
-                    </form>
+                    
                 </div>
-
-                <button class="btn btn-pay" data-toggle="modal" data-target="#modalSignOut"><b>PAY</b></button>
-
+                
             </div>
 
             <!-- shopping cart -->
             <div class="cart">
                 <div class="cart-item">
                     <h2 class="section-heading">Order summary</h2>
-
+            
                     <% if (cartProduct.length > 0) { %>
                         <!-- Ex prd 1 -->
                         <% cartProduct.forEach(product => { %>
@@ -181,7 +150,7 @@
                                 <div class="col-2 img-box">
                                     <img src="<%= product.image_url %>" class="prd-img" alt="Card image">
                                 </div>
-
+            
                                 <!-- Details -->
                                 <div class="col-8 detail">
                                     <!-- Product name -->
@@ -197,14 +166,14 @@
                                                 <ion-icon name="add-outline"></ion-icon>
                                             </button>
                                         </div>
-
+            
                                         <!-- Product price -->
                                         <div class="col-6 price">
                                             <span id="price"><%= product.base_price %></span>
                                         </div>
                                     </div>
                                 </div>
-
+            
                                 <!-- Close button -->
                                 <form action="/cart/removeCart" method="post">
                                     <button id="prd-close-btn" class="prd-close-btn" name="variant_id" value="<%= product.variant_id %>">
@@ -214,39 +183,35 @@
                             </div>
                         <% }) %>
                     <% } %>
-
-                    
-
-
+            
+                    <!-- Order Total & Checkout -->
                     <div class="wrapper">
-                        <div class="discount">
-                            <label for="token" class="label">Gift / Discount code</label>
-
-                            <div class="wrapper-flex">
-                                <input type="text" name="discount" id="discount" class="form-input">
-
-                                <button class="btn btn-outline">Apply</button>
-                            </div>
-                        </div>
-
                         <div class="amount">
                             <div class="subtotal">
                                 <span>Subtotal</span>
                                 <span><%= total %></span>
                             </div>
-
+            
                             <div class="tax">
                                 <span>Tax</span><span><span id="tax">7.000</span>đ</span>
                             </div>
-
+            
                             <div class="shipping">
                                 <span>Shipping</span><span><span id="shipping">30.000</span>đ</span>
                             </div>
-
+            
                             <div class="total">
                                 <span>Total</span>
-                                <span><span id="total"><%= isNaN(total) || total === 0 ? 0 : total + 7000 + 30000 %></span>đ</span>                            </div>
+                                <span><span id="total"><%= isNaN(total) || total === 0 ? 0 : total + 7000 + 30000 %></span>đ</span>                            
+                            </div>
                         </div>
+                    </div>
+            
+                    <!-- Nút Checkout -->
+                    <div class="checkout-btn">
+                        <button type="submit" form="checkoutForm" class="btn btn-pay">
+                            <b>Proceed to Checkout</b>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -254,8 +219,28 @@
 
 
 
+        <!-- Modal thông báo -->
+        <!-- Modal thông báo -->
+        <div id="notificationModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Thông báo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="modalMessage">Nội dung thông báo ở đây</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="modalClose" type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <!-- modal -->
+        
         <div class="modal fade" id="modalSignOut" tabindex="-1" role="dialog" aria-labelledby="modalSignOutLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -355,6 +340,8 @@
 
 
 
+
+
         // add event on multiple increment & decrement button
         for (let i = 0; i < incrementBtn.length; i++) {
             incrementBtn[i].addEventListener('click', function () {
@@ -418,19 +405,65 @@
         });
 
         // Khi nhấn nút Pay, thực hiện hành động
-        document.querySelector(".btn-pay").addEventListener("click", function () {
-            // Hiển thị modal
-            $('#modalSignOut').modal('show');
-        });
+        // document.querySelector(".btn-pay").addEventListener("click", function () {
+        //     // Hiển thị modal
+        //     $('#modalSignOut').modal('show');
+        // });
 
-        // modal open
-        $('#modalSignOut').on('show.bs.modal', function () {
-            document.querySelector('.container .item').classList.add('hidden');
-        });
+        // // modal open
+        // $('#modalSignOut').on('show.bs.modal', function () {
+        //     document.querySelector('.container .item').classList.add('hidden');
+        // });
 
-        // modal close
-        $('#modalSignOut').on('hidden.bs.modal', function () {
-            window.location.href = '/home';
+        // // modal close
+        // $('#modalSignOut').on('hidden.bs.modal', function () {
+        //     window.location.href = '/home';
+        // });
+    </script>
+
+    <!--script for notification for user-->
+    <script>
+        $(document).ready(function () {
+            // Khi click vào Credit Card hoặc Cash on Delivery
+            $('.payment-method .method').click(function () {
+                // Kiểm tra nếu chọn "Credit Card"
+                if ($(this).find('span').text() === 'Credit Card') {
+                    // Hiển thị form thông tin thẻ tín dụng
+                    $('#credit-card-info').show();
+                } else if ($(this).find('span').text() === 'Cash on Delivery') {
+                    // Ẩn form thông tin thẻ tín dụng
+                    $('#credit-card-info').hide();
+                }
+    
+                // Loại bỏ class "fill" khỏi tất cả các icon
+                $('.payment-method .checkmark').removeClass('fill').attr('name', 'checkmark-circle-outline');
+    
+                // Thêm class "fill" vào icon của button đã được click
+                $(this).find('.checkmark').addClass('fill').attr('name', 'checkmark-circle');
+            });
+    
+            // Xử lý khi submit form
+            $('#checkoutForm').submit(function (e) {
+                e.preventDefault(); // Ngừng hành động submit mặc định
+    
+                const formData = $(this).serialize(); // Lấy dữ liệu từ form
+    
+                $.ajax({
+                    url: '/cart/checkout',
+                    method: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        // Hiển thị thông báo thành công
+                        alert(response.message);
+                        // Bạn có thể mở modal ở đây nếu cần
+                    },
+                    error: function (xhr, status, error) {
+                        // Xử lý lỗi
+                        const response = xhr.responseJSON;
+                        alert(response.message);
+                    }
+                });
+            });
         });
     </script>
 
