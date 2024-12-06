@@ -12,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!--css-->
-    <link href="../../public/css/user.css" rel="stylesheet">
+    <link href="/css/user.css" rel="stylesheet">
 
     <!-- link icon -->
     <link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome"
@@ -26,10 +26,13 @@
 </head>
 
 <body>
+    <% 
+        user = typeof user !== 'undefined' ? user : []; 
+    %>
     <!--header-->
     <nav class="navbar navbar-expand-sm navbar-header container-fluid" style="z-index: 1050; position: relative;">
         <a class="navbar-brand" href="#" style="font-weight: 700; font-size: 50px; color: #7c4c2c;">
-            <img src="../../public/image/Logo.png" alt="logo" style="width: 90px;">
+            <img src="/image/Logo.png" alt="logo" style="width: 90px;">
             GELADO
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -82,65 +85,82 @@
                                 <hr class="border-light m-0">
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label class="form-label">First name</label>
-                                        <input type="text" id="firstname" name="firstname" required placeholder=" "
-                                            class="form-control mb-1" value="AAA">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Last name</label>
-                                        <input type="text" id="lastname" name="lastname" required placeholder=" "
-                                            class="form-control" value="Nguyen">
+                                        <label class="form-label">Username</label>
+                                        <input type="text" id="username" name="username" required placeholder=" "
+                                            class="form-control" value="<%= user ? user.username : '' %>"
+                                            <%= !user ? 'disabled' : '' %>>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Email</label>
                                         <input type="text" id="email" name="email" required placeholder=" "
-                                            class="form-control mb-1" value="abc@mail.com">
+                                            class="form-control mb-1" value="<%= user ? user.email : '' %>"
+                                            <%= !user ? 'disabled' : '' %>>
                                     </div>
                                 </div>
                             </div>
+                            <!-- Tab để thay đổi mật khẩu -->
                             <div class="tab-pane fade" id="account-change-password">
                                 <div class="card-body pb-2">
-                                    <div class="form-group">
-                                        <label class="form-label">Current password</label>
-                                        <input type="password" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">New password</label>
-                                        <input type="password" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Repeat new password</label>
-                                        <input type="password" class="form-control">
-                                    </div>
+                                    <% if (user) { %>
+                                        <form method="POST" action="/account/updatePassword">
+                                            <div class="form-group">
+                                                <label class="form-label">Current password</label>
+                                                <input type="password" class="form-control" name="currentPassword" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">New password</label>
+                                                <input type="password" class="form-control" name="newPassword" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">Repeat new password</label>
+                                                <input type="password" class="form-control" name="repeatNewPassword" required>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Change Password</button>
+                                        </form>
+                                    <% } else { %>
+                                        <p>Please sign in to change your password.</p>
+                                    <% } %>
+                                    <!-- Thông báo dưới form -->
+                                    <% if (typeof error !== 'undefined') { %>
+                                        <p style="color: red;"><%= error %></p>
+                                    <% } %>
+                                    
+                                    <!-- Hiển thị thông báo thành công nếu có -->
+                                    <% if (typeof success !== 'undefined') { %>
+                                        <p style="color: green;"><%= success %></p>
+                                    <% } %>
                                 </div>
                             </div>
+
+                            <!-- Tab để thay đổi địa chỉ và số điện thoại -->
                             <div class="account-address tab-pane fade" id="account-address">
                                 <div class="card-body pb-2">
                                     <h6 class="mb-4">My Address</h6>
                                     <!-- Address Sections -->
-                                    <div class="address-section">
-                                        <div class="form-group">
-                                            <input type="text" id="phone" name="phone" class="form-control"
-                                                value="090 456 7891">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" id="address" name="address" class="form-control"
-                                                value="19 Nguyễn Hữu Thọ, Tân Phong, Quận 7">
-                                        </div>
-                                    </div>
-
-                                    <div class="address-section">
-                                        <div class="form-group">
-                                            <input type="text" id="phone2" name="phone2" class="form-control"
-                                                value="090 123 4567">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" id="address2" name="address2" class="form-control"
-                                                value="12 Nguyễn Văn Linh, Quận 7">
-                                        </div>
-                                    </div>
+                                    <% if (user && user.addresses && user.addresses.length) { %>
+                                        <% user.addresses.forEach((address, index) => { %>
+                                            <div class="address-section">
+                                                <form method="POST" action="/account/updateAddress/<%= address.address_id %>">
+                                                    <div class="form-group">
+                                                        <input type="text" id="phone<%= index %>" name="phone" 
+                                                            class="form-control" value="<%= address.phone %>">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" id="address<%= index %>" name="address" 
+                                                            class="form-control" value="<%= address.address %>">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">Update Address</button>
+                                                </form>
+                                            </div>
+                                        <% }) %>
+                                    <% } else if (user) { %>
+                                        <p>No addresses available</p>
+                                    <% } else { %>
+                                        <p>Please sign in to view or update your address.</p>
+                                    <% } %>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -160,7 +180,7 @@
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-12">
                 <a class="navbar-brand" href="#" style="font-weight: 700; font-size: 30px; color: #7c4c2c;">
-                    <img src="../../public/image/Logo.png" alt="logo" style="width: 120px;">
+                    <img src="/image/Logo.png" alt="logo" style="width: 120px;">
                     GELADO
                 </a>
                 <div class="row">
@@ -223,6 +243,9 @@
             </div>
         </div>
     </div>
+
+    
+
 
 </body>
 

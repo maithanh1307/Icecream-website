@@ -16,14 +16,15 @@ app.use(express.json());
 // session
 app.use(session({
   secret: '123456', 
-  resave: false, 
+  resave: false,  
   saveUninitialized: true, 
   cookie: {
-      secure: false, 
-      maxAge: 1000 * 60 * 60 * 24 
+    secure: false,  
+    httpOnly: true,  
+    sameSite: 'lax',
+    maxAge: 1000 * 60 * 60 * 24 
   }
 }));
-
 
 var adminProductController = require('./controllers/adminProduct')
 var userHomeController = require('./controllers/userHome')
@@ -34,6 +35,7 @@ var cartController = require('./controllers/cart')
 var checkoutController = require('./controllers/checkout')
 var adminUserController = require('./controllers/adminUser')
 var adminCouponController = require('./controllers/adminCoupon')
+var accountController = require('./controllers/account')
 
 
 app.use('/admin/manageProduct', adminProductController)
@@ -47,6 +49,7 @@ app.use('/checkout', checkoutController)
 
 app.use('/admin/manageUser', adminUserController)
 app.use('/admin/manageCoupon', adminCouponController)
+app.use('/account', accountController)
 
 
 app.listen(port, async () => {
