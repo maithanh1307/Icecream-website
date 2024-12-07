@@ -149,8 +149,6 @@ input::-webkit-outer-spin-button {
     max-width: 1440px;
     min-height: 100vh;
     margin: auto;
-    display: flex;
-    flex-direction: column;
 }
 
 .heading {
@@ -328,6 +326,7 @@ input::-webkit-outer-spin-button {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    justify-content: flex-start; 
 }
 
 .cart-item {
@@ -473,6 +472,12 @@ input::-webkit-outer-spin-button {
     color: var(--title-color);
 }
 
+.error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
 /* rating form */
 
 .btnComment,
@@ -491,6 +496,11 @@ input::-webkit-outer-spin-button {
 
 .hidden {
     display: none;
+}
+
+.alert {
+    font-size: var(--fs-18);
+    font-weight: var(--fw-medium);
 }
 
 /* responsive */

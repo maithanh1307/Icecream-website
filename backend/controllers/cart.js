@@ -1,5 +1,7 @@
 const express = require('express');
 const db = require('../models/index.js'); 
+const bcrypt = require('bcrypt')
+
 const cookieParser = require('cookie-parser');
 var router = express.Router();
 
@@ -264,76 +266,51 @@ router.post('/removeCart', (req, res) => {
 //     });
 // });
 
-
+/* 
 router.post('/checkout', async (req, res) => {
-    const { email, username, phone, address } = req.body;
-    const user = req.user; // Lấy thông tin người dùng từ session (nếu đã đăng nhập)
-    const cart = req.cookies.cart ? JSON.parse(req.cookies.cart) : null; // Lấy giỏ hàng từ cookie
-
-    console.log('Request received:', req.body);
+    const { email, username, phone, address } = req.body; // Dữ liệu từ form
+    console.log('POST /cart/pay - Dữ liệu nhận được:', { email, username, phone, address });
 
     try {
-        let userId;
-
-        // Kiểm tra xem người dùng đã đăng nhập chưa
-        if (!user) {
-            return res.status(400).json({
-                status: 'error',
-                message: 'Bạn chưa đăng nhập. Vui lòng đăng nhập để tiếp tục.',
+        // Kiểm tra xem email đã tồn tại trong cơ sở dữ liệu chưa
+        const [existingUser] = await db.promise().query('SELECT * FROM users WHERE email = ?', [email]);
+        
+        if (existingUser.length > 0) {
+            console.log(`POST /checkout/pay - Email "${email}" đã tồn tại. Thực hiện thanh toán.`);
+            // Nếu người dùng đã tồn tại, chỉ cần xử lý thanh toán (không tạo tài khoản mới)
+            return res.render('checkout', {
+                user: { email, username }, // Truyền lại thông tin
+                total: req.cookies.total || 0,
+                cart: req.cookies.cart ? JSON.parse(req.cookies.cart) : [],
+                message: 'Checkout successful!',
             });
         } else {
-            userId = user.user_id; // Sử dụng thông tin người dùng đã đăng nhập
-        }
+            // Nếu người dùng chưa tồn tại, tạo tài khoản mới với mật khẩu mặc định
+            const defaultPassword = '123';
+            const hashedPassword = await bcrypt.hash(defaultPassword, 10); // Mã hóa mật khẩu
+            await db.promise().query(
+                'INSERT INTO users (email, username, phone, address, password) VALUES (?, ?, ?, ?, ?)',
+                [email, username, phone, address, hashedPassword]
+            );
+            console.log(`POST /checkout/pay - Tạo tài khoản mới cho email "${email}".`);
 
-        // Kiểm tra giỏ hàng
-        if (!cart || cart.items.length === 0) {
-            return res.status(400).json({
-                status: 'error',
-                message: 'Giỏ hàng trống. Vui lòng thêm sản phẩm vào giỏ hàng.',
+            return res.render('checkout', {
+                user: { email, username }, // Thông tin người dùng mới
+                total: req.cookies.total || 0,
+                cart: req.cookies.cart ? JSON.parse(req.cookies.cart) : [],
+                message: 'Account created successfully! Checkout complete.',
             });
         }
-
-        // Tạo đơn hàng mới
-        const [newOrder] = await db.promise().query(
-            `INSERT INTO orders (user_id, total_price) VALUES (?, ?)`,
-            [userId, cart.totalPrice] // Tổng giá từ giỏ hàng
-        );
-        const orderId = newOrder.insertId;
-
-        // Lưu các sản phẩm vào bảng order_items
-        for (const item of cart.items) {
-            await db.promise().query(
-                `INSERT INTO order_items (order_id, variant_id, quantity, price) VALUES (?, ?, ?, ?)`,
-                [orderId, item.variantId, item.quantity, item.price]
-            );
-        }
-
-        // Lấy thông tin người dùng từ bảng users
-        const [userInfo] = await db.promise().query(
-            `SELECT email, username, phone, address FROM users WHERE user_id = ?`,
-            [userId]
-        );
-
-        console.log('Thông tin người dùng:', userInfo);
-
-        // Xóa giỏ hàng trong cookie
-        res.clearCookie('cart');
-        console.log('Giỏ hàng đã được xóa trong cookie.');
-
-        // Trả về thông báo thành công
-        return res.status(200).json({
-            status: 'success',
-            message: 'Mua hàng thành công!',
-            userInfo: userInfo, // Trả thông tin người dùng nếu cần
-        });
-    } catch (error) {
-        console.error('Đã xảy ra lỗi:', error);
-        res.status(500).json({
-            status: 'error',
-            message: 'Đã xảy ra lỗi khi xử lý checkout.',
+    } catch (err) {
+        console.error('POST /checkout/pay - Lỗi xảy ra:', err);
+        return res.render('checkout', {
+            user: null,
+            total: req.cookies.total || 0,
+            cart: req.cookies.cart ? JSON.parse(req.cookies.cart) : [],
+            message: 'An error occurred during checkout. Please try again.',
         });
     }
-});
+}); */
 
 
 
