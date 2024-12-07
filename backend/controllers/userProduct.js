@@ -229,14 +229,27 @@ router.get('/productDetail/:product_id', async (req, res) => {
             product.base_price = new Intl.NumberFormat('en-US').format(product.base_price) + 'đ';  
         });
 
+        // review list
+        const [reviews] = await db.promise().query(
+            `SELECT r.comment, u.username, r.created_at
+             FROM reviews r
+             JOIN users u ON r.user_id = u.user_id
+             WHERE r.product_id = ?
+             ORDER BY r.created_at DESC`,
+            [productId]
+        );
+
+        // Render ra view productDetail với dữ liệu chi tiết sản phẩm và review
         res.render('productDetail', {
             productdetails: productDetails[0],
+            reviews, // Truyền danh sách review vào view
         });
     } catch (err) {
-        console.error('Lỗi khi truy vấn chi tiết sản phẩm:', err);
-        res.status(500).send('Error fetching product details');
+        console.error('Lỗi khi truy vấn chi tiết sản phẩm và review:', err);
+        res.status(500).send('Error fetching product details and reviews');
     }
 });
+
 
 
 
