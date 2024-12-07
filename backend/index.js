@@ -39,7 +39,7 @@ var accountController = require('./controllers/account')
 var adminIndexController = require('./controllers/adminIndex')
 var signoutController = require('./controllers/logout')
 var orderTrackingController = require('./controllers/orderTracking')
-
+var adminOrderController = require('./controllers/adminOrder')
 
 app.use('/admin/manageProduct', adminProductController)
 app.use('/', userHomeController)
@@ -55,7 +55,7 @@ app.use('/admin/manageCoupon', adminCouponController)
 app.use('/account', accountController)
 app.use('/admin', adminIndexController)
 app.use('/signout', signoutController)
-
+app.use('/admin/manageOrder', adminOrderController)
 
 app.listen(port, async () => {
     db.connect((err) => {
