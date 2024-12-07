@@ -25,12 +25,16 @@ router.get('/', (req, res) => {
   
         // Kiểm tra nếu có kết quả trả về
         if (results.length > 0) {
-          const addressData = results[0];  // Lấy dữ liệu địa chỉ đầu tiên
+          const addressData = results.map((address) => ({
+            address_id: address.address_id,
+            address: address.address,
+            phone: address.phone,
+          }));
+
           const userDetails = {
-            username: user.username,
-            email: user.email,
-            address: addressData.address,
-            phone: addressData.phone
+              username: user.username,
+              email: user.email,
+              addresses: addressData, // Lưu danh sách địa chỉ
           };
   
           // Hiển thị trang account với thông tin người dùng và địa chỉ
@@ -107,27 +111,45 @@ router.post('/updatePassword', (req, res) => {
 
 
 router.post('/updateAddress/:addressId', (req, res) => {
-    const { phone, address } = req.body;
-    const { addressId } = req.params;
-    const userCookie = req.cookies.user;
+  const { phone, address } = req.body;
+  const { addressId } = req.params;
+  const userCookie = req.cookies.user;
 
-    if (!userCookie) {
-        return res.send('Please log in to update your address.');
-    }
+  if (!userCookie) {
+      return res.send('Please log in to update your address.');
+  }
 
-    const user = JSON.parse(userCookie);
+  const user = JSON.parse(userCookie);
 
-    // Cập nhật địa chỉ và số điện thoại vào cơ sở dữ liệu
-    const query = `UPDATE addresses SET phone = ?, address = ? WHERE address_id = ? AND user_id = ?`;
+  // Kiểm tra xem user_id trong cookie có trùng với user_id trong bảng addresses hay không
+  const queryCheckAddress = `SELECT * FROM addresses WHERE address_id = ? AND user_id = ?`;
 
-    db.execute(query, [phone, address, addressId, user.user_id], (err) => {
-        if (err) {
-            return res.status(500).send('Error updating address');
-        }
+  db.execute(queryCheckAddress, [addressId, user.user_id], (err, results) => {
+      if (err) {
+          console.error('Error checking address:', err);
+          return res.status(500).send('Error checking address');
+      }
 
-        res.send('Address updated successfully.');
-    });
+      // Nếu không tìm thấy địa chỉ hoặc không khớp với user_id, trả về lỗi
+      if (results.length === 0) {
+          return res.status(404).send('Address not found or mismatch with user');
+      }
+
+      // Nếu có kết quả, thực hiện cập nhật
+      const queryUpdateAddress = `UPDATE addresses SET phone = ?, address = ? WHERE address_id = ? AND user_id = ?`;
+
+      db.execute(queryUpdateAddress, [phone, address, addressId, user.user_id], (err) => {
+          if (err) {
+              console.error('Error updating address:', err);
+              return res.status(500).send('Error updating address');
+          }
+
+          console.log('Address updated successfully.');
+          res.redirect('/account');
+      });
+  });
 });
+
 
 
 

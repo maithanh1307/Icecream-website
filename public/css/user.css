@@ -4,6 +4,9 @@
     --heading-color: #7c4c2c;
     --background-color: #fff;
     --border-color: #ffdfae;
+    --first-color: rgb(169, 122, 77);
+    --first-color-alt: rgb(128, 87, 52);
+    --white: rgb(254, 254, 254);
     --btn-default-border-color: rgba(24, 28, 33, 0.1);
     --btn-default-color: #4E5155;
     --card-box-shadow-color: rgba(9, 88, 184, 0.012);
@@ -163,14 +166,34 @@ body {
     margin-top: 20px;
 }
 
-.btn { 
-    border-radius: var(--radius); 
+.btn:active {
+    transform: scale(0.99);
 }
 
-.btn:active { 
-    transform: scale(0.99); 
+.btn:focus {
+    color: var(--white);
+    background: var(--first-color);
+    outline: 2px solid var(--first-color);
+    outline-offset: 2px;
 }
 
+.btn-upd {
+    background: var(--first-color);
+    font-weight: var(--fw-regular);
+    color: var(--white);
+    padding: 13px 45px;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    border-radius: 4rem;
+}
+
+
+.btn-upd:hover {
+    background: var(--first-color-alt);
+    box-shadow: 0 8px 24px rgba(128, 87, 52, 0.3);
+    color: var(--white);
+}
 
 
 .btn-change {
