@@ -71,18 +71,16 @@ router.post('/addCart', async (req, res) => {
 
         //lay san pham trang nao thi van o lai trang do
         const referer = req.get('Referrer');
-        if (referer.includes('/')) {
-            res.redirect(`/`);
+        if (referer.includes('/productDetail')) {
+            res.redirect(`/product/productDetail/${product_id}`);
         } 
         else if (referer.includes('/product') && !referer.includes('/productDetail')) {
             res.redirect(`/product`);
         } 
-        else if (referer.includes('/productDetail')) {
-            res.redirect(`/productDetail/${product_id}`);
-        } 
         else {
             res.redirect(`/`);
         }
+        
     } catch (err) {
         console.error(err);
         res.status(500).send('An error occurred while adding to cart.');

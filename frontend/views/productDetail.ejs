@@ -84,7 +84,10 @@
                         <p><b>Stock: </b><%= productdetails.stock %></p>
                         <p><b>Size: </b><%= productdetails.size %></p>
                         <p><b>Flavor: </b><%= productdetails.color %></p>
-                        <button class="btn btn-cart">Add to cart</button>
+                        <form method="POST" action="/cart/addCart">
+                            <input type="hidden" name="product_id" value="<%= productdetails.product_id %>">
+                            <button type="submit" class="btn btn-cart">Add to cart</button>
+                        </form>
                     </div>
                 </div>
             </div>
