@@ -48,7 +48,6 @@ app.use('/register', registerController)
 app.use('/cart', cartController)
 
 app.use('/checkout', checkoutController)
-
 app.use('/admin/manageUser', adminUserController)
 app.use('/admin/manageCoupon', adminCouponController)
 app.use('/account', accountController)
