@@ -102,27 +102,18 @@
     <div class="container mt-5">
         <h3 style="color: #7c4c2c;">Reviews</h3>
         <div class="commentBox">
-            <p class="mt-3"><b>User name</b></p>
-            <p class="ml-5">Comment</p>
-            <div class="container">
-                <div class="solid"></div>
-            </div>
-
-            <p class="mt-3"><b>User name</b></p>
-            <p class="ml-5">Comment</p>
-            <div class="container">
-                <div class="solid"></div>
-            </div>
+            <% if (reviews.length > 0) { %>
+                <% reviews.forEach(review => { %>
+                    <p class="mt-3">&emsp;<b><%= review.username %></b> &emsp;<small><%= new Date(review.created_at).toLocaleString() %></small></p>
+                    <p class="ml-5"><%= review.comment %></p>
+                    <p class="ml-5 text-muted"></p>
+                    <div class="solid"></div>
+                <% }); %>
+            <% } else { %>
+                <p class="text-muted" style="padding: 0.8rem; padding-left: 2rem;">No reviews yet.</p>
+            <% } %>
         </div>
-
-        <!-- <div class="leaveComment">
-            <form class="form-inline" action="/action_page.php">
-                <input type="text" class="form-control mb-2 mr-sm-2" id="comment" placeholder="Enter comments" name="comment">
-                <button type="submit" class="btn btn-send-comment mb-2">Send</button>
-            </form>
-        </div> -->
-
-    </div>
+    </div>    
 
     <!--footer-->
     <div class="jumbotron text-center footer" style="margin-bottom:0">
