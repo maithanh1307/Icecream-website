@@ -39,7 +39,7 @@ var accountController = require('./controllers/account')
 var adminIndexController = require('./controllers/adminIndex')
 var signoutController = require('./controllers/logout')
 var orderTrackingController = require('./controllers/orderTracking')
-
+var orderHistoryController = require('./controllers/orderHistory')
 
 app.use('/admin/manageProduct', adminProductController)
 app.use('/', userHomeController)
@@ -48,6 +48,7 @@ app.use('/login', loginController)
 app.use('/register', registerController)
 app.use('/cart', cartController)
 app.use('/orderTracking', orderTrackingController)
+app.use('/orderHistory', orderHistoryController)
 
 app.use('/checkout', checkoutController)
 app.use('/admin/manageUser', adminUserController)
