@@ -32,10 +32,19 @@
         orders = typeof orders !== 'undefined' ? orders : []; 
     %>
     <% 
+        order = typeof order !== 'undefined' ? order : []; 
+    %>
+    <% 
         orderEdit = typeof orderEdit !== 'undefined' ? orderEdit : []; 
     %>
     <% 
         totalPages  = typeof totalPages  !== 'undefined' ? totalPages  : []; 
+    %>
+    <% 
+        orderItems = typeof orderItems !== 'undefined' ? orderItems : []; 
+    %>
+    <% 
+        address = typeof address !== 'undefined' ? address : []; 
     %>
     <div class="container-fluid">
         <div class="row">
@@ -64,7 +73,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="/admin/manageOrder">
                                     <i class="fa-solid fa-send-backward"></i>
                                     <span class="nav-text">Order Management</span>
                                 </a>
@@ -100,18 +109,25 @@
 
                         <!--filter-->
                         <div style="float:right;" class="ml-auto mr-4 mb-5">
-                            <form action="/action_page.php">
+                            <form action="/admin/manageOrder/selectDate" method="get">
                                 <div class="form-inline">
                                     <div class="form-group">
-                                        <label for="sel1">Select:</label>
-                                        <select class="form-control ml-2" id="sel1">
-                                            <option>Today</option>
-                                            <option>Yesterday</option>
-                                            <option>Week</option>
-                                            <option>Month</option>
-                                            <option>Another</option>
+                                        <label for="dateSelect">Select Date Range:</label>
+                                        <select class="form-control ml-2" id="dateSelect" name="date_range">
+                                            <option value="today">Today</option>
+                                            <option value="yesterday">Yesterday</option>
+                                            <option value="week">Week</option>
+                                            <option value="month">Month</option>
+                                            <option value="another">Custom Date</option>
                                         </select>
                                     </div>
+                            
+                                    <!-- Hiển thị input tùy chỉnh ngày nếu chọn 'another' -->
+                                    <div class="form-group ml-2" id="customDateGroup" style="display: none;">
+                                        <label for="customDate">Choose Date:</label>
+                                        <input type="date" class="form-control ml-2" id="customDate" name="custom_date">
+                                    </div>
+                            
                                     <button type="submit" class="btn btnAdd ml-2">Show</button>
                                 </div>
                             </form>
@@ -147,7 +163,7 @@
                                                 </form>
                                                 <form method="get" action="/admin/manageOrder/viewOrder">
                                                     <input type="hidden" id='order_id' name="order_id" value="<%= order.order_id %>">
-                                                    <button class="btn btn-edit" data-toggle="modal" data-target="#myModalView">
+                                                    <button class="btn btn-view" data-toggle="modal" data-target="#myModalView">
                                                         <i class="fa-solid fa-eye fa-lg" style="color: #95fbff;"></i>
                                                     </button>
                                                 </form>
@@ -172,7 +188,7 @@
                         </div>
 
                         <!--edit product form-->
-                        <div class="modal fade" id="myModalEdit">
+                        <div class="modal fade" id="myModalEdit"  data-order-edit="<%= orderEdit ? 'true' : 'false' %>" inert>
                             <div class="modal-dialog">
                                 <div class="modal-content">
 
@@ -240,51 +256,43 @@
                                         </p>
                                         <p>
                                             <b>Address: </b>
-                                            <%= order.address %>
+                                            <%= address.address %>
                                         </p>
                                         <p>
                                             <b>Phone Number: </b>
-                                            <%= order.phone %>
+                                            <%= address.phone %>
                                         </p>
                                         <p>
                                             <b>Purchase Time: </b>                                            
-                                            <%= order.created_at %>
+                                            <td><%= new Date(order.created_at).toLocaleDateString('en-GB') %>
                                         </p>
                                         <p>
                                             <b>Total price: </b>
                                             <%= order.total_price %>
                                         </p>
                                         <p><b>Product List: </b></p>
-                                        <% orderItem.forEach(orderitems => { %>
+                                        <% orderItems.forEach(orderitems => { %>
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <img src="<%= item.image_url %>" alt="kemdau"
+                                                    <img src="<%= orderitems.image_url %>" alt="kemdau"
                                                         style="width: 40%; border-radius: 20px;">
                                                 </div>
                                                 <div class="col-8">
-                                                    <h6><%= item.name %></h6>
-                                                    <p><b>Quantity: </b><%= item.quantity %></p>
+                                                    <h6><%= orderitems.name %></h6>
+                                                    <p><b>Quantity: </b><%= orderitems.quantity %></p>
                                                     <p class="price">
                                                         <i class="fa-solid fa-tags"></i>
-                                                        75,000đ
+                                                        <%= orderitems.base_price %>
                                                     </p>
                                                 </div>
                                             </div>
                                         <% }) %>
-                                        <!-- <div class="row">
-                                            <div class="col-4">
-                                                <img src="../../public/image/kemdau.jpg" alt="kemdau"
-                                                    style="width: 40%; border-radius: 20px;">
-                                            </div>
-                                            <div class="col-8">
-                                                <h6>Strawberry Cream</h6>
-                                                <p><b>Quantity: </b>1</p>
-                                                <p class="price">
-                                                    <i class="fa-solid fa-tags"></i>
-                                                    75,000đ
-                                                </p>
-                                            </div>
-                                        </div> -->
+                                        
+                                    </div>
+                                    <div class="mt-5" style="float: right;">
+                                        <a href="/admin/manageOrder">
+                                            <button class="btn btnAdd">Return</button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -295,18 +303,42 @@
         </div>
     </div>
 
-    <!--script for modal edit-->
+    <!-- Script cho Edit -->
     <% if (orderEdit) { %>
         <script>
-            $(document).ready(function() {
-                // Kiểm tra nếu có productId trong URL
+            $(document).ready(function () {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('order_id')) {
-                    $('#myModalEdit').modal('show');
+                    $('#myModalEdit').removeAttr('inert'); // Loại bỏ inert khi mở modal
+                    $('#myModalEdit').modal('show'); // Hiển thị modal Edit
                 }
             });
         </script>
     <% } %>
+
+    <% if (order) { %>
+        <script>
+            $(document).ready(function () {
+                var urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('order_id')) {
+                    $('#myModalView').removeAttr('inert'); // Loại bỏ inert khi mở modal
+                    $('#myModalView').modal('show'); // Hiển thị modal View
+                }
+            });
+        </script>
+    <% } %>
+
+    <!--script for another date-->
+    <script>
+        // Hiển thị trường chọn ngày nếu chọn "Custom Date"
+        $('#dateSelect').change(function() {
+            if ($(this).val() === 'another') {
+                $('#customDateGroup').show();
+            } else {
+                $('#customDateGroup').hide();
+            }
+        });
+    </script>
 
 </body>
 

@@ -56,11 +56,18 @@ router.post('/pay', async (req, res) => {
             const defaultPassword = '123';
             const hashedPassword = await bcrypt.hash(defaultPassword, 10); // Mã hóa mật khẩu
             const [result] = await connection.query(
-                'INSERT INTO users (email, username, phone, address, password) VALUES (?, ?, ?, ?, ?)',
-                [email, username, phone, address, hashedPassword]
+                'INSERT INTO users (email, username, password) VALUES (?, ?, ?)',
+                [email, username, hashedPassword]
             );
             userId = result.insertId; // Lấy user_id của người dùng mới
             console.log(`POST /checkout/pay - Tạo tài khoản mới cho email "${email}".`);
+
+            // Sau khi tạo user, thêm địa chỉ và số điện thoại vào bảng addresses
+            await connection.query(
+                'INSERT INTO addresses (user_id, address, phone) VALUES (?, ?, ?)',
+                [userId, address, phone]
+            );
+            console.log(`POST /checkout/pay - Thêm địa chỉ và số điện thoại cho user_id "${userId}".`);
         }
 
         // Kiểm tra và lưu địa chỉ vào bảng addresses
