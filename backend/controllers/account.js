@@ -100,7 +100,7 @@ router.post('/updatePassword', (req, res) => {
                 return res.status(500).render('user', { error: 'Error updating password' });
             }
 
-            res.render('user', { success: 'Password updated successfully.' });
+            res.render('user', { success: 'Password updated successfully. Please login again.' });
         });
     });
 });
