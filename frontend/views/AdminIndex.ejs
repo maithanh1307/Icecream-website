@@ -42,6 +42,12 @@
     <% 
         customerCount = typeof customerCount !== 'undefined' ? customerCount : []; 
     %>
+    <% 
+        totalOrders = typeof totalOrders !== 'undefined' ? totalOrders : []; 
+    %>
+    <% 
+        totalRevenue = typeof totalRevenue !== 'undefined' ? totalRevenue : []; 
+    %>
     <div class="container-fluid"></div>
         <div class="row">
             <!--sidebar-->
@@ -122,7 +128,7 @@
                                         <h5>Orders</h5>
                                         <p>
                                             <i class="fa-solid fa-send-backward"></i>
-                                            100
+                                            <%= totalOrders %>
                                         </p>
                                     </div>
                                 </div>
@@ -136,7 +142,7 @@
                                         <h5>Revenue</h5>
                                         <p>
                                             <i class="fa-regular fa-money-bill"></i>
-                                            100,000
+                                            <%= totalRevenue %>
                                         </p>
                                     </div>
                                 </div>
@@ -149,17 +155,30 @@
                         <canvas id="bestSellerChart"></canvas>
                     </div>
 
+                    <div id="best-selling-data" 
+                        data-best-selling-names='<%= bestSellingNames %>' 
+                        data-best-selling-quantities='<%= bestSellingQuantities %>'>
+                    </div>
+
                     <script>
-                        // Data for the best-selling products
+                        // Lấy dữ liệu từ các thuộc tính data-* của phần tử HTML
+                        const bestSellingNames = JSON.parse(document.getElementById('best-selling-data').getAttribute('data-best-selling-names'));
+                        const bestSellingQuantities = JSON.parse(document.getElementById('best-selling-data').getAttribute('data-best-selling-quantities'));
+
+                        // Kiểm tra xem dữ liệu có đúng không
+                        console.log(bestSellingNames);
+                        console.log(bestSellingQuantities);
+
+                        // Tạo biểu đồ với Chart.js
                         const ctx = document.getElementById('bestSellerChart').getContext('2d');
                         const bestSellerChart = new Chart(ctx, {
-                            type: 'bar', // Type of chart
+                            type: 'bar', // Loại biểu đồ
                             data: {
-                                labels: ['Product A', 'Product B', 'Product C', 'Product D', 'Product E'], // Product names
+                                labels: bestSellingNames, // Tên sản phẩm bán chạy
                                 datasets: [{
                                     label: 'Best Seller',
-                                    data: [120, 150, 90, 180, 70], // Sales numbers for each product
-                                    backgroundColor: '#abfff2', // Bar color
+                                    data: bestSellingQuantities, // Số lượng bán được của từng sản phẩm
+                                    backgroundColor: '#abfff2', // Màu nền của cột
                                     borderColor: '#abfff2',
                                     borderWidth: 1
                                 }]
@@ -168,12 +187,14 @@
                                 responsive: true,
                                 scales: {
                                     y: {
-                                        beginAtZero: true, // Start y-axis from 0
+                                        beginAtZero: true, // Bắt đầu trục y từ 0
                                     }
                                 }
                             }
                         });
                     </script>
+                    
+                    
                 </div>
             </div>
         </div>
