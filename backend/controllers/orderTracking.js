@@ -39,5 +39,58 @@ router.get('/', (req, res) => {
     });
 });
 
+// Route lấy thông tin chi tiết đơn hàng
+router.get('/orderDetail/:orderId', (req, res) => {
+    const orderId = req.params.orderId;
+
+    // Truy vấn chi tiết đơn hàng bao gồm username
+    const queryOrderDetail = `
+        SELECT  
+            orders.order_id, orders.created_at AS receive_date, orders.total_price, 
+            addresses.address, addresses.phone,
+            users.username,
+            order_items.quantity, order_items.price,
+            products.name AS product_name, products.image_url
+        FROM orders
+        INNER JOIN users ON orders.user_id = users.user_id 
+        INNER JOIN addresses ON orders.user_id = addresses.user_id
+        INNER JOIN order_items ON orders.order_id = order_items.order_id
+        INNER JOIN product_variants ON order_items.variant_id = product_variants.variant_id
+        INNER JOIN products ON product_variants.product_id = products.product_id
+        WHERE orders.order_id = ?;
+    `;
+    
+    db.execute(queryOrderDetail, [orderId], (err, results) => {
+        if (err) {
+            console.error('Error fetching order details:', err);
+            return res.status(500).render('orderDetail', { order: null, error: 'Error retrieving order details.' });
+        }
+
+        if (results.length === 0) {
+            return res.render('orderDetail', { order: null, error: 'Order not found.' });
+        }
+
+        // Gom dữ liệu vào một đối tượng
+        const order = {
+            order_id: results[0].order_id,
+            receive_date: results[0].receive_date,
+            total_price: results[0].total_price,
+            address: results[0].address,
+            phone: results[0].phone,
+            items: results.map(row => ({
+                name: row.product_name,
+                image: row.image_url,
+                quantity: row.quantity,
+                price: row.price,
+            })),
+        };
+        
+        const user = {
+            username: results[0].username,
+        };
+
+        res.render('orderDetail', { order, user, error: null }); 
+    });
+});
 
 module.exports = router;
