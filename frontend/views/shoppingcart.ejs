@@ -310,27 +310,27 @@
                         });
 
                         // Xử lý khi submit form
-                        $('#checkoutForm').submit(function (e) {
-                            e.preventDefault(); // Ngừng hành động submit mặc định
+                        // $('#checkoutForm').submit(function (e) {
+                        //     e.preventDefault(); // Ngừng hành động submit mặc định
 
-                            const formData = $(this).serialize(); // Lấy dữ liệu từ form
+                        //     const formData = $(this).serialize(); // Lấy dữ liệu từ form
 
-                            $.ajax({
-                                url: '/cart/checkout',
-                                method: 'POST',
-                                data: formData,
-                                success: function (response) {
-                                    // Hiển thị thông báo thành công
-                                    alert(response.message);
-                                    // Bạn có thể mở modal ở đây nếu cần
-                                },
-                                error: function (xhr, status, error) {
-                                    // Xử lý lỗi
-                                    const response = xhr.responseJSON;
-                                    alert(response.message);
-                                }
-                            });
-                        });
+                        //     $.ajax({
+                        //         url: '/checkout/pay',
+                        //         method: 'POST',
+                        //         data: formData,
+                        //         success: function (response) {
+                        //             // Hiển thị thông báo thành công
+                        //             alert(response.message);
+                        //             // Bạn có thể mở modal ở đây nếu cần
+                        //         },
+                        //         error: function (xhr, status, error) {
+                        //             // Xử lý lỗi
+                        //             const response = xhr.responseJSON;
+                        //             alert(response.message);
+                        //         }
+                        //     });
+                        // });
                     });
                 </script>
 
