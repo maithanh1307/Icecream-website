@@ -40,7 +40,7 @@ router.post('/', async (req, res) => {
         console.log('Session after login:', req.session);// Log session data here
 
         if (user.role === 'admin') {
-            return res.redirect('/admin/manageProduct');
+            return res.redirect('/admin');
         }
 
         return res.redirect('/'); 

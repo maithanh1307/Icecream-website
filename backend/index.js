@@ -36,6 +36,8 @@ var checkoutController = require('./controllers/checkout')
 var adminUserController = require('./controllers/adminUser')
 var adminCouponController = require('./controllers/adminCoupon')
 var accountController = require('./controllers/account')
+var adminIndexController = require('./controllers/adminIndex')
+var signoutController = require('./controllers/logout')
 
 
 app.use('/admin/manageProduct', adminProductController)
@@ -50,6 +52,8 @@ app.use('/checkout', checkoutController)
 app.use('/admin/manageUser', adminUserController)
 app.use('/admin/manageCoupon', adminCouponController)
 app.use('/account', accountController)
+app.use('/admin', adminIndexController)
+app.use('/signout', signoutController)
 
 
 app.listen(port, async () => {
