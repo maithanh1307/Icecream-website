@@ -11,6 +11,7 @@ router.get('/', async (req, res) => {
     const cartCookie = req.cookies.cart || '[]';
     const total = req.cookies.total || 0;
     const cart = JSON.parse(cartCookie);
+    console.log('total truoc khi pay: ', total)
 
     // Kiểm tra xem người dùng đã đăng nhập chưa
     const user = req.cookies.user ? JSON.parse(req.cookies.user) : null;
@@ -28,7 +29,15 @@ router.post('/pay', async (req, res) => {
     console.log('POST /checkout/pay - Dữ liệu nhận được:', { email, username, phone, address });
 
     const cart = req.cookies.cart ? JSON.parse(req.cookies.cart) : []; // Lấy giỏ hàng từ cookie
-    const total = parseFloat(req.cookies.total) || 0; // Tổng giá trị đơn hàng từ cookie
+    let total = req.cookies.total || 0;
+    console.log('total: ', total)
+
+    // **Điều chỉnh giá trị total nếu cần**
+    if (typeof total === 'string') {
+        // Loại bỏ các ký tự không phải số và chuyển thành số nguyên
+        total = parseFloat(total.replace(/[^\d.]/g, '')) || 0;
+    }
+    console.log('total (converted):', total);
 
     const connection = db.promise(); // Use the connection instance directly for transactions
 
