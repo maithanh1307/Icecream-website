@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order page</title>
-    <link rel="icon" href="../../public/image/Logo.png" type="image/x-icon">
+    <link rel="icon" href="/image/Logo.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!--css-->
-    <link href="../../public/css/orderTracking.css" rel="stylesheet">
+    <link href="/css/orderTracking.css" rel="stylesheet">
 
     <!-- link icon -->
     <link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome"
@@ -32,7 +32,7 @@
 
     <nav class="navbar navbar-expand-sm navbar-header container-fluid" style="z-index: 1050; position: relative;">
         <a class="navbar-brand" href="#" style="font-weight: 700; font-size: 50px; color: #7c4c2c;">
-            <img src="../../public/image/Logo.png" alt="logo" style="width: 90px;">
+            <img src="/image/Logo.png" alt="logo" style="width: 90px;">
             GELADO
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -68,77 +68,51 @@
     <!--track-->
     <div class="container">
         <div class="table-responsive">
-            <table class="table mt-5 mb-5">
-                <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Product ID</th>
-                        <th>Product Name</th>
-                        <th>Order Date</th>
-                        <th>Status</th>
-                        <th>View Order Details</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>OI111</td>
-                        <td>P1000</td>
-                        <td>Strawberry Cream</td>
-                        <td>1/12/2024</td>
-                        <td>
-                            <div class="status">Pending</div>
-                        </td>
-                        <td>
-                            <i class="fa-solid fa-eye" style="color: #7c4c2c;"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>OI111</td>
-                        <td>P1000</td>
-                        <td>Strawberry Cream</td>
-                        <td>1/12/2024</td>
-                        <td>
-                            <div class="status">Confirm</div>
-                        </td>
-                        <td>
-                            <i class="fa-solid fa-eye" style="color: #7c4c2c;"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>OI111</td>
-                        <td>P1000</td>
-                        <td>Strawberry Cream</td>
-                        <td>1/12/2024</td>
-                        <td>
-                            <div class="status">Shipping</div>
-                        </td>
-                        <td>
-                            <i class="fa-solid fa-eye" style="color: #7c4c2c;"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>OI111</td>
-                        <td>P1000</td>
-                        <td>Strawberry Cream</td>
-                        <td>1/12/2024</td>
-                        <td>
-                            <div class="status">Delivered</div>
-                        </td>
-                        <td>
-                            <i class="fa-solid fa-eye" style="color: #7c4c2c;"></i>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <% if (orders && orders.length > 0) { %>
+                <table class="table mt-5 mb-5">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Order Date</th>
+                            <th>Status</th>
+                            <th>View Order Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% orders.forEach(order => { %>
+                            <tr>
+                                <td><%= order.order_id %></td>
+                                <td><%= new Date(order.created_at).toLocaleDateString() %></td>
+                                <td>
+                                    <div class="status"><%= order.status %></div>
+                                </td>
+                                <td>
+                                    <a href="/order/details/<%= order.order_id %>">
+                                        <i class="fa-solid fa-eye" style="color: #7c4c2c;"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            <% } else { %>
+                <div class="alert alert-warning mt-5">
+                    <h4>No orders available</h4>
+                    <p>You don't have any orders yet.</p>
+                </div>
+            <% } %>
         </div>
     </div>
+    
+    
+    
 
     <!--footer-->
     <div class="jumbotron text-center footer" style="margin-bottom:0">
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-12">
                 <a class="navbar-brand" href="#" style="font-weight: 700; font-size: 30px; color: #7c4c2c;">
-                    <img src="../../public/image/Logo.png" alt="logo" style="width: 120px;">
+                    <img src="/image/Logo.png" alt="logo" style="width: 120px;">
                     GELADO
                 </a>
                 <div class="row">
@@ -204,39 +178,41 @@
 
     <!--script for status-->
     <script>
-        const statusCells = document.querySelectorAll('.status');
+        document.addEventListener('DOMContentLoaded', () => {
+            const statusCells = document.querySelectorAll('.status');
     
-        statusCells.forEach(cell => {
-            if (cell.textContent.trim() === 'Pending') {
-                cell.style.backgroundColor = '#ff0b6a';
-                cell.style.fontWeight = '500';
-                cell.style.borderRadius = '30px';
-                cell.style.padding = '5px 10px';
-                cell.style.display = 'inline-block';
-            } 
-            else if (cell.textContent.trim() === 'Confirm') {
-                cell.style.backgroundColor = '#fff0af';
-                cell.style.fontWeight = '500';
-                cell.style.borderRadius = '30px';
-                cell.style.padding = '5px 10px';
-                cell.style.display = 'inline-block';
-            }
-            else if (cell.textContent.trim() === 'Shipping') {
-                cell.style.backgroundColor = '#ffe24a';
-                cell.style.fontWeight = '500';
-                cell.style.borderRadius = '30px';
-                cell.style.padding = '5px 10px';
-                cell.style.display = 'inline-block';
-            }
-            else if (cell.textContent.trim() === 'Delivered') {
-                cell.style.backgroundColor = '#30ff8f';
-                cell.style.fontWeight = '500';
-                cell.style.borderRadius = '30px';
-                cell.style.padding = '5px 10px';
-                cell.style.display = 'inline-block';
-            }
+            statusCells.forEach(cell => {
+                const status = cell.textContent.trim();
+    
+                if (status === 'pending') {
+                    cell.style.backgroundColor = '#ff0b6a';
+                    cell.style.fontWeight = '500';
+                    cell.style.borderRadius = '30px';
+                    cell.style.padding = '5px 10px';
+                    cell.style.display = 'inline-block';
+                } else if (status === 'confirm') {
+                    cell.style.backgroundColor = '#fff0af';
+                    cell.style.fontWeight = '500';
+                    cell.style.borderRadius = '30px';
+                    cell.style.padding = '5px 10px';
+                    cell.style.display = 'inline-block';
+                } else if (status === 'shipping') {
+                    cell.style.backgroundColor = '#ffe24a';
+                    cell.style.fontWeight = '500';
+                    cell.style.borderRadius = '30px';
+                    cell.style.padding = '5px 10px';
+                    cell.style.display = 'inline-block';
+                } else if (status === 'delivered') {
+                    cell.style.backgroundColor = '#30ff8f';
+                    cell.style.fontWeight = '500';
+                    cell.style.borderRadius = '30px';
+                    cell.style.padding = '5px 10px';
+                    cell.style.display = 'inline-block';
+                }
+            });
         });
     </script>
+    
 </body>
 
 </html>
