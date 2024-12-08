@@ -243,45 +243,6 @@ a {
     color: var(--first-color);
 }
 
-
-/* social */
-.social {
-    margin-block-start: -1rem;
-}
-  
-.social-title {
-    text-align: center;
-    font-size: var(--small-font-size);
-    font-weight: var(--font-semi-bold);
-    color: var(--text-color);
-    margin-bottom: 0.6rem;
-}
-  
-.social-img {
-    width: 1rem;
-}
-  
-.social-links {
-    display: flex;
-    justify-content: center;
-    column-gap: 1.5rem;
-}
-  
-.social-link {
-    width: 32px;
-    height: 32px;
-    background-color: var(--white-color);
-    box-shadow: 0 4px 8px hsla(0, 0%, 0%, .1);
-    border-radius: .5rem;
-    display: grid;
-    place-items: center;
-    transition: transform .4s;
-}
-  
-.social-link:hover {
-    transform: translateY(-.25rem);
-}
-
 /* responsive */
 @media screen and (min-width: 1150px) {
     :root {
