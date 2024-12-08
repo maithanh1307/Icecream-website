@@ -15,12 +15,8 @@
     <!-- Google Login -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-
     <!-- css -->
     <link href="/css/login.css" rel="stylesheet">
-
-
-
 </head>
 
 <body>
@@ -63,27 +59,13 @@
                 <% if (typeof error !== 'undefined') { %>
                     <p style="color: red;"><%= error %></p>
                 <% } %>
-             
-
-                <div class="social">
-                    <p class="social-title">Or login with</p>
-
-                    <div class="social-links">
-                        <a href="/login/google" class="social-link google-login" id="google-login">
-                            <img src="/image/icon-google.png" alt="Google Login" class="social-img">
-                        </a>
-                    </div>
-                </div>
 
                 <p class="switch">
                     Don't have an account?
                     <a href="/register"><button id="loginBtnRegister">Create Account</button></a>
                 </p>
-
             </div>
         </div>
-
-        
     </div>
 
 
@@ -104,38 +86,6 @@
             })
         }
         passwordAccess('password', 'loginPassword')
-
-        // // show hide pass register
-        // const passwordRegister = (loginPass, loginEye) => {
-        //     const input = document.getElementById(loginPass),
-        //         iconEye = document.getElementById(loginEye)
-
-        //     iconEye.addEventListener('click', () => {
-        //         // change password to text
-        //         input.type === 'password' ? input.type = 'text'
-        //             : input.type = 'password'
-
-        //         // change icon
-        //         iconEye.classList.toggle('ri-eye-fill')
-        //         iconEye.classList.toggle('ri-eye-off-fill')
-        //     })
-        // }
-        // passwordRegister('crePassword', 'loginPasswordCre')
-
-        // // show hide login & register
-        // const loginAcessRegister = document.getElementById('loginAccess'),
-        //     buttonRegister = document.getElementById('loginBtnRegister'),
-        //     buttonAccess = document.getElementById('loginBtnAccess')
-
-        // buttonRegister.addEventListener('click', () => {
-        //     loginAcessRegister.classList.add('active')
-        // })
-
-        // buttonAccess.addEventListener('click', () => {
-        //     loginAcessRegister.classList.remove('active')
-        // })
     </script>
-
 </body>
-
 </html>
