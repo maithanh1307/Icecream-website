@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+); 
 
 CREATE TABLE IF NOT EXISTS `categories` (
   `category_id` int NOT NULL AUTO_INCREMENT,
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `description` text,
   PRIMARY KEY (`category_id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+); 
 
 CREATE TABLE IF NOT EXISTS `products` (
   `product_id` int NOT NULL AUTO_INCREMENT,
@@ -37,14 +37,14 @@ CREATE TABLE IF NOT EXISTS `products` (
   PRIMARY KEY (`product_id`),
   KEY `category_id` (`category_id`),
   CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+); 
 
 CREATE TABLE IF NOT EXISTS `product_tags` (
   `tag_id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`tag_id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 CREATE TABLE IF NOT EXISTS `product_variants` (
   `variant_id` int NOT NULL AUTO_INCREMENT,
@@ -57,8 +57,7 @@ CREATE TABLE IF NOT EXISTS `product_variants` (
   PRIMARY KEY (`variant_id`),
   KEY `product_id` (`product_id`),
   CONSTRAINT `product_variants_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
+);
 CREATE TABLE IF NOT EXISTS `product_tag_map` (
   `product_id` int NOT NULL,
   `tag_id` int NOT NULL,
@@ -66,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `product_tag_map` (
   KEY `tag_id` (`tag_id`),
   CONSTRAINT `product_tag_map_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`),
   CONSTRAINT `product_tag_map_ibfk_2` FOREIGN KEY (`tag_id`) REFERENCES `product_tags` (`tag_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+); 
 
 CREATE TABLE IF NOT EXISTS `orders` (
   `order_id` int NOT NULL AUTO_INCREMENT,
@@ -77,8 +76,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   PRIMARY KEY (`order_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
+); 
 CREATE TABLE IF NOT EXISTS `order_items` (
   `order_item_id` int NOT NULL AUTO_INCREMENT,
   `order_id` int DEFAULT NULL,
@@ -90,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `order_items` (
   KEY `variant_id` (`variant_id`),
   CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
   CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`variant_id`) REFERENCES `product_variants` (`variant_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+); 
 
 CREATE TABLE IF NOT EXISTS `cart` (
   `cart_id` int NOT NULL AUTO_INCREMENT,
@@ -99,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `cart` (
   PRIMARY KEY (`cart_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+); 
 
 CREATE TABLE IF NOT EXISTS `cart_items` (
   `cart_item_id` int NOT NULL AUTO_INCREMENT,
@@ -111,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `cart_items` (
   KEY `variant_id` (`variant_id`),
   CONSTRAINT `cart_items_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`cart_id`),
   CONSTRAINT `cart_items_ibfk_2` FOREIGN KEY (`variant_id`) REFERENCES `product_variants` (`variant_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+); 
 
 CREATE TABLE IF NOT EXISTS `coupons` (
   `coupon_id` int NOT NULL AUTO_INCREMENT,
@@ -125,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `coupons` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`coupon_id`),
   UNIQUE KEY `code` (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+); 
 
 CREATE TABLE IF NOT EXISTS `reviews` (
   `review_id` int NOT NULL AUTO_INCREMENT,
@@ -138,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `reviews` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`),
   CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 CREATE TABLE IF NOT EXISTS `addresses` (
     `address_id` INT AUTO_INCREMENT PRIMARY KEY,
@@ -147,4 +145,4 @@ CREATE TABLE IF NOT EXISTS `addresses` (
     `phone` VARCHAR(20),
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(user_id)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
