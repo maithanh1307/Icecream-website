@@ -92,16 +92,16 @@ router.post('/addCart', async (req, res) => {
 
 
 router.get('/', async (req, res) => {
-    const sessionId = req.cookies.sessionId; // session từ cookie
+    const sessionId = req.cookies.sessionId;
     console.log('Session ID in cart:', sessionId);
 
     try {
         let cartProduct = [];
-        let subtotal = 0; // tổng tiền hàng (trước thuế, phí)
-        let tax = 0; // thuế
-        const shippingFee = 30000; // phí vận chuyển cố định
-        let discount = 0; // giảm giá (nếu áp dụng)
-        let total = 0; // tổng tiền sau thuế, phí và giảm giá
+        let subtotal = 0;
+        let tax = 0;
+        const shippingFee = 30000; 
+        let discount = 0;
+        let total = 0;
 
         // Nếu người dùng đã đăng nhập
         if (req.session.userId) {
@@ -154,7 +154,7 @@ router.get('/', async (req, res) => {
         tax = subtotal * 0.08;
 
         // Áp dụng giảm giá nếu có mã giảm giá
-        const couponCode = req.query.coupon || null; // lấy mã giảm giá từ query (nếu có)
+        const couponCode = req.query.coupon || null; 
         if (couponCode) {
             const [couponRows] = await db.promise().query(
                 `SELECT * FROM coupons WHERE code = ? AND expiration_date >= CURDATE() AND (usage_limit IS NULL OR times_used < usage_limit)`,
@@ -191,7 +191,7 @@ router.get('/', async (req, res) => {
         total = new Intl.NumberFormat('en-US').format(total) + 'đ';
         res.cookie('total', total, { httpOnly: true, maxAge: 3600000 }); 
 
-        res.render('shoppingcart', { cartProduct, subtotal, tax, shippingFee: shippingFee + 'đ', discount, total });
+        res.render('shoppingcart', { cartProduct, subtotal, tax, shippingFee: shippingFee + 'đ', discount, total, coupon: couponCode || '' });
     } catch (err) {
         console.error(err);
         res.status(500).send('An error occurred while fetching the cart.');
