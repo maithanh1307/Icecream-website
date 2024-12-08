@@ -33,306 +33,269 @@
 
 <body>
     <% cartProduct=typeof cartProduct !=='undefined' ? cartProduct : []; %>
-        <% total=typeof total !=='undefined' ? total : []; %>
-            <% user=typeof user !=='undefined' ? user : []; %>
-                <!--header-->
+    <% total=typeof total !=='undefined' ? total : []; %>
+    <% user=typeof user !=='undefined' ? user : []; %>
+    <!--header-->
 
-                <nav class="navbar navbar-expand-sm navbar-header container-fluid"
-                    style="z-index: 1050; position: relative;">
-                    <a class="navbar-brand" href="#" style="font-weight: 700; font-size: 50px; color: #7c4c2c;">
-                        <img src="/image/Logo.png" alt="logo" style="width: 90px;">
-                        GELADO
+    <nav class="navbar navbar-expand-sm navbar-header container-fluid" style="z-index: 1050; position: relative;">
+        <a class="navbar-brand" href="#" style="font-weight: 700; font-size: 50px; color: #7c4c2c;">
+            <img src="/image/Logo.png" alt="logo" style="width: 90px;">
+            GELADO
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Product</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Cart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fa-sharp fa-solid fa-circle-user fa-2xl"></i>
                     </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#collapsibleNavbar">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Product</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Cart</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="fa-sharp fa-solid fa-circle-user fa-2xl"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
 
-                <div class="container">
-                    <h1 class="heading">Shopping Cart</h1>
-                    <div class="item">
-                        <div class="checkout">
-                            <h2 class="section-heading modal-header">Order summary</h2>
-                            <!-- Order Total & Checkout -->
-                            <div class="discount">
-                                <label for="token" class="label">Gift / Discount code</label>
-                                
-                                <div class="wrapper-flex">
-                                    <input type="text" name="discount" id="discount" class="form-input">
-                                    <button class="btn btn-outline">Apply</button>
-                                </div>
-                            </div>
-                            <div class="wrapper">
-                                <div class="amount">
-                                    <!-- Subtotal -->
-                                    <div class="subtotal">
-                                        <span>Subtotal</span>
-                                        <span>
-                                            <%= subtotal %>
-                                        </span>
-                                    </div>
-
-                                    <!-- Tax -->
-                                    <div class="tax">
-                                        <span>Tax</span>
-                                        <span>
-                                            <%= tax %> 
-                                        </span>
-                                    </div>
-
-                                    <div class="shipping">
-                                        <span>Shipping Fee</span>
-                                        <span>
-                                            <%= shippingFee %> 
-                                        </span>
-                                    </div>
-
-                                    <div class="total">
-                                        <span>Total</span>
-                                        <span>
-                                            <%= total %> 
-                                        </span>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-
-                            <!-- Nút Checkout -->
-                            <div class="checkout-btn">
-                                <a href="/checkout"><button form="checkoutForm" class="btn btn-pay">
-                                        <b>Checkout</b>
-                                    </button></a>
-                            </div>
+    <div class="container">
+        <h1 class="heading">Shopping Cart</h1>
+        <div class="item">
+            <div class="checkout">
+                <h2 class="section-heading modal-header">Order summary</h2>
+                <!-- Order Total & Checkout -->
+                <div class="discount">
+                    <form action="/cart" method="GET">
+                        <label for="token" class="label">Gift / Discount code</label>
+                        <div class="wrapper-flex">
+                            <input type="text" name="coupon" id="discount" class="form-input" placeholder="">
+                            <button type="submit" class="btn btn-outline">Apply</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="wrapper">
+                    <div class="amount">
+                        <!-- Subtotal -->
+                        <div class="subtotal">
+                            <span>Subtotal</span>
+                            <span>
+                                <%= subtotal %>
+                            </span>
                         </div>
 
-                        <!-- shopping cart -->
-                        <div class="cart cart-item">
-                            <h2 class="section-heading  modal-header">My Cart</h2>
-                            <% if (cartProduct.length> 0) { %>
-                                <% cartProduct.forEach(product=> { %>
-                                    <div class="row prd-card align-items-center">
-                                        <!-- Image -->
-                                        <div class="col-2 img-box">
-                                            <img src="<%= product.image_url %>" class="prd-img" alt="Card image">
-                                        </div>
-
-                                        <!-- Details -->
-                                        <div class="col-8 detail">
-                                            <!-- Product name -->
-                                            <h4 class="prd-name">
-                                                <%= product.product_name %>
-                                            </h4>
-                                            <div class="flex-row wrapper">
-
-                                                <!-- Product quantity -->
-                                                <div class="prd-quantity">
-                                                    <h6>Quantity: <span id="quantity">
-                                                            <%= product.quantity %>
-                                                        </span></h6>
-                                                </div>
-
-                                                <!-- Product price -->
-                                                <div class="price">
-                                                    <span id="price">
-                                                        <%= product.base_price %>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Close button -->
-                                        <form action="/cart/removeCart" method="post">
-                                            <button id="prd-close-btn" class="prd-close-btn" name="variant_id"
-                                                value="<%= product.variant_id %>">
-                                                <ion-icon name="close-outline"></ion-icon>
-                                            </button>
-                                        </form>
-                                    </div>
-                                <% }) %>
-                            <% } %>
+                        <!-- Tax -->
+                        <div class="tax">
+                            <span>Tax</span>
+                            <span>
+                                <%= tax %>
+                            </span>
                         </div>
+
+                        <div class="shipping">
+                            <span>Shipping Fee</span>
+                            <span>
+                                30,000đ
+                            </span>
+                        </div>
+
+                        <% if (parseFloat(discount.replace(/,/g, '' ))> 0) { %>
+                            <div class="summary-item">
+                                <span>Gift/Discount</span>
+                                <span>-<%= discount %></span>
+                            </div>
+                        <% } %>
+
+                        <div class="total">
+                            <span>Total</span>
+                            <span>
+                                <%= total %>
+                            </span>
+                        </div>
+
                     </div>
                 </div>
 
-                <script>
-                    'use strict';
+                <!-- Nút Checkout -->
+                <div class="checkout-btn">
+                    <a href="/checkout"><button form="checkoutForm" class="btn btn-pay">
+                            <b>Checkout</b>
+                        </button></a>
+                </div>
+            </div>
 
-                    const decrementBtn = document.querySelectorAll('#decrement');
-                    const quantityElem = document.querySelectorAll('#quantity');
-                    const incrementBtn = document.querySelectorAll('#increment');
-                    const priceElem = document.querySelectorAll('#price');
-                    const subtotalElem = document.querySelector('#subtotal');
-                    const taxElem = document.querySelector('#tax');
-                    const totalElem = document.querySelector('#total');
+            <!-- shopping cart -->
+            <div class="cart cart-item">
+                <h2 class="section-heading  modal-header">My Cart</h2>
+                <% if (cartProduct.length> 0) { %>
+                    <% cartProduct.forEach(product=> { %>
+                        <div class="row prd-card align-items-center">
+                            <!-- Image -->
+                            <div class="col-2 img-box">
+                                <img src="<%= product.image_url %>" class="prd-img" alt="Card image">
+                            </div>
 
-                    $(document).ready(function () {
-                        // Khi click vào Credit Card hoặc Cash on Delivery
-                        $('.payment-method .method').click(function () {
-                            // Kiểm tra nếu chọn "Credit Card"
-                            if ($(this).find('span').text() === 'Credit Card') {
-                                // Hiển thị form thông tin thẻ tín dụng
-                                $('#credit-card-info').show();
-                            } else if ($(this).find('span').text() === 'Cash on Delivery') {
-                                // Ẩn form thông tin thẻ tín dụng
-                                $('#credit-card-info').hide();
-                            }
+                            <!-- Details -->
+                            <div class="col-8 detail">
+                                <!-- Product name -->
+                                <h4 class="prd-name">
+                                    <%= product.product_name %>
+                                </h4>
+                                <div class="flex-row wrapper">
 
-                            // Loại bỏ class "fill" khỏi tất cả các icon
-                            $('.payment-method .checkmark').removeClass('fill').attr('name', 'checkmark-circle-outline');
+                                    <!-- Product quantity -->
+                                    <div class="prd-quantity">
+                                        <h6>Quantity: <span id="quantity">
+                                                <%= product.quantity %>
+                                            </span></h6>
+                                    </div>
 
-                            // Thêm class "fill" vào icon của button đã được click
-                            $(this).find('.checkmark').addClass('fill').attr('name', 'checkmark-circle');
-                        });
-                    });
+                                    <!-- Product price -->
+                                    <div class="price">
+                                        <span id="price">
+                                            <%= product.base_price %>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <!-- Close button -->
+                            <form action="/cart/removeCart" method="post">
+                                <button id="prd-close-btn" class="prd-close-btn" name="variant_id"
+                                    value="<%= product.variant_id %>">
+                                    <ion-icon name="close-outline"></ion-icon>
+                                </button>
+                            </form>
+                        </div>
+                        <% }) %>
+                            <% } %>
+            </div>
+        </div>
+    </div>
 
+    <script>
+        'use strict';
 
+        const decrementBtn = document.querySelectorAll('#decrement');
+        const quantityElem = document.querySelectorAll('#quantity');
+        const incrementBtn = document.querySelectorAll('#increment');
+        const priceElem = document.querySelectorAll('#price');
+        const subtotalElem = document.querySelector('#subtotal');
+        const taxElem = document.querySelector('#tax');
+        const totalElem = document.querySelector('#total');
 
+        $(document).ready(function () {
+            // Khi click vào Credit Card hoặc Cash on Delivery
+            $('.payment-method .method').click(function () {
+                // Kiểm tra nếu chọn "Credit Card"
+                if ($(this).find('span').text() === 'Credit Card') {
+                    // Hiển thị form thông tin thẻ tín dụng
+                    $('#credit-card-info').show();
+                } else if ($(this).find('span').text() === 'Cash on Delivery') {
+                    // Ẩn form thông tin thẻ tín dụng
+                    $('#credit-card-info').hide();
+                }
 
-                    // add event on multiple increment & decrement button
-                    for (let i = 0; i < incrementBtn.length; i++) {
-                        incrementBtn[i].addEventListener('click', function () {
-                            let increment = Number(this.previousElementSibling.textContent);
+                // Loại bỏ class "fill" khỏi tất cả các icon
+                $('.payment-method .checkmark').removeClass('fill').attr('name', 'checkmark-circle-outline');
 
-                            increment++;
-                            this.previousElementSibling.textContent = increment;
+                // Thêm class "fill" vào icon của button đã được click
+                $(this).find('.checkmark').addClass('fill').attr('name', 'checkmark-circle');
+            });
+        });
 
-                            totalCalc();
-                        });
+        // add event on multiple increment & decrement button
+        for (let i = 0; i < incrementBtn.length; i++) {
+            incrementBtn[i].addEventListener('click', function () {
+                let increment = Number(this.previousElementSibling.textContent);
 
-                        decrementBtn[i].addEventListener('click', function () {
-                            let decrement = Number(this.nextElementSibling.textContent);
-                            decrement <= 1 ? 1 : decrement--;
-                            this.nextElementSibling.textContent = decrement;
-                            totalCalc();
-                        });
-                    }
+                increment++;
+                this.previousElementSibling.textContent = increment;
 
-                    // alculating total amount of product price
-                    const totalCalc = function () {
-                        const tax = 0.05;
-                        let subtotal = 0;
-                        let totalTax = 0;
-                        let total = 0;
+                totalCalc();
+            });
 
-                        for (let i = 0; i < quantityElem.length; i++) {
-                            subtotal += Number(quantityElem[i].textContent) * Number(priceElem[i].textContent);
-                        }
-                        subtotalElem.textContent = subtotal.toFixed(2);
+            decrementBtn[i].addEventListener('click', function () {
+                let decrement = Number(this.nextElementSibling.textContent);
+                decrement <= 1 ? 1 : decrement--;
+                this.nextElementSibling.textContent = decrement;
+                totalCalc();
+            });
+        }
 
-                        totalTax = subtotal * tax;
-                        taxElem.textContent = totalTax.toFixed(2);
+        // alculating total amount of product price
+        const totalCalc = function () {
+            const tax = 0.05;
+            let subtotal = 0;
+            let totalTax = 0;
+            let total = 0;
 
-                        // calculate  `total`
-                        total = subtotal + totalTax;
+            for (let i = 0; i < quantityElem.length; i++) {
+                subtotal += Number(quantityElem[i].textContent) * Number(priceElem[i].textContent);
+            }
+            subtotalElem.textContent = subtotal.toFixed(2);
 
-                        totalElem.textContent = total.toFixed(2);
-                    }
+            totalTax = subtotal * tax;
+            taxElem.textContent = totalTax.toFixed(2);
 
-                    document.querySelector(".btnSubmit").addEventListener("click", function () {
-                        const productComments = [];
-                        document.querySelectorAll(".product-item").forEach((item, index) => {
-                            const productName = item.querySelector("h5").innerText;
-                            const comment = item.querySelector("textarea").value;
-                            productComments.push({ product: productName, comment: comment });
-                        });
+            // calculate  `total`
+            total = subtotal + totalTax;
 
-                        console.log(productComments);
+            totalElem.textContent = total.toFixed(2);
+        }
 
-                        fetch('/submit_comments', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(productComments)
-                        }).then(response => response.json())
-                            .then(data => {
-                                alert("Comments submitted successfully!");
-                            }).catch(error => {
-                                alert("Error submitting comments");
-                            });
-                    });
+        document.querySelector(".btnSubmit").addEventListener("click", function () {
+            const productComments = [];
+            document.querySelectorAll(".product-item").forEach((item, index) => {
+                const productName = item.querySelector("h5").innerText;
+                const comment = item.querySelector("textarea").value;
+                productComments.push({ product: productName, comment: comment });
+            });
 
-                    // Khi nhấn nút Pay, thực hiện hành động
-                    // document.querySelector(".btn-pay").addEventListener("click", function () {
-                    //     // Hiển thị modal
-                    //     $('#modalSignOut').modal('show');
-                    // });
+            console.log(productComments);
 
-                    // // modal open
-                    // $('#modalSignOut').on('show.bs.modal', function () {
-                    //     document.querySelector('.container .item').classList.add('hidden');
-                    // });
+            fetch('/submit_comments', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(productComments)
+            }).then(response => response.json())
+                .then(data => {
+                    alert("Comments submitted successfully!");
+                }).catch(error => {
+                    alert("Error submitting comments");
+                });
+        });
+    </script>
 
-                    // // modal close
-                    // $('#modalSignOut').on('hidden.bs.modal', function () {
-                    //     window.location.href = '/home';
-                    // });
-                </script>
+    <!--script for notification for user-->
+    <script>
+        $(document).ready(function () {
+            // Khi click vào Credit Card hoặc Cash on Delivery
+            $('.payment-method .method').click(function () {
+                // Kiểm tra nếu chọn "Credit Card"
+                if ($(this).find('span').text() === 'Credit Card') {
+                    // Hiển thị form thông tin thẻ tín dụng
+                    $('#credit-card-info').show();
+                } else if ($(this).find('span').text() === 'Cash on Delivery') {
+                    // Ẩn form thông tin thẻ tín dụng
+                    $('#credit-card-info').hide();
+                }
 
-                <!--script for notification for user-->
-                <script>
-                    $(document).ready(function () {
-                        // Khi click vào Credit Card hoặc Cash on Delivery
-                        $('.payment-method .method').click(function () {
-                            // Kiểm tra nếu chọn "Credit Card"
-                            if ($(this).find('span').text() === 'Credit Card') {
-                                // Hiển thị form thông tin thẻ tín dụng
-                                $('#credit-card-info').show();
-                            } else if ($(this).find('span').text() === 'Cash on Delivery') {
-                                // Ẩn form thông tin thẻ tín dụng
-                                $('#credit-card-info').hide();
-                            }
+                // Loại bỏ class "fill" khỏi tất cả các icon
+                $('.payment-method .checkmark').removeClass('fill').attr('name', 'checkmark-circle-outline');
 
-                            // Loại bỏ class "fill" khỏi tất cả các icon
-                            $('.payment-method .checkmark').removeClass('fill').attr('name', 'checkmark-circle-outline');
-
-                            // Thêm class "fill" vào icon của button đã được click
-                            $(this).find('.checkmark').addClass('fill').attr('name', 'checkmark-circle');
-                        });
-
-                        // Xử lý khi submit form
-                        // $('#checkoutForm').submit(function (e) {
-                        //     e.preventDefault(); // Ngừng hành động submit mặc định
-
-                        //     const formData = $(this).serialize(); // Lấy dữ liệu từ form
-
-                        //     $.ajax({
-                        //         url: '/checkout/pay',
-                        //         method: 'POST',
-                        //         data: formData,
-                        //         success: function (response) {
-                        //             // Hiển thị thông báo thành công
-                        //             alert(response.message);
-                        //             // Bạn có thể mở modal ở đây nếu cần
-                        //         },
-                        //         error: function (xhr, status, error) {
-                        //             // Xử lý lỗi
-                        //             const response = xhr.responseJSON;
-                        //             alert(response.message);
-                        //         }
-                        //     });
-                        // });
-                    });
-                </script>
+                // Thêm class "fill" vào icon của button đã được click
+                $(this).find('.checkmark').addClass('fill').attr('name', 'checkmark-circle');
+            });
+        });
+    </script>
 
 </body>
 
