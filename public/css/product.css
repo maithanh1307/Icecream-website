@@ -42,6 +42,11 @@
     background-color: #fadaaa;
     border: #7c4c2c;
 }
+.btn-account {
+    border: none;
+    color:#7c4c2c;
+    background-color: #ffdfae;
+}
 
 /* panel */
 .imagePanel {

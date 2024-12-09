@@ -144,6 +144,12 @@ input::-webkit-outer-spin-button {
     margin: 0;
 }
 
+.btn-account {
+    border: none;
+    color:#7c4c2c;
+    background-color: #ffdfae;
+}
+
 /* container */
 .container {
     max-width: 1440px;

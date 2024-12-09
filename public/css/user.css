@@ -75,6 +75,12 @@ body {
     border: var(--heading-color);
 }
 
+.btn-account {
+    border: none;
+    color:#7c4c2c;
+    background-color: #ffdfae;
+}
+
 /* view detail */
 .card {
     border: none;
