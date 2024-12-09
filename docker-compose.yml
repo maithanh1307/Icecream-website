@@ -3,8 +3,8 @@ services:
     image: mysql:8.0
     restart: always
     environment:
-      MYSQL_DATABASE: finalnodejs
-      MYSQL_ROOT_PASSWORD: 123456
+      - MYSQL_DATABASE=finalnodejs
+      - MYSQL_ROOT_PASSWORD=123456
     ports:
       - '3307:3306'
     networks:
@@ -23,8 +23,11 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     environment:
-      - DB_PORT=3306
       - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=123456
+      - DB_NAME=finalnodejs
     ports:
       - "8083:8080"
     volumes:
@@ -44,8 +47,11 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     environment:
-      - DB_PORT=3306
       - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=123456
+      - DB_NAME=finalnodejs
     ports:
       - "8084:8080"
     volumes:
