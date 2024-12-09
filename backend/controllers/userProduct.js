@@ -117,8 +117,28 @@ router.get('/filterProduct', async (req, res) => {
     const categoryId = req.query.category_id || null;
     const flavors = req.query.flavour;  
     const sizes = req.query.size;
+    const page = parseInt(req.query.page) || 1; // Default to page 1 if not provided
+    const itemsPerPage = 10; // Number of items per page
 
-    let sql = 'SELECT p.*, pv.* FROM products p JOIN product_variants pv ON p.product_id = pv.product_id';
+    let sql = `
+        SELECT 
+            p.product_id AS product_id, 
+            p.name, 
+            p.description, 
+            p.base_price AS product_base_price, 
+            p.is_best_seller, 
+            p.is_new_arrival, 
+            p.discount_percentage, 
+            p.category_id, 
+            p.image_url, 
+            pv.variant_id, 
+            pv.color, 
+            pv.size, 
+            pv.stock, 
+            pv.price AS variant_price 
+        FROM products p 
+        JOIN product_variants pv ON p.product_id = pv.product_id
+    `;
     let sqlContent = [];
 
     try {
@@ -144,10 +164,20 @@ router.get('/filterProduct', async (req, res) => {
             sqlContent.push(...(Array.isArray(sizes) ? sizes : [sizes]));
         }
 
+        // Count total items for pagination
+        const countSql = `SELECT COUNT(*) as total FROM (${sql}) as countQuery`;
+        const [countResult] = await db.promise().query(countSql, sqlContent);
+        const totalItems = countResult[0].total;
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+        // Add LIMIT and OFFSET for pagination
+        sql += ' LIMIT ? OFFSET ?';
+        sqlContent.push(itemsPerPage, (page - 1) * itemsPerPage);
+
         const [productFiler] = await db.promise().query(sql, sqlContent);
 
         productFiler.forEach(product => {
-            product.base_price = new Intl.NumberFormat('en-US').format(product.base_price) + 'đ';
+            product.base_price = new Intl.NumberFormat('en-US').format(product.product_base_price) + 'đ';
         });
 
         res.render('product', {
@@ -155,6 +185,8 @@ router.get('/filterProduct', async (req, res) => {
             categoryId,
             selectedFlavors: flavors || [],
             selectedSizes: sizes || [],
+            currentPage: page,
+            totalPages,
         });
     } catch (err) {
         console.error('Lỗi khi lọc sản phẩm theo biến thể:', err);
@@ -163,10 +195,13 @@ router.get('/filterProduct', async (req, res) => {
 });
 
 
+
 router.get('/sortProduct', async (req, res) => {
     const categoryId = req.query.category_id || null;  
     const tagId = req.query.tag_id || null; 
     const priceOrder = req.query.price_order || null; 
+    const page = parseInt(req.query.page) || 1; // Default to page 1 if not provided
+    const itemsPerPage = 10; // Number of items per page
 
     try {
         let sql = 'SELECT p.* FROM products p';
@@ -187,9 +222,21 @@ router.get('/sortProduct', async (req, res) => {
             sqlContent.push(tagId);
         }
 
+        // Count total items for pagination
+        const countSql = `
+            SELECT COUNT(*) as total 
+            FROM (${sql}) as countQuery
+        `;
+        const [countResult] = await db.promise().query(countSql, sqlContent);
+        const totalItems = countResult[0].total;
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+        // Add ORDER BY and LIMIT for pagination
         if (priceOrder) {
             sql += ` ORDER BY p.base_price ${priceOrder === 'Ascending' ? 'ASC' : 'DESC'}`;
         }
+        sql += ' LIMIT ? OFFSET ?';
+        sqlContent.push(itemsPerPage, (page - 1) * itemsPerPage);
 
         const [productSort] = await db.promise().query(sql, sqlContent);
 
@@ -202,12 +249,15 @@ router.get('/sortProduct', async (req, res) => {
             categoryId,
             selectedTagId: tagId,
             selectedPriceOrder: priceOrder,
+            currentPage: page,
+            totalPages,
         });
     } catch (err) {
         console.error('Lỗi khi lọc và sắp xếp sản phẩm:', err);
         res.status(500).send('Error sorting products');
     }
 });
+
 
 router.get('/productDetail/:product_id', async (req, res) => {
     const productId = req.params.product_id; 
