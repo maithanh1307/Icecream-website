@@ -48,6 +48,15 @@
     <% 
         totalRevenue = typeof totalRevenue !== 'undefined' ? totalRevenue : []; 
     %>
+    <% 
+        weeks  = typeof weeks  !== 'undefined' ? weeks  : []; 
+    %>
+    <% 
+        revenues   = typeof revenues   !== 'undefined' ? revenues   : []; 
+    %>
+    <% 
+        orders   = typeof orders   !== 'undefined' ? orders   : []; 
+    %>
     <div class="container-fluid"></div>
         <div class="row">
             <!--sidebar-->
@@ -150,7 +159,7 @@
                         </div>
                     </div>
 
-                    <!--chart-->
+                    <!--chart for bestseller-->
                     <div class="chart-container">
                         <canvas id="bestSellerChart"></canvas>
                     </div>
@@ -161,24 +170,21 @@
                     </div>
 
                     <script>
-                        // Lấy dữ liệu từ các thuộc tính data-* của phần tử HTML
                         const bestSellingNames = JSON.parse(document.getElementById('best-selling-data').getAttribute('data-best-selling-names'));
                         const bestSellingQuantities = JSON.parse(document.getElementById('best-selling-data').getAttribute('data-best-selling-quantities'));
 
-                        // Kiểm tra xem dữ liệu có đúng không
                         console.log(bestSellingNames);
                         console.log(bestSellingQuantities);
 
-                        // Tạo biểu đồ với Chart.js
                         const ctx = document.getElementById('bestSellerChart').getContext('2d');
                         const bestSellerChart = new Chart(ctx, {
-                            type: 'bar', // Loại biểu đồ
+                            type: 'bar', 
                             data: {
-                                labels: bestSellingNames, // Tên sản phẩm bán chạy
+                                labels: bestSellingNames, 
                                 datasets: [{
                                     label: 'Best Seller',
-                                    data: bestSellingQuantities, // Số lượng bán được của từng sản phẩm
-                                    backgroundColor: '#abfff2', // Màu nền của cột
+                                    data: bestSellingQuantities, 
+                                    backgroundColor: '#abfff2', 
                                     borderColor: '#abfff2',
                                     borderWidth: 1
                                 }]
@@ -187,14 +193,74 @@
                                 responsive: true,
                                 scales: {
                                     y: {
-                                        beginAtZero: true, // Bắt đầu trục y từ 0
+                                        beginAtZero: true, 
                                     }
                                 }
                             }
                         });
                     </script>
-                    
-                    
+
+                    <!--chart for revenue-->
+                    <div class="chart-container">
+                        <canvas id="weeklyChart"></canvas>
+                    </div>
+
+                    <div id="weekly-data" 
+                        data-weeks='<%= weeks %>' 
+                        data-revenues='<%= revenues %>' 
+                        data-orders='<%= orders %>'>
+                    </div>
+
+                    <script>
+                        const weeks = JSON.parse(document.getElementById('weekly-data').getAttribute('data-weeks')) || [];
+                        const revenues = JSON.parse(document.getElementById('weekly-data').getAttribute('data-revenues')) || [];
+                        const orders = JSON.parse(document.getElementById('weekly-data').getAttribute('data-orders')) || [];
+
+                        console.log(weeks, revenues, orders);
+
+                        const ctx2 = document.getElementById('weeklyChart').getContext('2d');
+                        const weeklyChart = new Chart(ctx2, {
+                            type: 'bar', // Biểu đồ dạng cột
+                            data: {
+                                labels: weeks, // Các tuần
+                                datasets: [
+                                    {
+                                        label: 'Revenue',
+                                        data: revenues, 
+                                        backgroundColor: 'rgba(54, 162, 235, 0.5)', 
+                                        borderColor: 'rgba(54, 162, 235, 1)', 
+                                        borderWidth: 1
+                                    },
+                                    {
+                                        label: 'Orders',
+                                        data: orders, 
+                                        backgroundColor: 'rgba(255, 99, 132, 0.5)', 
+                                        borderColor: 'rgba(255, 99, 132, 1)', 
+                                        borderWidth: 1
+                                    }
+                                ]
+                            },
+                            options: {
+                                responsive: true,
+                                scales: {
+                                    y: {
+                                        beginAtZero: true, 
+                                        ticks: {
+                                            callback: function(value) {
+                                                return value.toLocaleString(); 
+                                            }
+                                        }
+                                    }
+                                },
+                                plugins: {
+                                    legend: {
+                                        position: 'top', 
+                                    }
+                                }
+                            }
+                        });
+
+                    </script>
                 </div>
             </div>
         </div>
