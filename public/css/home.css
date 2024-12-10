@@ -126,6 +126,8 @@
 .card {
     margin-right: 5px;
     border-radius: 20px;
+    justify-content: space-between; 
+    height: 100%; 
 }
 
 .imageCard {
