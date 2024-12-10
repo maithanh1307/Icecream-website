@@ -150,11 +150,4 @@ router.post('/updateAddress/:addressId', (req, res) => {
   });
 });
 
-router.use('/logout', logoutRouter); 
-
-
-  
-  
-  
-
 module.exports = router;
