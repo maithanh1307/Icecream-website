@@ -48,6 +48,7 @@ router.post('/pay', async (req, res) => {
         const [existingUser] = await connection.query('SELECT * FROM users WHERE email = ?', [email]);
         
         let userId;
+        let isNewUser = false; 
         if (existingUser.length > 0) {
             console.log(`POST /checkout/pay - Email "${email}" đã tồn tại. Thực hiện thanh toán.`);
             userId = existingUser[0].user_id; // Lấy user_id từ bảng users
@@ -60,6 +61,7 @@ router.post('/pay', async (req, res) => {
                 [email, username, hashedPassword]
             );
             userId = result.insertId; // Lấy user_id của người dùng mới
+            isNewUser = true;
             console.log(`POST /checkout/pay - Tạo tài khoản mới cho email "${email}".`);
 
             // Sau khi tạo user, thêm địa chỉ và số điện thoại vào bảng addresses
@@ -128,7 +130,9 @@ router.post('/pay', async (req, res) => {
             user: { email, username }, // Truyền lại thông tin người dùng
             total: 0, // Đặt lại tổng tiền sau khi thanh toán
             cart: [], // Xóa giỏ hàng
-            message: `Checkout successful! Order has been created.`,
+            message: isNewUser
+                ? `Checkout successful! Order has been created. You can log in to view the details of your order using the default password "123".`
+                : `Checkout successful! Order has been created.`,
         });
     } catch (err) {
         console.error('POST /checkout/pay - Lỗi xảy ra:', err);

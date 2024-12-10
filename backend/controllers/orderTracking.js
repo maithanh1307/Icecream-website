@@ -45,19 +45,31 @@ router.get('/orderDetail/:orderId', (req, res) => {
 
     // Truy vấn chi tiết đơn hàng bao gồm username
     const queryOrderDetail = `
+        WITH RankedAddresses AS (
+            SELECT 
+                address, phone, user_id,
+                ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY created_at DESC) AS rn
+            FROM addresses
+        )
         SELECT  
-            orders.order_id, orders.created_at AS receive_date, orders.total_price, 
-            addresses.address, addresses.phone,
+            orders.order_id, 
+            orders.created_at AS receive_date, 
+            orders.total_price, 
+            ra.address, 
+            ra.phone,
             users.username,
-            order_items.quantity, order_items.price,
-            products.name AS product_name, products.image_url
+            order_items.quantity, 
+            order_items.price,
+            products.name AS product_name, 
+            products.image_url
         FROM orders
         INNER JOIN users ON orders.user_id = users.user_id 
-        INNER JOIN addresses ON orders.user_id = addresses.user_id
+        INNER JOIN RankedAddresses ra ON orders.user_id = ra.user_id AND ra.rn = 1
         INNER JOIN order_items ON orders.order_id = order_items.order_id
         INNER JOIN product_variants ON order_items.variant_id = product_variants.variant_id
         INNER JOIN products ON product_variants.product_id = products.product_id
         WHERE orders.order_id = ?;
+
     `;
     
     db.execute(queryOrderDetail, [orderId], (err, results) => {

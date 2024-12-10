@@ -8,8 +8,14 @@ router.get('/', (req, res) => {
             console.error('Error destroying session:', err);
             return res.status(500).send('Unable to log out');
         }
-        res.clearCookie('connect.sid'); // Xóa cookie session ID
-        res.redirect('/login'); // Chuyển hướng về trang đăng nhập
+        // Xóa cookie session ID
+        res.clearCookie('connect.sid', {
+            path: '/',
+            httpOnly: true,  
+            secure: false, 
+        });
+
+        res.redirect('/login');
     });
 });
 

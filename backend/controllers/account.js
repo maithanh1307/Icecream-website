@@ -2,7 +2,7 @@ const express = require('express');
 const db = require('../models/index.js'); 
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
-
+const logoutRouter = require('./logout'); 
 
 const router = express.Router();
 router.use(cookieParser());  
@@ -150,7 +150,7 @@ router.post('/updateAddress/:addressId', (req, res) => {
   });
 });
 
-
+router.use('/logout', logoutRouter); 
 
 
   
