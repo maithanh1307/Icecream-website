@@ -156,17 +156,21 @@
                                             <td><%= new Date(order.created_at).toLocaleDateString('en-GB') %></td>
                                             <td>
                                                 <form method="get" action="/admin/manageOrder/edit">
-                                                    <input type="hidden" id='order_id' name="order_id" value="<%= order.order_id %>">
-                                                    <button class="btn btn-edit" data-toggle="modal" data-target="#myModalEdit">
+                                                    <input type="hidden" name="order_id" value="<%= order.order_id %>">
+                                                    <input type="hidden" name="action" value="edit"> <!-- Truyền action là edit -->
+                                                    <button class="btn btn-edit">
                                                         <i class="fa-solid fa-pen-to-square fa-lg" style="color: #ffd260;"></i>
                                                     </button>
                                                 </form>
+                                                
                                                 <form method="get" action="/admin/manageOrder/viewOrder">
-                                                    <input type="hidden" id='order_id' name="order_id" value="<%= order.order_id %>">
-                                                    <button class="btn btn-view" data-toggle="modal" data-target="#myModalView">
+                                                    <input type="hidden" name="order_id" value="<%= order.order_id %>">
+                                                    <input type="hidden" name="action" value="view"> <!-- Truyền action là view -->
+                                                    <button class="btn btn-view">
                                                         <i class="fa-solid fa-eye fa-lg" style="color: #95fbff;"></i>
                                                     </button>
                                                 </form>
+                                                
                                             </td>
                                         </tr>
                                     <% }) %>
@@ -304,32 +308,35 @@
     </div>
 
     <!-- Script cho Edit -->
-    <% if (orderEdit) { %>
-        <script>
-            $(document).ready(function () {
-                var urlParams = new URLSearchParams(window.location.search);
-                if (urlParams.has('order_id')) {
-                    $('#myModalEdit').removeAttr('inert'); // Loại bỏ inert khi mở modal
-                    $('#myModalEdit').modal('show'); // Hiển thị modal Edit
-                }
-            });
-        </script>
-    <% } %>
+    <!-- Script kiểm soát hiển thị modal -->
+<script>
+    $(document).ready(function () {
+        var urlParams = new URLSearchParams(window.location.search);
+        
+        // Lấy giá trị của order_id và action từ URL
+        var orderId = urlParams.get('order_id');
+        var action = urlParams.get('action'); // Giả sử bạn truyền tham số action (edit/view)
 
-    <% if (order) { %>
-        <script>
-            $(document).ready(function () {
-                var urlParams = new URLSearchParams(window.location.search);
-                if (urlParams.has('order_id')) {
-                    $('#myModalView').removeAttr('inert'); // Loại bỏ inert khi mở modal
-                    $('#myModalView').modal('show'); // Hiển thị modal View
-                }
-            });
-        </script>
-    <% } %>
+        // Nếu có order_id và action là edit, mở modal Edit
+        if (orderId && action === 'edit') {
+            $('#myModalView').modal('hide'); // Ẩn modal View
+            $('#myModalEdit').removeAttr('inert'); // Loại bỏ inert cho modal Edit
+            $('#myModalEdit').modal('show'); // Hiển thị modal Edit
+        }
+
+        // Nếu có order_id và action là view, mở modal View
+        else if (orderId && action === 'view') {
+            $('#myModalEdit').modal('hide'); // Ẩn modal Edit
+            $('#myModalView').removeAttr('inert'); // Loại bỏ inert cho modal View
+            $('#myModalView').modal('show'); // Hiển thị modal View
+        }
+    });
+</script>
+
 
     <!--script for another date-->
     <script>
+
         // Hiển thị trường chọn ngày nếu chọn "Custom Date"
         $('#dateSelect').change(function() {
             if ($(this).val() === 'another') {
