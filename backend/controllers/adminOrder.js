@@ -105,6 +105,7 @@ router.get('/viewOrder', async (req, res) => {
     }
 
     try {
+        // Lấy thông tin đơn hàng và thông tin người dùng
         const [orderDetails] = await db.promise().query(`
             SELECT o.order_id, o.total_price, o.status, o.created_at, o.user_id, u.username
             FROM orders o
@@ -118,6 +119,7 @@ router.get('/viewOrder', async (req, res) => {
 
         const order = orderDetails[0];
 
+        // Lấy thông tin địa chỉ và số điện thoại từ bảng addresses
         const [addressDetails] = await db.promise().query(`
             SELECT a.address, a.phone
             FROM addresses a
@@ -125,9 +127,9 @@ router.get('/viewOrder', async (req, res) => {
         );
 
         const address = addressDetails.length > 0
-            ? addressDetails[0]
-            : { address: 'No address available', phone: 'No phone available' };
-
+        ? addressDetails[0]
+        : { address: 'No address available', phone: 'No phone available' };
+        // Lấy thông tin chi tiết các sản phẩm trong đơn hàng kèm theo giá base_price từ bảng products
         const [orderItems] = await db.promise().query(`
             SELECT oi.quantity, oi.price, p.name, p.image_url, p.base_price
             FROM order_items oi
@@ -135,6 +137,7 @@ router.get('/viewOrder', async (req, res) => {
             WHERE oi.order_id = ?`, [orderId]
         );
 
+        // Định dạng lại tổng giá trị
         if (!isNaN(order.total_price)) {
             order.total_price = new Intl.NumberFormat('en-US', {
                 // style: 'currency',
@@ -158,6 +161,7 @@ router.get('/viewOrder', async (req, res) => {
         // Chuyển đổi thời gian tạo đơn hàng sang định dạng dễ đọc
         const formattedDate = new Date(order.created_at).toLocaleString('vi-VN');
 
+        // Render giao diện với thông tin đơn hàng
         res.render('AdminOrder', { 
             order, 
             address, 
@@ -237,10 +241,5 @@ router.get('/selectDate', async (req, res) => {
     }
 
 });
-
-
- 
-
-
 
 module.exports = router;
