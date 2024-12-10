@@ -103,6 +103,12 @@
                                             class="form-control mb-1" value="<%= user ? user.email : '' %>"
                                             <%= !user ? 'disabled' : '' %>>
                                     </div>
+                                    <% if (user) { %>
+                                        <!-- Logout -->
+                                        <form action="/logout" method="GET">
+                                            <button type="submit" class="btn btn-change mb-3">Logout</button>
+                                        </form>
+                                    <% } %>
                                 </div>
                             </div>
                             <!-- Tab để thay đổi mật khẩu -->
@@ -175,10 +181,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="text-right mt-3">
-                <button type="button" class="btn btn-change">Save changes</button>&nbsp;
-                <button type="button" class="btn btn-default">Cancel</button>
-            </div> -->
         </div>
     </div>
 

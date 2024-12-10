@@ -4,6 +4,7 @@ const path = require('path');
 const session = require('express-session');
 const port = process.env.PORT || 8080;
 const db = require('./models')
+const logoutRouter = require('./controllers/logout'); 
 
 app.set('view engine', 'ejs');
 
@@ -47,6 +48,7 @@ app.use('/admin/manageProduct', adminProductController)
 app.use('/', userHomeController)
 app.use('/product', userProductController)
 app.use('/login', loginController)
+app.use('/logout', logoutRouter);
 app.use('/register', registerController)
 app.use('/cart', cartController)
 app.use('/orderTracking', orderTrackingController)
