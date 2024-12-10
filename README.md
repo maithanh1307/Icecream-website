@@ -1,6 +1,6 @@
 # Icecream-website
 
------ These are some packages used in this project.-----
+----- These are some packages used in this project -----
 npm init -y
 npm i express body-parser nodemon
 npm i dotenv
@@ -20,6 +20,10 @@ npm i cookie-parser
                     docker compose -p finalweb up -d
         Note:  -p: project name
                -d: run in the background
+	
+	Note: 	- You should use the docker desktop application to check the logs of the containers and see if it is running or not. 
+		- If the logs of both backends show 'error db' then you should download or rebuild the backend and now you will see the db connected.
+
 + Step 4: All containers will be started
 
 + Step 5: Then, opening the browser and entering the url is:
